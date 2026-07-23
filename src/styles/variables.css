@@ -1,0 +1,31 @@
+@font-face {
+  font-display: swap;
+  font-family: "Horizon";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/Horizon.woff2") format("woff2");
+}
+
+:root {
+  --color-black: #030304;
+  --color-ink: #f6f2ea;
+  --color-muted: #a8a19a;
+  --color-soft: #d8d0c5;
+  --color-line: rgba(246, 242, 234, 0.14);
+  --color-panel: rgba(255, 255, 255, 0.055);
+  --color-panel-strong: rgba(255, 255, 255, 0.09);
+  --color-accent: #d9b66f;
+  --color-accent-deep: #8b6b31;
+  --color-green: #78d59a;
+  --font-horizon: "Horizon", "Arial Black", Impact, var(--font-geist-sans), sans-serif;
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono), "Courier New", monospace;
+  --space-page: 6vw;
+  --content-max: 1256px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.34);
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 860px;
+  --breakpoint-lg: 1120px;
+}

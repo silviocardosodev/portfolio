@@ -1,0 +1,43 @@
+.experience {
+  display: grid;
+  gap: 1rem;
+}
+
+.experience__item {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 9rem 1fr;
+  padding: 1.25rem;
+}
+
+.experience__period {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.experience__role {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.experience__company {
+  color: var(--color-soft);
+  margin: 0.35rem 0 0;
+}
+
+.experience__details {
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin: 0.8rem 0 0;
+}
+
+@media (max-width: 640px) {
+  .experience__item {
+    grid-template-columns: 1fr;
+  }
+}

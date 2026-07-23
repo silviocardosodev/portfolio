@@ -1,0 +1,45 @@
+.section {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  margin: 0 auto;
+  max-width: var(--content-max);
+  padding: 7rem var(--space-page);
+}
+
+.section__header {
+  position: sticky;
+  top: 7rem;
+  align-self: start;
+}
+
+.section__eyebrow {
+  margin: 0 0 1rem;
+}
+
+.section__title {
+  font-family: var(--font-horizon);
+  font-size: clamp(1.2rem, 2.4vw, 2.64rem);
+  font-weight: 400;
+  line-height: 0.98;
+  margin: 0;
+  max-width: 620px;
+  text-transform: uppercase;
+  letter-spacing: -0.1em;
+}
+
+.section__body {
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .section {
+    grid-template-columns: 1fr;
+    padding-bottom: 5rem;
+    padding-top: 5rem;
+  }
+
+  .section__header {
+    position: static;
+  }
+}
