@@ -1,11 +1,21 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/Section";
 import type { Project } from "@/data/portfolio";
+import flpsicoflowImage from "@/assets/img/flpsicoflow.png";
+import kitchenaidImage from "@/assets/img/kitchenaid.png";
+import villamuImage from "@/assets/img/villamu.png";
 
 type ProjectsCopy = {
   eyebrow: string;
   title: string;
   visit: string;
+};
+
+const projectImages = {
+  "KitchenAid Brasil": kitchenaidImage,
+  FLPsicoFlow: flpsicoflowImage,
+  "Villa Mu": villamuImage,
 };
 
 export function ProjectsSection({
@@ -20,9 +30,17 @@ export function ProjectsSection({
       <div className="projects">
         {projects.map((project, index) => (
           <article className="project-card" key={project.title}>
-            <div className="project-card__media" aria-hidden="true">
-              <span className="project-card__number">{String(index + 1).padStart(2, "0")}</span>
-            </div>
+            <a className="project-card__media" href={project.url} target="_blank" rel="noreferrer">
+              <Image
+                className="project-card__image"
+                src={projectImages[project.title as keyof typeof projectImages]}
+                alt={`${project.title} preview`}
+                width={projectImages[project.title as keyof typeof projectImages].width}
+                height={projectImages[project.title as keyof typeof projectImages].height}
+                sizes="(max-width: 640px) 100vw, 13rem"
+              />
+              <span className="project-card__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            </a>
             <div className="project-card__content">
               <p className="project-card__category">{project.category}</p>
               <h3 className="project-card__title">{project.title}</h3>
@@ -34,7 +52,7 @@ export function ProjectsSection({
                   </li>
                 ))}
               </ul>
-              <a className="project-card__link" href={project.url}>
+              <a className="project-card__link" href={project.url} target="_blank" rel="noreferrer">
                 <span>{copy.visit}</span>
                 <ArrowUpRight size={17} aria-hidden="true" />
               </a>
