@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { ArrowDown, ArrowDownToLine, Mail } from "lucide-react";
+import { ArrowDown, Mail } from "lucide-react";
+import { CvDownloadButton } from "@/components/CvDownloadButton";
 import silvioPortrait from "@/assets/img/silviocardoso.webp";
 
 type HeroCopy = {
@@ -40,10 +41,7 @@ export function Hero({ copy }: { copy: HeroCopy }) {
               <Mail size={18} aria-hidden="true" />
               <span>{copy.contact}</span>
             </a>
-            <a className="button button--secondary" href="/silvio-cardoso-cv.pdf" download>
-              <ArrowDownToLine size={18} aria-hidden="true" />
-              <span>{copy.cv}</span>
-            </a>
+            <CvDownloadButton className="button button--secondary" label={copy.cv} />
           </div>
         </div>
       </div>

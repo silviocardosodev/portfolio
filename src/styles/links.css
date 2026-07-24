@@ -4,9 +4,6 @@
 }
 
 .links__description {
-  color: var(--color-soft);
-  font-size: 1.2rem;
-  line-height: 1.7;
   margin: 0 0 1.5rem;
 }
 

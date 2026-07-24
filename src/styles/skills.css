@@ -1,7 +1,7 @@
 .skills {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .skills__group {
@@ -34,7 +34,45 @@
   padding: 0.4rem 0.5rem;
 }
 
-@media (max-width: 1120px) {
+.skills__tools {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
+    rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  margin-top: 1rem;
+  padding: 1.1rem;
+}
+
+.skills__tools-title {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin: 0 0 0.9rem;
+  text-transform: uppercase;
+}
+
+.skills__tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skills__tool {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  color: var(--color-ink);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.5rem 0.72rem;
+}
+
+@media (max-width: 860px) {
   .skills {
     grid-template-columns: 1fr;
   }

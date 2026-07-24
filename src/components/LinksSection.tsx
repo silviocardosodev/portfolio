@@ -15,7 +15,7 @@ export function LinksSection({ copy }: { copy: LinksCopy }) {
   return (
     <Section id="links" eyebrow={copy.eyebrow} title={copy.title}>
       <div className="links">
-        <p className="links__description">{copy.description}</p>
+        <p className="links__description text-copy">{copy.description}</p>
         <div className="links__grid">
           {copy.items.map((item) => (
             <a className="links__item" href={item.href} key={item.label} target="_blank" rel="noreferrer">

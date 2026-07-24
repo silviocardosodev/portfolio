@@ -1,4 +1,4 @@
-export type Locale = "en" | "pt";
+﻿export type Locale = "en" | "pt";
 
 export type Project = {
   title: string;
@@ -16,11 +16,34 @@ export type DesignWork = {
   tone: "red" | "gold";
 };
 
-const sharedSkills = {
-  frontend: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Responsive UI"],
-  design: ["Graphic Design", "Brand Systems", "UI Design", "Figma", "Visual Direction"],
-  workflow: ["Git", "Performance", "Accessibility", "Design Systems", "SEO Basics"],
-};
+const sharedSkills = [
+  {
+    title: "Front-end Development",
+    items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS"],
+  },
+  {
+    title: "UI & Product Design",
+    items: ["Interface Design", "Wireframing", "Prototyping", "Design Systems", "Responsive Design"],
+  },
+  {
+    title: "Digital Products",
+    items: ["Reusable Components", "Performance Optimization", "SaaS Interfaces", "Admin Panels"],
+  },
+  {
+    title: "E-commerce & Integrations",
+    items: ["VTEX", "PHP", "SQL Server", "Supabase", "PostgreSQL", "Stripe", "Mercado Pago"],
+  },
+  {
+    title: "Visual Design",
+    items: ["Graphic Design", "YouTube Thumbnails", "Social Media Assets", "Brand Materials"],
+  },
+  {
+    title: "Workflow",
+    items: ["GitHub", "Vercel", "cPanel", "AI-assisted Development"],
+  },
+] as const;
+
+const sharedTools = ["Figma", "Photoshop", "Illustrator", "VS Code", "GitHub", "Vercel", "Supabase", "VTEX", "cPanel", "AI Tools"] as const;
 
 export const portfolioCopy = {
   en: {
@@ -56,14 +79,14 @@ export const portfolioCopy = {
       title: "Designing and building digital experiences that feel clear, useful and intentional.",
       items: [
         {
-          period: "2024 - Present",
+          period: "2018 - Present",
           role: "Front-end Developer",
           company: "Websites, landing pages and digital products",
           details:
-            "I build responsive, high-performing interfaces using React, Next.js, TypeScript and CSS, combining visual accuracy with practical product thinking.",
+            "I build responsive, high-performing digital products with React, TypeScript and modern CSS, focusing on reusable components, scalable interfaces and clean user experiences across devices.",
         },
         {
-          period: "2021 - Present",
+          period: "2013 - Present",
           role: "Graphic Designer",
           company: "Brand, content and visual systems",
           details:
@@ -92,6 +115,13 @@ export const portfolioCopy = {
         url: "https://flpsicoflow-v1.vercel.app/",
       },
       {
+        title: "Centro Veterinário Linda-a-Velha",
+        category: "Institutional website",
+        description: "Institutional website for a veterinary clinic in Portugal, focused on clear service presentation, responsive layout, local credibility and a friendly digital experience for pet owners.",
+        stack: ["Next.js", "React", "TypeScript", "CSS", "GitHub", "Vercel"],
+        url: "#",
+      },
+      {
         title: "Villa Mu",
         category: "Real estate website",
         description: "A commercial website for Villa Mu with property presentation, payment integrations, and a practical management-ready stack.",
@@ -104,12 +134,28 @@ export const portfolioCopy = {
       title: "Selected Brands & Collabs",
       items: [
         {
+          name: "KitchenAid Brasil",
+          description: "Front-end and digital product work for an enterprise e-commerce experience.",
+        },
+        {
           name: "Honda",
           description: "Visual and digital design work for brand-related communication materials.",
         },
         {
-          name: "Itau",
+          name: "Itaú",
           description: "Graphic design and digital assets for branded communication projects.",
+        },
+        {
+          name: "Órigo Energia",
+          description: "Visual and digital design work for renewable energy communication materials.",
+        },
+        {
+          name: "Jussi",
+          description: "Digital and visual work connected to product, brand, and communication initiatives.",
+        },
+        {
+          name: "M7A7",
+          description: "Visual assets and brand materials for digital communication projects.",
         },
       ],
     },
@@ -119,7 +165,7 @@ export const portfolioCopy = {
       visit: "View channel",
       items: [
         {
-          name: "Rique Paiva",
+          name: "Canal do Rique",
           category: "YouTube Thumbnails",
           description: "Started before 1K subscribers. Today, the channel has over 251K subscribers, with thumbnails and visual assets designed for attention, clarity, and channel growth.",
           url: "https://www.youtube.com/@CanalDoRique7/videos",
@@ -137,15 +183,13 @@ export const portfolioCopy = {
     skills: {
       eyebrow: "Skills",
       title: "Tools and practices I use to move from idea to finished interface.",
-      groups: [
-        { title: "Front-end", items: sharedSkills.frontend },
-        { title: "Design", items: sharedSkills.design },
-        { title: "Workflow", items: sharedSkills.workflow },
-      ],
+      groups: sharedSkills,
+      toolsTitle: "Tools",
+      tools: sharedTools,
     },
     links: {
       eyebrow: "Links",
-      title: "Let’s build something with presence.",
+      title: "Letâ€™s build something with presence.",
       description: "Available for front-end work, design collaboration, and portfolio or brand-focused web projects.",
       items: [
         { label: "Email", href: "mailto:hello@silviocardoso.dev" },
@@ -188,14 +232,14 @@ export const portfolioCopy = {
       title: "Projetando e construindo experiencias digitais claras, uteis e intencionais.",
       items: [
         {
-          period: "2024 - Atual",
+          period: "2018 - Atual",
           role: "Front-end Developer",
           company: "Websites, landing pages e produtos digitais",
           details:
-            "Construo interfaces responsivas e performaticas usando React, Next.js, TypeScript e CSS, combinando precisao visual com pensamento pratico de produto.",
+            "Construo produtos digitais responsivos e performaticos com React, TypeScript e CSS moderno, com foco em componentes reutilizaveis, interfaces escalaveis e experiencias limpas em diferentes dispositivos.",
         },
         {
-          period: "2021 - Atual",
+          period: "2013 - Atual",
           role: "Graphic Designer",
           company: "Marca, conteudo e sistemas visuais",
           details:
@@ -224,6 +268,13 @@ export const portfolioCopy = {
         url: "https://flpsicoflow-v1.vercel.app/",
       },
       {
+        title: "Centro Veterinário Linda-a-Velha",
+        category: "Site institucional",
+        description: "Site institucional para uma clinica veterinaria em Portugal, com foco em apresentacao clara dos servicos, layout responsivo, credibilidade local e uma experiencia digital amigavel para tutores de pets.",
+        stack: ["Next.js", "React", "TypeScript", "CSS", "GitHub", "Vercel"],
+        url: "#",
+      },
+      {
         title: "Villa Mu",
         category: "Site imobiliario",
         description: "Site comercial para a Villa Mu com apresentacao de imoveis, integracoes de pagamento e uma stack pratica para gestao.",
@@ -236,12 +287,28 @@ export const portfolioCopy = {
       title: "Marcas e colaboracoes selecionadas",
       items: [
         {
+          name: "KitchenAid Brasil",
+          description: "Front-end e produto digital para uma experiencia de e-commerce enterprise.",
+        },
+        {
           name: "Honda",
           description: "Design visual e digital para materiais de comunicacao relacionados a marca.",
         },
         {
-          name: "Itau",
+          name: "Itaú",
           description: "Design grafico e assets digitais para projetos de comunicacao de marca.",
+        },
+        {
+          name: "Órigo Energia",
+          description: "Design visual e digital para materiais de comunicacao de energia renovavel.",
+        },
+        {
+          name: "Jussi",
+          description: "Trabalho digital e visual conectado a iniciativas de produto, marca e comunicacao.",
+        },
+        {
+          name: "M7A7",
+          description: "Assets visuais e materiais de marca para projetos de comunicacao digital.",
         },
       ],
     },
@@ -269,11 +336,9 @@ export const portfolioCopy = {
     skills: {
       eyebrow: "Skills",
       title: "Ferramentas e praticas que uso para levar uma ideia ate a interface final.",
-      groups: [
-        { title: "Front-end", items: sharedSkills.frontend },
-        { title: "Design", items: sharedSkills.design },
-        { title: "Workflow", items: sharedSkills.workflow },
-      ],
+      groups: sharedSkills,
+      toolsTitle: "Tools",
+      tools: sharedTools,
     },
     links: {
       eyebrow: "Links",
@@ -288,3 +353,4 @@ export const portfolioCopy = {
     },
   },
 } as const;
+

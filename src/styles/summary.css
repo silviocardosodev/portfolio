@@ -4,9 +4,6 @@
 }
 
 .summary__text {
-  color: var(--color-soft);
-  font-size: clamp(1.18rem, 2vw, 1.55rem);
-  line-height: 1.75;
   margin: 0;
 }
 

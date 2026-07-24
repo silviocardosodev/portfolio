@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/Section";
 import type { Project } from "@/data/portfolio";
+import centroVeterinarioImage from "@/assets/img/centroveterinario.png";
 import flpsicoflowImage from "@/assets/img/flpsicoflow.png";
 import kitchenaidImage from "@/assets/img/kitchenaid.png";
 import villamuImage from "@/assets/img/villamu.png";
@@ -13,6 +14,7 @@ type ProjectsCopy = {
 };
 
 const projectImages = {
+  "Centro Veterinário Linda-a-Velha": centroVeterinarioImage,
   "KitchenAid Brasil": kitchenaidImage,
   FLPsicoFlow: flpsicoflowImage,
   "Villa Mu": villamuImage,
@@ -28,7 +30,7 @@ export function ProjectsSection({
   return (
     <Section id="projects" eyebrow={copy.eyebrow} title={copy.title}>
       <div className="projects">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <article className="project-card" key={project.title}>
             <a className="project-card__media" href={project.url} target="_blank" rel="noreferrer">
               <Image
@@ -39,12 +41,11 @@ export function ProjectsSection({
                 height={projectImages[project.title as keyof typeof projectImages].height}
                 sizes="(max-width: 640px) 100vw, 13rem"
               />
-              <span className="project-card__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
             </a>
             <div className="project-card__content">
               <p className="project-card__category">{project.category}</p>
               <h3 className="project-card__title">{project.title}</h3>
-              <p className="project-card__description">{project.description}</p>
+              <p className="project-card__description text-copy">{project.description}</p>
               <ul className="project-card__stack" aria-label={`${project.title} stack`}>
                 {project.stack.map((item) => (
                   <li className="project-card__stack-item" key={item}>

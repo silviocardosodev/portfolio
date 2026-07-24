@@ -1,0 +1,6 @@
+.text-copy {
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.7;
+}

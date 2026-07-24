@@ -88,8 +88,6 @@
 }
 
 .design-work__description {
-  color: var(--color-muted);
-  line-height: 1.65;
   margin: 0.8rem 0 0;
 }
 
@@ -102,6 +100,174 @@
   margin-top: 1rem;
 }
 
+.design-work__gallery {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  margin-top: 1.2rem;
+  overflow: hidden;
+  padding: 0.7rem 0;
+  position: relative;
+}
+
+.design-work__gallery::before,
+.design-work__gallery::after {
+  content: "";
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 5rem;
+  z-index: 2;
+}
+
+.design-work__gallery::before {
+  background: linear-gradient(90deg, #000, transparent);
+  left: 0;
+}
+
+.design-work__gallery::after {
+  background: linear-gradient(270deg, #000, transparent);
+  right: 0;
+}
+
+.design-work__gallery-track {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0 4.25rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.design-work__gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.design-work__gallery-item {
+  appearance: none;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  cursor: zoom-in;
+  flex: 0 0 18rem;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  scroll-snap-align: center;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.design-work__gallery-item:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.design-work__gallery-image {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.design-work__gallery-control {
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08)),
+    rgba(18, 18, 18, 0.72);
+  backdrop-filter: blur(18px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: var(--color-text);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.8rem;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+  width: 2.8rem;
+  z-index: 3;
+}
+
+.design-work__gallery-control:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12)),
+    rgba(32, 32, 32, 0.82);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.design-work__gallery-control--previous {
+  left: 0.85rem;
+}
+
+.design-work__gallery-control--next {
+  right: 0.85rem;
+}
+
+.design-work__lightbox {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 1.25rem;
+  position: fixed;
+  z-index: 100;
+}
+
+.design-work__lightbox-backdrop {
+  background: rgba(0, 0, 0, 0.86);
+  border: 0;
+  cursor: zoom-out;
+  inset: 0;
+  padding: 0;
+  position: absolute;
+}
+
+.design-work__lightbox-panel {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-sm);
+  max-width: min(72rem, 94vw);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.design-work__lightbox-close {
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08)),
+    rgba(18, 18, 18, 0.76);
+  backdrop-filter: blur(18px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: var(--color-text);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.75rem;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 2.75rem;
+  z-index: 2;
+}
+
+.design-work__lightbox-image {
+  background: #050505;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
 @media (max-width: 860px) {
   .design-work {
     grid-template-columns: 1fr;
@@ -111,5 +277,18 @@
 @media (max-width: 640px) {
   .design-work__media {
     min-height: 11rem;
+  }
+
+  .design-work__gallery-item {
+    flex-basis: 62vw;
+  }
+
+  .design-work__gallery-track {
+    padding: 0 3.6rem;
+  }
+
+  .design-work__gallery-control {
+    height: 2.45rem;
+    width: 2.45rem;
   }
 }
