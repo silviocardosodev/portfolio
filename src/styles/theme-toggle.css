@@ -14,14 +14,58 @@
   cursor: pointer;
   display: inline-flex;
   bottom: 1.5rem;
-  height: 2.75rem;
-  justify-content: center;
+  gap: 0.2rem;
+  height: 2.55rem;
+  justify-content: space-between;
   left: var(--space-page);
+  overflow: hidden;
+  padding: 0.24rem;
   position: fixed;
   transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
-  width: 2.75rem;
+  width: 4.85rem;
   z-index: 20;
   -webkit-backdrop-filter: blur(50px) saturate(170%) brightness(1.08);
+}
+
+.theme-toggle__thumb {
+  background: var(--color-glass-active-bg);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  height: calc(100% - 0.48rem);
+  left: 0.24rem;
+  position: absolute;
+  top: 0.24rem;
+  transform: translateX(2.3rem);
+  transition: transform 180ms ease;
+  width: 2.07rem;
+  z-index: 0;
+}
+
+.theme-toggle--dark .theme-toggle__thumb {
+  transform: translateX(0);
+}
+
+.theme-toggle__icon {
+  align-items: center;
+  border-radius: 999px;
+  color: var(--color-glass-text);
+  display: inline-flex;
+  flex: 0 0 2.07rem;
+  height: 2.07rem;
+  justify-content: center;
+  position: relative;
+  transition: color 180ms ease, transform 180ms ease;
+  z-index: 1;
+}
+
+.theme-toggle--dark .theme-toggle__icon--moon,
+.theme-toggle--light .theme-toggle__icon--sun {
+  color: var(--color-glass-active-text);
+}
+
+.theme-toggle--dark .theme-toggle__icon--sun,
+.theme-toggle--light .theme-toggle__icon--moon {
+  opacity: 0.72;
 }
 
 .theme-toggle:hover {
@@ -30,11 +74,11 @@
 }
 
 .mobile-menu__theme {
-  height: 2.7rem;
+  height: 2.55rem;
   left: auto;
   bottom: auto;
-  position: static;
-  width: 2.7rem;
+  position: relative;
+  width: 4.85rem;
 }
 
 @media (max-width: 860px) {

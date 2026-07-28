@@ -22,18 +22,18 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 
 export default function Home() {
   const [locale, setLocale] = useState<Locale>("en");
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") {
-      return "dark";
-    }
+  const [theme, setTheme] = useState<Theme>("dark");
+  const copy = useMemo(() => portfolioCopy[locale], [locale]);
+  const activeHref = useActiveSection(copy.navigation);
 
+  useEffect(() => {
     const storedTheme = window.localStorage.getItem("portfolio-theme") as Theme | null;
     const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
 
-    return storedTheme ?? (prefersLight ? "light" : "dark");
-  });
-  const copy = useMemo(() => portfolioCopy[locale], [locale]);
-  const activeHref = useActiveSection(copy.navigation);
+    window.requestAnimationFrame(() => {
+      setTheme(storedTheme ?? (prefersLight ? "light" : "dark"));
+    });
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
