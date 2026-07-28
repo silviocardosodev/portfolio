@@ -158,8 +158,8 @@ export const portfolioCopy = {
       },
       {
         title: "Villa Mu",
-        category: "Real estate website",
-        description: "A commercial website for Villa Mu with property presentation, payment integrations, and a practical management-ready stack.",
+        category: "MMORPG Game Platform",
+        description: "Website for Villa Mu, an MMORPG private server, featuring player account area, rankings, referral rewards, event schedules, and payment integrations.",
         stack: ["PHP", "SQL Server", "cPanel", "HTML", "CSS", "JavaScript", "Mercado Pago", "Stripe"],
         url: "https://villamu.com.br/",
       },
@@ -339,8 +339,8 @@ export const portfolioCopy = {
       },
       {
         title: "Villa Mu",
-        category: "Site imobiliario",
-        description: "Site comercial para a Villa Mu com apresentacao de imoveis, integracoes de pagamento e uma stack pratica para gestao.",
+        category: "Site gaming",
+        description: "Site para a Villa Mu (Jogo MMORPG) com área logada do jogador, exibição de rankings, sistema de indicações e integrações de pagamento.",
         stack: ["PHP", "SQL Server", "cPanel", "HTML", "CSS", "JavaScript", "Mercado Pago", "Stripe"],
         url: "https://villamu.com.br/",
       },
