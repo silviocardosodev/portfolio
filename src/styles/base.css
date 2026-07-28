@@ -10,7 +10,7 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  background: #000;
+  background: var(--color-page);
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
@@ -37,7 +37,7 @@ button {
 }
 
 .portfolio::before {
-  background: #000;
+  background: var(--color-page);
   content: "";
   inset: 0;
   pointer-events: none;
@@ -47,7 +47,7 @@ button {
 
 .portfolio::after {
   animation: portfolio-heartbeat 2.8s ease-in-out infinite;
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.48) 0%, rgba(168, 0, 0, 0.28) 38%, transparent 74%);
+  background: var(--color-glow);
   content: "";
   height: min(58vw, 40rem);
   left: 50%;

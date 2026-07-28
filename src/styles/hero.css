@@ -95,6 +95,26 @@
   letter-spacing: -0.1em;
 }
 
+:root[data-theme="light"] .hero__title {
+  color: #000;
+  text-shadow:
+    1px 1px 0 var(--color-page),
+    -1px 1px 0 var(--color-page),
+    1px -1px 0 var(--color-page),
+    -1px -1px 0 var(--color-page);
+  -webkit-text-stroke: 1px var(--color-page);
+}
+
+:root[data-theme="light"] .hero__role {
+  color: #000;
+  text-shadow:
+    1px 1px 0 var(--color-page),
+    -1px 1px 0 var(--color-page),
+    1px -1px 0 var(--color-page),
+    -1px -1px 0 var(--color-page);
+  -webkit-text-stroke: 0.5px var(--color-page);
+}
+
 .hero__title-line {
   display: block;
 }

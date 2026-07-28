@@ -4,12 +4,14 @@
 @import "../styles/buttons.css";
 @import "../styles/hero.css";
 @import "../styles/language-toggle.css";
+@import "../styles/theme-toggle.css";
 @import "../styles/quick-contact.css";
 @import "../styles/mobile-menu.css";
 @import "../styles/top-nav.css";
 @import "../styles/section.css";
 @import "../styles/summary.css";
 @import "../styles/experience.css";
+@import "../styles/education.css";
 @import "../styles/projects.css";
 @import "../styles/brands.css";
 @import "../styles/design-work.css";

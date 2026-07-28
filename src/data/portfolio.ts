@@ -16,6 +16,13 @@ export type DesignWork = {
   tone: "red" | "gold";
 };
 
+export type EducationItem = {
+  institution: string;
+  degree: string;
+  location: string;
+  description: string;
+};
+
 const sharedSkills = [
   {
     title: "Front-end Development",
@@ -51,6 +58,7 @@ export const portfolioCopy = {
     navigation: [
       { href: "#summary", label: "Summary" },
       { href: "#experience", label: "Experience" },
+      { href: "#education", label: "Education" },
       { href: "#projects", label: "Projects" },
       { href: "#skills", label: "Skills" },
       { href: "#links", label: "Links" },
@@ -91,6 +99,33 @@ export const portfolioCopy = {
           company: "Brand, content and visual systems",
           details:
             "I create visual identities, campaign assets and digital materials that help brands look more professional, consistent and ready to sell.",
+        },
+      ],
+    },
+    education: {
+      eyebrow: "Education",
+      title: "Academic path connecting software, systems, and applied technology.",
+      items: [
+        {
+          institution: "Caroline University",
+          degree: "Master's Degree in Information Systems (Ongoing)",
+          location: "California, United States",
+          description:
+            "Postgraduate studies focused on information systems, software engineering, digital transformation, data-driven decision making, and emerging technologies.",
+        },
+        {
+          institution: "Universidade Nove de Julho",
+          degree: "Bachelor's Degree in Computer Science",
+          location: "Brazil",
+          description:
+            "Complete training in software development, computer systems, algorithms, software engineering, databases, and information technology.",
+        },
+        {
+          institution: "Instituto Federal de Goiás",
+          degree: "Technical Course in Computer Support and Maintenance",
+          location: "Brazil",
+          description:
+            "Technical training in computer systems, hardware maintenance, networking fundamentals, and information technology support.",
         },
       ],
     },
@@ -204,6 +239,7 @@ export const portfolioCopy = {
     navigation: [
       { href: "#summary", label: "Resumo" },
       { href: "#experience", label: "Experiencia" },
+      { href: "#education", label: "Escolaridade" },
       { href: "#projects", label: "Projetos" },
       { href: "#skills", label: "Skills" },
       { href: "#links", label: "Links" },
@@ -244,6 +280,33 @@ export const portfolioCopy = {
           company: "Marca, conteudo e sistemas visuais",
           details:
             "Crio identidades visuais, pecas de campanha e materiais digitais que ajudam marcas a parecerem mais profissionais, consistentes e prontas para vender.",
+        },
+      ],
+    },
+    education: {
+      eyebrow: "Escolaridade",
+      title: "Formacao academica conectando software, sistemas e tecnologia aplicada.",
+      items: [
+        {
+          institution: "Caroline University",
+          degree: "Mestrado em Sistemas de Informacao (Em andamento)",
+          location: "California, Estados Unidos",
+          description:
+            "Estudos de pos-graduacao com foco em sistemas de informacao, engenharia de software, transformacao digital, tomada de decisoes baseada em dados e tecnologias emergentes.",
+        },
+        {
+          institution: "Universidade Nove de Julho",
+          degree: "Bacharelado em Ciencia da Computacao",
+          location: "Brasil",
+          description:
+            "Formacao completa em desenvolvimento de software, sistemas de computadores, algoritmos, engenharia de software, bancos de dados e tecnologia da informacao.",
+        },
+        {
+          institution: "Instituto Federal de Goias",
+          degree: "Curso Tecnico em Suporte e Manutencao de Computadores",
+          location: "Brasil",
+          description:
+            "Formacao tecnica em sistemas de computadores, manutencao de hardware, fundamentos de redes e suporte em tecnologia da informacao.",
         },
       ],
     },
@@ -353,4 +416,3 @@ export const portfolioCopy = {
     },
   },
 } as const;
-

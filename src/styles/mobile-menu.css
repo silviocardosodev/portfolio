@@ -37,9 +37,9 @@
 
   .mobile-menu__panel {
     align-content: start;
-    background: #050505;
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 28px 0 80px rgba(0, 0, 0, 0.58);
+    background: var(--color-page);
+    border-right: 1px solid var(--color-line);
+    box-shadow: 28px 0 80px rgba(0, 0, 0, 0.34);
     display: grid;
     gap: 1.25rem;
     height: 100vh;
@@ -56,6 +56,12 @@
     width: 90vw;
   }
 
+  .mobile-menu__controls {
+    align-items: center;
+    display: flex;
+    gap: 0.65rem;
+  }
+
   .mobile-menu--open .mobile-menu__panel {
     opacity: 1;
     pointer-events: auto;
@@ -69,7 +75,7 @@
     background:
       radial-gradient(circle at 50% 120%, rgba(255, 20, 20, 0.14), transparent 48%),
       linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08) 46%, rgba(255, 255, 255, 0.14));
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid var(--color-glass-border);
     box-shadow:
       0 18px 60px rgba(0, 0, 0, 0.34),
       inset 0 1px 0 rgba(255, 255, 255, 0.28),
@@ -105,8 +111,8 @@
   }
 
   .mobile-menu__language-button--active {
-    background: #fff;
-    color: #090909;
+    background: var(--color-glass-active-bg);
+    color: var(--color-glass-active-text);
   }
 
   .mobile-menu__list {
@@ -122,7 +128,7 @@
 
   .mobile-menu__link {
     align-items: center;
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--color-glass-text);
     display: flex;
     font-size: 0.82rem;
     font-weight: 800;
@@ -135,12 +141,12 @@
   }
 
   .mobile-menu__link:hover {
-    color: #fff;
+    color: var(--color-ink);
     transform: translateX(0.15rem);
   }
 
   .mobile-menu__link--active {
-    color: #fff;
+    color: var(--color-ink);
   }
 
   .mobile-menu__link span {

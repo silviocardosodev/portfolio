@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BriefcaseBusiness, FolderKanban, Languages, Link2, Menu, Sparkles, UserRound, X } from "lucide-react";
 import type { Locale } from "@/data/portfolio";
+import { ThemeToggle, type Theme } from "@/components/ThemeToggle";
 
 const icons = [UserRound, BriefcaseBusiness, FolderKanban, Sparkles, Link2];
 
@@ -9,10 +10,12 @@ type MobileMenuProps = {
   labels: { en: string; pt: string; aria: string };
   locale: Locale;
   onLocaleChange: (locale: Locale) => void;
+  theme: Theme;
+  onThemeChange: (theme: Theme) => void;
   activeHref: string;
 };
 
-export function MobileMenu({ items, labels, locale, onLocaleChange, activeHref }: MobileMenuProps) {
+export function MobileMenu({ items, labels, locale, onLocaleChange, theme, onThemeChange, activeHref }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -28,22 +31,25 @@ export function MobileMenu({ items, labels, locale, onLocaleChange, activeHref }
       </button>
 
       <div className="mobile-menu__panel">
-        <div className="mobile-menu__languages" aria-label={labels.aria}>
-          <Languages className="mobile-menu__language-icon" size={16} aria-hidden="true" />
-          <button
-            className={`mobile-menu__language-button ${locale === "en" ? "mobile-menu__language-button--active" : ""}`}
-            type="button"
-            onClick={() => onLocaleChange("en")}
-          >
-            {labels.en}
-          </button>
-          <button
-            className={`mobile-menu__language-button ${locale === "pt" ? "mobile-menu__language-button--active" : ""}`}
-            type="button"
-            onClick={() => onLocaleChange("pt")}
-          >
-            {labels.pt}
-          </button>
+        <div className="mobile-menu__controls">
+          <div className="mobile-menu__languages" aria-label={labels.aria}>
+            <Languages className="mobile-menu__language-icon" size={16} aria-hidden="true" />
+            <button
+              className={`mobile-menu__language-button ${locale === "en" ? "mobile-menu__language-button--active" : ""}`}
+              type="button"
+              onClick={() => onLocaleChange("en")}
+            >
+              {labels.en}
+            </button>
+            <button
+              className={`mobile-menu__language-button ${locale === "pt" ? "mobile-menu__language-button--active" : ""}`}
+              type="button"
+              onClick={() => onLocaleChange("pt")}
+            >
+              {labels.pt}
+            </button>
+          </div>
+          <ThemeToggle className="mobile-menu__theme" theme={theme} onChange={onThemeChange} />
         </div>
 
         <nav className="mobile-menu__nav" aria-label="Mobile portfolio navigation">
