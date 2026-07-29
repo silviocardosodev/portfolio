@@ -1,16 +1,37 @@
 .projects {
-  display: grid;
+  cursor: grab;
+  display: flex;
   gap: 1.1rem;
+  margin-inline: 0;
+  overflow-x: auto;
+  padding-inline: 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.projects::-webkit-scrollbar {
+  display: none;
+}
+
+.projects--dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  user-select: none;
 }
 
 .project-card {
   background: var(--color-panel);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-sm);
+  flex: 0 0 min(100%, 50rem);
   display: grid;
   grid-template-columns: 13rem 1fr;
   min-height: 16rem;
   overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .project-card__media {
@@ -226,7 +247,14 @@
 }
 
 @media (max-width: 640px) {
+  .projects {
+    cursor: auto;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
   .project-card {
+    flex-basis: min(86vw, 28rem);
     grid-template-columns: 1fr;
   }
 

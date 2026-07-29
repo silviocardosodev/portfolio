@@ -60,10 +60,11 @@ export const portfolioCopy = {
   en: {
     language: { en: "EN", pt: "PT", aria: "Change language" },
     navigation: [
-      { href: "#summary", label: "Summary" },
-      { href: "#experience", label: "Experience" },
-      { href: "#education", label: "Education" },
+      { href: "#hero", label: "Hero" },
+      { href: "#summary", label: "About Me" },
       { href: "#projects", label: "Projects" },
+      { href: "#collabs", label: "Collabs" },
+      { href: "#design-work", label: "Design Work" },
       { href: "#skills", label: "Skills" },
       { href: "#links", label: "Links" },
     ],
@@ -81,8 +82,22 @@ export const portfolioCopy = {
     summary: {
       eyebrow: "About me",
       title: "About me",
-      body:
-        "Front-end developer and graphic designer creating modern, responsive interfaces with React, Next.js, TypeScript, and CSS. I combine design, code, and artificial intelligence to build functional, well-presented digital projects oriented toward results.",
+      paragraphs: [
+        "I've always had a strong connection with technology. Since childhood, computers and video games have sparked my curiosity, and every moment spent in this universe has only increased my interest. I was influenced by my uncle, who is a programmer, to pursue a career in IT.",
+        "At 13, I had my first professional experience as a graphic designer at a company in my hometown. Due to my age, I needed to end this phase, but it was there that I began to understand how much I enjoyed creating visual and digital solutions.",
+        "Over time, I completed my training in Computer Support and Maintenance, graduated in Computer Science, and am currently pursuing a master's degree in California, an important step for both my personal life and my career.",
+        "My web development journey began more concretely during an internship at Jüssi, in Brazil. Before that, I had already studied on my own, following courses and content on YouTube simply out of interest in learning and evolving in the field.",
+        "Since then, my passion for technology and design has only grown. I have had the opportunity to work with large companies, good professionals, and real projects, developing an increasingly keen eye for well-built, responsive, reusable digital products designed especially for the user experience.",
+      ],
+      funFactsTitle: "Fun Facts",
+      funFacts: [
+        "São Paulo Futebol Clube supporter",
+        "Mercedes F1 fan",
+        "I like playing guitar",
+        "I love playing F1, and I even started a YouTube channel for it",
+        "I used to have a band in school",
+        "I love barbecue and hamburgers",
+      ],
       actionsLabel: "Portfolio actions",
       quickTalk: "Quick talk",
     },
@@ -257,10 +272,11 @@ export const portfolioCopy = {
   pt: {
     language: { en: "EN", pt: "PT", aria: "Trocar idioma" },
     navigation: [
-      { href: "#summary", label: "Resumo" },
-      { href: "#experience", label: "Experiencia" },
-      { href: "#education", label: "Escolaridade" },
+      { href: "#hero", label: "Hero" },
+      { href: "#summary", label: "Sobre mim" },
       { href: "#projects", label: "Projetos" },
+      { href: "#collabs", label: "Collabs" },
+      { href: "#design-work", label: "Design Work" },
       { href: "#skills", label: "Skills" },
       { href: "#links", label: "Links" },
     ],
@@ -278,8 +294,22 @@ export const portfolioCopy = {
     summary: {
       eyebrow: "Sobre mim",
       title: "Sobre mim",
-      body:
-        "Desenvolvedor front-end e designer grafico, criando interfaces modernas e responsivas com React, Next.js, TypeScript e CSS. Uno design, codigo e inteligencia artificial para construir projetos digitais funcionais, bem apresentados e orientados a resultado.",
+      paragraphs: [
+        "Sempre tive uma forte conexão com tecnologia. Desde criança, computadores e videogames despertavam minha curiosidade, e cada momento envolvido com esse universo tornava meu interesse ainda maior. Fui influenciado pelo meu tio, que é programador, a seguir carreira na área de TI.",
+        "Aos 13 anos, tive minha primeira experiência profissional como designer gráfico em uma empresa da minha cidade natal. Por conta da minha idade, precisei encerrar essa etapa, mas foi ali que comecei a entender o quanto gostava de criar soluções visuais e digitais.",
+        "Com o tempo, concluí minha formação em Suporte e Manutenção de Computadores, me graduei em Ciência da Computação e atualmente curso um mestrado na Califórnia, um passo importante tanto para minha vida pessoal quanto para minha carreira.",
+        "Minha trajetória em desenvolvimento web começou de forma mais concreta durante um estágio na Jüssi, no Brasil. Antes disso, eu já estudava por conta própria, acompanhando cursos e conteúdos no YouTube simplesmente pelo interesse em aprender e evoluir na área.",
+        "Desde então, minha paixão por tecnologia e design só cresceu. Tive a oportunidade de trabalhar com grandes empresas, bons profissionais e projetos reais, desenvolvendo um olhar cada vez mais atento para produtos digitais bem construídos, responsivos, reutilizáveis e pensados especialmente para a experiência do usuário.",
+      ],
+      funFactsTitle: "Curiosidades",
+      funFacts: [
+        "Torcedor do São Paulo Futebol Clube",
+        "Torcedor da Mercedes na F1",
+        "Gosto de tocar violão",
+        "Adoro jogar F1, e até abri um canal no YouTube para isso",
+        "Já tive uma banda na escola",
+        "Adoro churrasco e hamburger",
+      ],
       actionsLabel: "Acoes do portfolio",
       quickTalk: "Conversa rapida",
     },

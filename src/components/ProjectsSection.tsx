@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowUpRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import type { PointerEvent } from "react";
 import { Section } from "@/components/Section";
 import type { Project } from "@/data/portfolio";
 import centroVeterinarioImage from "@/assets/img/centroveterinario.png";
@@ -31,6 +32,11 @@ export function ProjectsSection({
   projects: readonly Project[];
 }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projectDrag, setProjectDrag] = useState<{
+    pointerId: number;
+    startX: number;
+    startScrollLeft: number;
+  } | null>(null);
 
   useEffect(() => {
     if (!selectedProject) {
@@ -64,9 +70,73 @@ export function ProjectsSection({
       ].filter((detail): detail is { label: string; value: string } => Boolean(detail.value))
     : [];
 
+  function finishProjectDrag(track: HTMLDivElement, drag = projectDrag) {
+    if (!drag) {
+      return;
+    }
+
+    const firstCard = track.querySelector<HTMLElement>(".project-card");
+    const cardStep = firstCard ? firstCard.offsetWidth + parseFloat(window.getComputedStyle(track).columnGap || "0") : track.clientWidth;
+    const dragOffset = track.scrollLeft - drag.startScrollLeft;
+    const direction = Math.abs(dragOffset) > Math.min(cardStep * 0.18, 140) ? Math.sign(dragOffset) : 0;
+    const startIndex = Math.round(drag.startScrollLeft / cardStep);
+    const maxIndex = Math.max(0, track.children.length - 1);
+    const nextIndex = Math.min(maxIndex, Math.max(0, startIndex + direction));
+
+    track.scrollTo({
+      behavior: "smooth",
+      left: nextIndex * cardStep,
+    });
+    track.classList.remove("projects--dragging");
+    setProjectDrag(null);
+  }
+
+  function handleProjectPointerDown(event: PointerEvent<HTMLDivElement>) {
+    const interactiveElement = (event.target as Element).closest("button, a");
+
+    if (interactiveElement || window.matchMedia("(max-width: 860px)").matches) {
+      return;
+    }
+
+    const track = event.currentTarget;
+
+    setProjectDrag({
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startScrollLeft: track.scrollLeft,
+    });
+    track.classList.add("projects--dragging");
+    track.setPointerCapture(event.pointerId);
+  }
+
+  function handleProjectPointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (!projectDrag || event.pointerId !== projectDrag.pointerId) {
+      return;
+    }
+
+    event.preventDefault();
+    event.currentTarget.scrollLeft = projectDrag.startScrollLeft + projectDrag.startX - event.clientX;
+  }
+
+  function handleProjectPointerUp(event: PointerEvent<HTMLDivElement>) {
+    if (!projectDrag || event.pointerId !== projectDrag.pointerId) {
+      return;
+    }
+
+    event.currentTarget.releasePointerCapture(event.pointerId);
+    finishProjectDrag(event.currentTarget);
+  }
+
   return (
-    <Section id="projects" eyebrow={copy.eyebrow} title={copy.title}>
-      <div className="projects">
+    <Section id="projects-content" eyebrow={copy.eyebrow} title={copy.title}>
+      <div
+        className="projects"
+        onPointerDown={handleProjectPointerDown}
+        onPointerMove={handleProjectPointerMove}
+        onPointerUp={handleProjectPointerUp}
+        onPointerCancel={(event) => finishProjectDrag(event.currentTarget)}
+        onLostPointerCapture={(event) => finishProjectDrag(event.currentTarget)}
+      >
         {projects.map((project) => (
           <article className="project-card" key={project.title}>
             <button

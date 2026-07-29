@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export function useActiveSection(items: readonly { href: string }[]) {
-  const [activeHref, setActiveHref] = useState("");
+  const [activeHref, setActiveHref] = useState(() => items[0]?.href ?? "");
 
   useEffect(() => {
     const sections = items
@@ -15,50 +15,40 @@ export function useActiveSection(items: readonly { href: string }[]) {
       return;
     }
 
-    let animationFrame = 0;
+    const visibleSections = new Map<string, number>();
+    const prefersPageScroll = window.matchMedia("(max-width: 860px)").matches;
+    const scrollRoot = prefersPageScroll ? null : document.querySelector<HTMLElement>(".portfolio__snap");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const section = sections.find((candidate) => candidate.element === entry.target);
 
-    const updateActiveSection = () => {
-      const scrollPosition = window.scrollY + Math.min(window.innerHeight * 0.38, 320);
-      const distanceFromBottom = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
-      const lastSection = sections[sections.length - 1];
-      const firstSectionTop = sections[0].element.getBoundingClientRect().top + window.scrollY;
+          if (!section) {
+            return;
+          }
 
-      if (distanceFromBottom <= 8) {
-        setActiveHref(lastSection.href);
-        return;
-      }
+          visibleSections.set(section.href, entry.isIntersecting ? entry.intersectionRatio : 0);
+        });
 
-      if (scrollPosition < firstSectionTop) {
-        setActiveHref("");
-        return;
-      }
+        const activeSection = sections.reduce((current, section) => {
+          const currentRatio = visibleSections.get(current.href) ?? 0;
+          const sectionRatio = visibleSections.get(section.href) ?? 0;
 
-      const currentSection = sections.reduce((activeSection, section) => {
-        const sectionTop = section.element.getBoundingClientRect().top + window.scrollY;
+          return sectionRatio > currentRatio ? section : current;
+        }, sections[0]);
 
-        if (sectionTop <= scrollPosition) {
-          return section;
-        }
+        setActiveHref(activeSection.href);
+      },
+      {
+        root: scrollRoot,
+        threshold: [0.18, 0.32, 0.5, 0.68, 0.84],
+      },
+    );
 
-        return activeSection;
-      }, sections[0]);
-
-      setActiveHref(currentSection.href);
-    };
-
-    const requestUpdate = () => {
-      window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(updateActiveSection);
-    };
-
-    updateActiveSection();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
+    sections.forEach((section) => observer.observe(section.element));
 
     return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
+      observer.disconnect();
     };
   }, [items]);
 

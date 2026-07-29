@@ -44,7 +44,7 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
   }
 
   return (
-    <Section id="design-work" eyebrow={copy.eyebrow} title={copy.title}>
+    <Section id="design-work-content" eyebrow={copy.eyebrow} title={copy.title}>
       <>
         <div className="design-work">
           {copy.items.map((item) => {

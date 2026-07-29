@@ -13,7 +13,7 @@ type SkillsCopy = {
 
 export function SkillsSection({ copy }: { copy: SkillsCopy }) {
   return (
-    <Section id="skills" eyebrow={copy.eyebrow} title={copy.title}>
+    <Section id="skills-content" eyebrow={copy.eyebrow} title={copy.title}>
       <>
         <div className="skills">
           {copy.groups.map((group) => (

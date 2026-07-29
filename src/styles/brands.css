@@ -1,7 +1,8 @@
 .brands {
-  margin: -3rem auto 0;
+  margin: 0 auto;
   max-width: var(--content-max);
-  padding: 0 var(--space-page) 5rem;
+  min-height: 100vh;
+  padding: 7rem var(--space-page);
 }
 
 .brands__inner {
@@ -87,8 +88,9 @@
 
 @media (max-width: 860px) {
   .brands {
-    margin-top: -1rem;
+    min-height: auto;
     padding-bottom: 4rem;
+    padding-top: 5rem;
   }
 
   .brands__inner {
