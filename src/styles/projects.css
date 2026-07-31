@@ -1,3 +1,45 @@
+.projects-carousel {
+  padding-bottom: 6rem;
+  position: relative;
+}
+
+.projects-carousel__control {
+  align-items: center;
+  background: var(--color-control-bg);
+  backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 999px;
+  color: var(--color-ink);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.45rem;
+  justify-content: center;
+  position: absolute;
+  top: auto;
+  bottom: 1.7rem;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+  width: 2.45rem;
+  z-index: 4;
+}
+
+.projects-carousel__control:hover {
+  background: var(--color-control-bg-hover);
+  border-color: var(--color-glass-border);
+  transform: scale(1.04);
+}
+
+.projects-carousel__control--previous {
+  left: 0;
+}
+
+.projects-carousel__control--next {
+  right: 0;
+}
+
 .projects {
   cursor: grab;
   display: flex;
@@ -8,6 +50,10 @@
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+}
+
+.projects-carousel--hint .projects {
+  animation: projects-side-tap 740ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
 }
 
 .projects::-webkit-scrollbar {
@@ -21,28 +67,51 @@
   user-select: none;
 }
 
-.project-card {
-  background: var(--color-panel);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-sm);
-  flex: 0 0 min(100%, 50rem);
+.projects__slide {
   display: grid;
-  grid-template-columns: 13rem 1fr;
-  min-height: 16rem;
-  overflow: hidden;
+  flex: 0 0 min(100%, 50rem);
+  gap: 1.1rem;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
 
+.projects-scrollbar {
+  background: var(--color-scrollbar-track);
+  bottom: 0;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.projects-scrollbar__thumb {
+  background: var(--color-scrollbar-thumb);
+  display: block;
+  height: 1px;
+  transform: translateX(0);
+  transition: transform 180ms ease;
+}
+
+.project-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  min-height: 13.5rem;
+  overflow: hidden;
+}
+
 .project-card__media {
   align-items: flex-end;
-  background: #111;
+  background: var(--color-media-surface);
   border: 0;
   color: inherit;
   cursor: pointer;
   display: flex;
   font: inherit;
-  min-height: 16rem;
+  min-height: 13.5rem;
   overflow: hidden;
   padding: 1rem;
   position: relative;
@@ -124,7 +193,7 @@
 
 .project-modal {
   align-items: center;
-  background: rgba(0, 0, 0, 0.72);
+  background: var(--color-lightbox-bg);
   display: flex;
   inset: 0;
   justify-content: center;
@@ -134,7 +203,7 @@
 }
 
 .project-modal__panel {
-  background: #0c0c0c;
+  background: var(--color-modal-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-sm);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.48);
@@ -150,10 +219,10 @@
 
 .project-modal__close {
   align-items: center;
-  background: rgba(0, 0, 0, 0.48);
+  background: var(--color-control-bg);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  color: #fff;
+  color: var(--color-ink);
   cursor: pointer;
   display: inline-flex;
   height: 2.35rem;
@@ -166,7 +235,7 @@
 }
 
 .project-modal__media {
-  background: #111;
+  background: var(--color-media-surface);
   min-height: 100%;
   min-width: 0;
   overflow: hidden;
@@ -182,7 +251,7 @@
 }
 
 .project-modal__content {
-  background: #0c0c0c;
+  background: var(--color-modal-surface);
   max-height: min(46rem, calc(100vh - 2.5rem));
   min-height: 0;
   min-width: 0;
@@ -203,7 +272,7 @@
 
 .project-modal__content::-webkit-scrollbar-thumb {
   background: var(--color-accent);
-  border: 2px solid #0c0c0c;
+  border: 2px solid var(--color-modal-surface);
   border-radius: 999px;
 }
 
@@ -246,15 +315,46 @@
   margin-top: 1.35rem;
 }
 
+@keyframes projects-side-tap {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  36% {
+    transform: translateX(-1.35rem);
+  }
+
+  68% {
+    transform: translateX(0.45rem);
+  }
+}
+
 @media (max-width: 640px) {
+  .projects-carousel__control {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+
+  .projects-carousel__control--previous {
+    left: 0;
+  }
+
+  .projects-carousel__control--next {
+    right: 0;
+  }
+
   .projects {
     cursor: auto;
     margin-inline: 0;
     padding-inline: 0;
   }
 
-  .project-card {
+  .projects__slide {
     flex-basis: min(86vw, 28rem);
+  }
+
+  .project-card {
     grid-template-columns: 1fr;
   }
 

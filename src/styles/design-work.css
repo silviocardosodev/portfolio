@@ -121,12 +121,12 @@
 }
 
 .design-work__gallery::before {
-  background: linear-gradient(90deg, #000, transparent);
+  background: linear-gradient(90deg, var(--color-page), transparent);
   left: 0;
 }
 
 .design-work__gallery::after {
-  background: linear-gradient(270deg, #000, transparent);
+  background: linear-gradient(270deg, var(--color-page), transparent);
   right: 0;
 }
 
@@ -151,7 +151,7 @@
   border: 1px solid var(--color-line);
   border-radius: var(--radius-sm);
   cursor: zoom-in;
-  flex: 0 0 18rem;
+  flex: 0 0 clamp(17rem, 31vw, 24rem);
   margin: 0;
   overflow: hidden;
   padding: 0;
@@ -182,7 +182,7 @@
   backdrop-filter: blur(18px) saturate(145%);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
-  color: var(--color-text);
+  color: var(--color-ink);
   cursor: pointer;
   display: inline-flex;
   height: 2.8rem;
@@ -214,16 +214,18 @@
 
 .design-work__lightbox {
   align-items: center;
+  background: var(--color-lightbox-bg);
   display: flex;
   inset: 0;
   justify-content: center;
   padding: 1.25rem;
   position: fixed;
+  touch-action: none;
   z-index: 100;
 }
 
 .design-work__lightbox-backdrop {
-  background: rgba(0, 0, 0, 0.86);
+  background: transparent;
   border: 0;
   cursor: zoom-out;
   inset: 0;
@@ -234,7 +236,7 @@
 .design-work__lightbox-panel {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-sm);
-  max-width: min(72rem, 94vw);
+  max-width: min(76rem, 94vw);
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -249,7 +251,7 @@
   backdrop-filter: blur(18px) saturate(145%);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
-  color: var(--color-text);
+  color: var(--color-ink);
   cursor: pointer;
   display: inline-flex;
   height: 2.75rem;
@@ -262,9 +264,11 @@
 }
 
 .design-work__lightbox-image {
-  background: #050505;
+  background: var(--color-media-surface);
   display: block;
   height: auto;
+  max-height: calc(100vh - 2.5rem);
+  object-fit: contain;
   width: 100%;
 }
 
@@ -290,5 +294,33 @@
   .design-work__gallery-control {
     height: 2.45rem;
     width: 2.45rem;
+  }
+
+  .design-work__lightbox {
+    align-items: center;
+    padding: 0;
+  }
+
+  .design-work__lightbox-panel {
+    border: 0;
+    border-radius: 0;
+    display: flex;
+    justify-content: center;
+    max-height: 100dvh;
+    max-width: none;
+    padding: 0.75rem;
+    width: 100vw;
+  }
+
+  .design-work__lightbox-image {
+    height: auto;
+    max-height: calc(100dvh - 1.5rem);
+    object-fit: contain;
+    width: 100%;
+  }
+
+  .design-work__lightbox-close {
+    right: 0.85rem;
+    top: 0.85rem;
   }
 }

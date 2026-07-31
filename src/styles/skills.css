@@ -12,8 +12,12 @@
 }
 
 .skills__title {
-  font-size: 1rem;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
   margin: 0 0 0.9rem;
+  text-transform: uppercase;
 }
 
 .skills__list {
@@ -26,12 +30,13 @@
 }
 
 .skills__item {
-  background: rgba(217, 182, 111, 0.09);
-  border: 1px solid rgba(217, 182, 111, 0.2);
-  border-radius: var(--radius-xs);
-  color: var(--color-soft);
-  font-size: 0.8rem;
-  padding: 0.4rem 0.5rem;
+  background: var(--color-panel-strong);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  color: var(--color-ink);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.5rem 0.72rem;
 }
 
 .skills__tools {
@@ -63,7 +68,7 @@
 }
 
 .skills__tool {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-panel-strong);
   border: 1px solid var(--color-line);
   border-radius: 999px;
   color: var(--color-ink);

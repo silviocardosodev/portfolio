@@ -27,7 +27,7 @@ export type EducationItem = {
   description: string;
 };
 
-const sharedSkills = [
+const sharedSkillsEn = [
   {
     title: "Front-end Development",
     items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS"],
@@ -54,7 +54,35 @@ const sharedSkills = [
   },
 ] as const;
 
-const sharedTools = ["Figma", "Photoshop", "Illustrator", "VS Code", "GitHub", "Vercel", "Supabase", "VTEX", "cPanel", "AI Tools"] as const;
+const sharedSkillsPt = [
+  {
+    title: "Desenvolvimento Front-end",
+    items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS"],
+  },
+  {
+    title: "UI & Design de Produto",
+    items: ["Design de Interface", "Wireframing", "Prototipação", "Design Systems", "Design Responsivo"],
+  },
+  {
+    title: "Produtos Digitais",
+    items: ["Componentes Reutilizáveis", "Otimização de Performance", "Interfaces SaaS", "Painéis Administrativos"],
+  },
+  {
+    title: "E-commerce & Integrações",
+    items: ["VTEX", "PHP", "SQL Server", "Supabase", "PostgreSQL", "Stripe", "Mercado Pago"],
+  },
+  {
+    title: "Design Visual",
+    items: ["Design Gráfico", "Thumbnails de YouTube", "Assets para Redes Sociais", "Materiais de Marca"],
+  },
+  {
+    title: "Workflow",
+    items: ["GitHub", "Vercel", "cPanel", "Desenvolvimento com IA"],
+  },
+] as const;
+
+const sharedToolsEn = ["Figma", "Photoshop", "Illustrator", "VS Code", "GitHub", "Vercel", "Supabase", "VTEX", "cPanel", "AI Tools"] as const;
+const sharedToolsPt = ["Figma", "Photoshop", "Illustrator", "VS Code", "GitHub", "Vercel", "Supabase", "VTEX", "cPanel", "Ferramentas de IA"] as const;
 
 export const portfolioCopy = {
   en: {
@@ -103,21 +131,41 @@ export const portfolioCopy = {
     },
     experience: {
       eyebrow: "Experience",
-      title: "Designing and building digital experiences that feel clear, useful and intentional.",
+      title: "Professional experience building scalable front-end products for major brands.",
       items: [
         {
-          period: "2018 - Present",
-          role: "Front-end Developer",
-          company: "Websites, landing pages and digital products",
-          details:
-            "I build responsive, high-performing digital products with React, TypeScript and modern CSS, focusing on reusable components, scalable interfaces and clean user experiences across devices.",
+          period: "2021 - 2024",
+          role: "Mid-level Front-end Developer",
+          company: "Jüssi",
+          details: [
+            "Developed and maintained large-scale e-commerce solutions for KitchenAid Brazil (Whirlpool Corporation) using React and VTEX IO.",
+            "Contributed to frontend architecture standards, reusable component libraries, and engineering best practices.",
+            "Participated in software quality, maintainability, and scalability initiatives.",
+            "Improved website performance by 72% through frontend optimization and CSS architecture refactoring.",
+            "Developed customized checkout and customer account experiences.",
+            "Performed code reviews and collaborated with cross-functional teams.",
+          ],
         },
         {
-          period: "2013 - Present",
-          role: "Graphic Designer",
-          company: "Brand, content and visual systems",
-          details:
-            "I create visual identities, campaign assets and digital materials that help brands look more professional, consistent and ready to sell.",
+          period: "2019 - 2021",
+          role: "Junior Front-end Developer",
+          company: "Jüssi",
+          details: [
+            "Developed and maintained digital platforms for major Brazilian organizations including Itaú, Honda, and Órigo.",
+            "Built responsive interfaces and implemented new platform features.",
+            "Participated in debugging, maintenance, and continuous improvement initiatives.",
+          ],
+        },
+        {
+          period: "2018 - 2019",
+          role: "Web Development Intern",
+          company: "Jüssi",
+          details: [
+            "Developed and maintained digital platforms for major Brazilian organizations including Itaú, Honda, and Órigo.",
+            "Built responsive interfaces and implemented new platform features.",
+            "Participated in debugging, maintenance, and continuous improvement initiatives.",
+            "Daily development of an average of 5 responsive marketing email templates using HTML and CSS, with a direct impact on tens of thousands of customers daily.",
+          ],
         },
       ],
     },
@@ -253,19 +301,19 @@ export const portfolioCopy = {
     skills: {
       eyebrow: "Skills",
       title: "Tools and practices I use to move from idea to finished interface.",
-      groups: sharedSkills,
+      groups: sharedSkillsEn,
       toolsTitle: "Tools",
-      tools: sharedTools,
+      tools: sharedToolsEn,
     },
     links: {
       eyebrow: "Links",
-      title: "Letâ€™s build something with presence.",
+      title: "Let's build something with presence.",
       description: "Available for front-end work, design collaboration, and portfolio or brand-focused web projects.",
       items: [
         { label: "Email", href: "mailto:hello@silviocardoso.dev" },
-        { label: "LinkedIn", href: "https://www.linkedin.com/" },
-        { label: "GitHub", href: "https://github.com/" },
-        { label: "Behance", href: "https://www.behance.net/" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/silviocardoso/" },
+        { label: "GitHub", href: "https://github.com/silviocardosodev" },
+        { label: "WhatsApp", href: "https://wa.me/5511958060039" },
       ],
     },
   },
@@ -275,9 +323,9 @@ export const portfolioCopy = {
       { href: "#hero", label: "Hero" },
       { href: "#summary", label: "Sobre mim" },
       { href: "#projects", label: "Projetos" },
-      { href: "#collabs", label: "Collabs" },
-      { href: "#design-work", label: "Design Work" },
-      { href: "#skills", label: "Skills" },
+      { href: "#collabs", label: "Colaborações" },
+      { href: "#design-work", label: "Design" },
+      { href: "#skills", label: "Habilidades" },
       { href: "#links", label: "Links" },
     ],
     hero: {
@@ -286,7 +334,7 @@ export const portfolioCopy = {
       name: "Silvio Cardoso",
       role: "Front-end Developer / Graphic Designer",
       description:
-        "Crio interfaces digitais refinadas, com olhar forte para layout, interacao e presenca de marca.",
+        "Crio interfaces digitais refinadas, com olhar forte para layout, interação e presença de marca.",
       contact: "Entrar em contato",
       cv: "Baixar CV",
       scroll: "Rolar",
@@ -308,55 +356,75 @@ export const portfolioCopy = {
         "Gosto de tocar violão",
         "Adoro jogar F1, e até abri um canal no YouTube para isso",
         "Já tive uma banda na escola",
-        "Adoro churrasco e hamburger",
+        "Adoro churrasco e hambúrguer",
       ],
-      actionsLabel: "Acoes do portfolio",
-      quickTalk: "Conversa rapida",
+      actionsLabel: "Ações do portfólio",
+      quickTalk: "Conversa rápida",
     },
     experience: {
-      eyebrow: "Experiencia",
-      title: "Projetando e construindo experiencias digitais claras, uteis e intencionais.",
+      eyebrow: "Experiência",
+      title: "Experiência profissional criando produtos front-end escaláveis para grandes marcas.",
       items: [
         {
-          period: "2018 - Atual",
-          role: "Front-end Developer",
-          company: "Websites, landing pages e produtos digitais",
-          details:
-            "Construo produtos digitais responsivos e performaticos com React, TypeScript e CSS moderno, com foco em componentes reutilizaveis, interfaces escalaveis e experiencias limpas em diferentes dispositivos.",
+          period: "2021 - 2024",
+          role: "Mid-level Front-end Developer",
+          company: "Jüssi",
+          details: [
+            "Desenvolvimento e manutenção de soluções de e-commerce em larga escala para KitchenAid Brasil (Whirlpool Corporation) usando React e VTEX IO.",
+            "Contribuição para padrões de arquitetura front-end, bibliotecas de componentes reutilizáveis e boas práticas de engenharia.",
+            "Participação em iniciativas de qualidade, manutenção e escalabilidade de software.",
+            "Melhoria de performance do site em 72% por meio de otimização front-end e refatoração da arquitetura CSS.",
+            "Desenvolvimento de experiências customizadas de checkout e área do cliente.",
+            "Realização de code reviews e colaboração com times multidisciplinares.",
+          ],
         },
         {
-          period: "2013 - Atual",
-          role: "Graphic Designer",
-          company: "Marca, conteudo e sistemas visuais",
-          details:
-            "Crio identidades visuais, pecas de campanha e materiais digitais que ajudam marcas a parecerem mais profissionais, consistentes e prontas para vender.",
+          period: "2019 - 2021",
+          role: "Junior Front-end Developer",
+          company: "Jüssi",
+          details: [
+            "Desenvolvimento e manutenção de plataformas digitais para grandes organizações brasileiras, incluindo Itaú, Honda e Órigo.",
+            "Criação de interfaces responsivas e implementação de novas funcionalidades de plataforma.",
+            "Participação em iniciativas de debugging, manutenção e melhoria contínua.",
+          ],
+        },
+        {
+          period: "2018 - 2019",
+          role: "Web Development Intern",
+          company: "Jüssi",
+          details: [
+            "Desenvolvimento e manutenção de plataformas digitais para grandes organizações brasileiras, incluindo Itaú, Honda e Órigo.",
+            "Criação de interfaces responsivas e implementação de novas funcionalidades de plataforma.",
+            "Participação em iniciativas de debugging, manutenção e melhoria contínua.",
+            "Desenvolvimento diário de uma média de 5 templates responsivos de e-mail marketing usando HTML e CSS, com impacto direto em dezenas de milhares de clientes diariamente.",
+          ],
         },
       ],
     },
     education: {
       eyebrow: "Escolaridade",
-      title: "Formacao academica conectando software, sistemas e tecnologia aplicada.",
+      title: "Formação acadêmica conectando software, sistemas e tecnologia aplicada.",
       items: [
         {
           institution: "Caroline University",
-          degree: "Mestrado em Sistemas de Informacao (Em andamento)",
+          degree: "Mestrado em Sistemas de Informação (Em andamento)",
           location: "California, Estados Unidos",
           description:
-            "Estudos de pos-graduacao com foco em sistemas de informacao, engenharia de software, transformacao digital, tomada de decisoes baseada em dados e tecnologias emergentes.",
+            "Estudos de pós-graduação com foco em sistemas de informação, engenharia de software, transformação digital, tomada de decisões baseada em dados e tecnologias emergentes.",
         },
         {
           institution: "Universidade Nove de Julho",
-          degree: "Bacharelado em Ciencia da Computacao",
+          degree: "Bacharelado em Ciência da Computação",
           location: "Brasil",
           description:
-            "Formacao completa em desenvolvimento de software, sistemas de computadores, algoritmos, engenharia de software, bancos de dados e tecnologia da informacao.",
+            "Formação completa em desenvolvimento de software, sistemas de computadores, algoritmos, engenharia de software, bancos de dados e tecnologia da informação.",
         },
         {
-          institution: "Instituto Federal de Goias",
-          degree: "Curso Tecnico em Suporte e Manutencao de Computadores",
+          institution: "Instituto Federal de Goiás",
+          degree: "Curso Técnico em Suporte e Manutenção de Computadores",
           location: "Brasil",
           description:
-            "Formacao tecnica em sistemas de computadores, manutencao de hardware, fundamentos de redes e suporte em tecnologia da informacao.",
+            "Formação técnica em sistemas de computadores, manutenção de hardware, fundamentos de redes e suporte em tecnologia da informação.",
         },
       ],
     },
@@ -369,33 +437,33 @@ export const portfolioCopy = {
       {
         title: "KitchenAid Brasil",
         category: "E-commerce enterprise",
-        description: "E-commerce enterprise em VTEX para marca global, com foco em front-end, componentes, CSS e experiencia de compra.",
-        role: "Desenvolvimento front-end, implementacao de componentes e refinamentos de interface para e-commerce",
-        challenge: "Apoiar uma experiencia de comercio em grande escala com componentes consistentes, layouts responsivos e uma jornada de compra polida.",
-        solution: "Atuacao em partes front-end no VTEX IO, componentes React reutilizaveis, estilizacao, ajustes de layout e melhorias de interface relacionadas ao checkout.",
-        impact: "Contribuicao para uma loja enterprise em producao de uma marca global, com experiencia de compra mais clara e consistente.",
-        stack: ["VTEX IO", "React", "TypeScript", "JavaScript", "Componentes Reutilizaveis", "VTEX Checkout"],
+        description: "E-commerce enterprise em VTEX para marca global, com foco em front-end, componentes, CSS e experiência de compra.",
+        role: "Desenvolvimento front-end, implementação de componentes e refinamentos de interface para e-commerce",
+        challenge: "Apoiar uma experiência de comércio em grande escala com componentes consistentes, layouts responsivos e uma jornada de compra polida.",
+        solution: "Atuação em partes front-end no VTEX IO, componentes React reutilizáveis, estilização, ajustes de layout e melhorias de interface relacionadas ao checkout.",
+        impact: "Contribuição para uma loja enterprise em produção de uma marca global, com experiência de compra mais clara e consistente.",
+        stack: ["VTEX IO", "React", "TypeScript", "JavaScript", "Componentes Reutilizáveis", "VTEX Checkout"],
         url: "https://www.kitchenaid.com.br/",
       },
       {
         title: "FLPsicoFlow",
         category: "SaaS Web",
-        description: "SaaS web para psicologas gerenciarem pacientes, sessoes, agenda e financas.",
-        role: "Design de produto, desenvolvimento front-end e integracao com Supabase",
-        challenge: "Criar uma ferramenta de gestao focada para psicologas organizarem pacientes, sessoes, agenda e rotinas financeiras.",
-        solution: "Construcao de uma interface responsiva em Next.js conectada ao Supabase, com visoes estruturadas para fluxos clinicos e administrativos do dia a dia.",
-        impact: "Entrega de uma base SaaS pratica que centraliza tarefas essenciais de gestao em uma unica aplicacao web.",
+        description: "SaaS web para psicólogas gerenciarem pacientes, sessões, agenda e finanças.",
+        role: "Design de produto, desenvolvimento front-end e integração com Supabase",
+        challenge: "Criar uma ferramenta de gestão focada para psicólogas organizarem pacientes, sessões, agenda e rotinas financeiras.",
+        solution: "Construção de uma interface responsiva em Next.js conectada ao Supabase, com visões estruturadas para fluxos clínicos e administrativos do dia a dia.",
+        impact: "Entrega de uma base SaaS prática que centraliza tarefas essenciais de gestão em uma única aplicação web.",
         stack: ["Next.js", "React", "TypeScript", "Supabase", "Vercel"],
         url: "https://flpsicoflow-v1.vercel.app/",
       },
       {
         title: "Centro Veterinário Linda-a-Velha",
         category: "Site institucional",
-        description: "Site institucional para uma clinica veterinaria em Portugal, com foco em apresentacao clara dos servicos, layout responsivo, credibilidade local e uma experiencia digital amigavel para tutores de pets.",
-        role: "Desenvolvimento front-end, interface responsiva e estrutura de conteudo institucional",
-        challenge: "Apresentar os servicos da clinica com clareza, confianca local e uma experiencia acessivel para tutores em diferentes dispositivos.",
-        solution: "Criacao de um site institucional responsivo com secoes focadas em servicos, hierarquia visual amigavel e implementacao pronta para deploy.",
-        impact: "Fortalecimento da presenca digital da clinica para descoberta de servicos, credibilidade e conversao de contatos.",
+        description: "Site institucional para uma clínica veterinária em Portugal, com foco em apresentação clara dos serviços, layout responsivo, credibilidade local e uma experiência digital amigável para tutores de pets.",
+        role: "Desenvolvimento front-end, interface responsiva e estrutura de conteúdo institucional",
+        challenge: "Apresentar os serviços da clínica com clareza, confiança local e uma experiência acessível para tutores em diferentes dispositivos.",
+        solution: "Criação de um site institucional responsivo com seções focadas em serviços, hierarquia visual amigável e implementação pronta para deploy.",
+        impact: "Fortalecimento da presença digital da clínica para descoberta de serviços, credibilidade e conversão de contatos.",
         stack: ["Next.js", "React", "TypeScript", "CSS", "GitHub", "Vercel"],
         url: "#",
       },
@@ -404,80 +472,80 @@ export const portfolioCopy = {
         category: "MMORPG Game Platform",
         description: "Site para a Villa Mu (Jogo MMORPG) com área logada do jogador, exibição de rankings, sistema de indicações e integrações de pagamento.",
         role: "Frontend, integrações backend e funcionalidades de produto",
-        challenge: "Criar uma plataforma completa para jogadores com area logada, rankings, recompensas e fluxos de pagamento.",
-        solution: "Construcao das paginas do jogador, recompensas por indicacao, integracoes com SQL Server e pagamentos com Mercado Pago e Stripe.",
-        impact: "Produto em producao com usuarios reais, transacoes reais e evolucao continua de funcionalidades.",
+        challenge: "Criar uma plataforma completa para jogadores com área logada, rankings, recompensas e fluxos de pagamento.",
+        solution: "Construção das páginas do jogador, recompensas por indicação, integrações com SQL Server e pagamentos com Mercado Pago e Stripe.",
+        impact: "Produto em produção com usuários reais, transações reais e evolução contínua de funcionalidades.",
         stack: ["PHP", "SQL Server", "JavaScript", "CSS", "Mercado Pago", "Stripe"],
         url: "https://villamu.com.br/",
       },
     ],
     brands: {
-      eyebrow: "Colaboracoes",
-      title: "Marcas e colaboracoes selecionadas",
+      eyebrow: "Colaborações",
+      title: "Marcas e colaborações selecionadas",
       items: [
         {
           name: "KitchenAid Brasil",
-          description: "Front-end e produto digital para uma experiencia de e-commerce enterprise.",
+          description: "Front-end e produto digital para uma experiência de e-commerce enterprise.",
         },
         {
           name: "Honda",
-          description: "Design visual e digital para materiais de comunicacao relacionados a marca.",
+          description: "Design visual e digital para materiais de comunicação relacionados à marca.",
         },
         {
           name: "Itaú",
-          description: "Design grafico e assets digitais para projetos de comunicacao de marca.",
+          description: "Design gráfico e assets digitais para projetos de comunicação de marca.",
         },
         {
           name: "Órigo Energia",
-          description: "Design visual e digital para materiais de comunicacao de energia renovavel.",
+          description: "Design visual e digital para materiais de comunicação de energia renovável.",
         },
         {
           name: "Jussi",
-          description: "Trabalho digital e visual conectado a iniciativas de produto, marca e comunicacao.",
+          description: "Trabalho digital e visual conectado a iniciativas de produto, marca e comunicação.",
         },
         {
           name: "M7A7",
-          description: "Assets visuais e materiais de marca para projetos de comunicacao digital.",
+          description: "Assets visuais e materiais de marca para projetos de comunicação digital.",
         },
       ],
     },
     designWork: {
       eyebrow: "Design Work",
-      title: "YouTube thumbnails and visual assets built for attention.",
+      title: "Thumbnails de YouTube e assets visuais criados para chamar atenção.",
       visit: "Ver canal",
       items: [
         {
           name: "Rique Paiva",
           category: "Thumbnails de YouTube",
-          description: "Comecei antes do canal chegar a 1 mil inscritos. Hoje, o canal tem mais de 251 mil inscritos, com thumbnails e assets visuais criados para atencao, clareza e crescimento.",
+          description: "Comecei antes do canal chegar a 1 mil inscritos. Hoje, o canal tem mais de 251 mil inscritos, com thumbnails e assets visuais criados para atenção, clareza e crescimento.",
           url: "https://www.youtube.com/@CanalDoRique7/videos",
           tone: "red",
         },
         {
           name: "Jotinha TV",
           category: "Thumbnails de YouTube",
-          description: "De Shorts a conteudos longos, o Jotinha TV passou a usar minhas thumbnails para criar ganchos visuais mais fortes, titulos mais claros e apresentacoes de video mais clicaveis.",
+          description: "De Shorts a conteúdos longos, o Jotinha TV passou a usar minhas thumbnails para criar ganchos visuais mais fortes, títulos mais claros e apresentações de vídeo mais clicáveis.",
           url: "https://www.youtube.com/@JotinhaTV_/videos",
           tone: "gold",
         },
       ],
     },
     skills: {
-      eyebrow: "Skills",
-      title: "Ferramentas e praticas que uso para levar uma ideia ate a interface final.",
-      groups: sharedSkills,
-      toolsTitle: "Tools",
-      tools: sharedTools,
+      eyebrow: "Habilidades",
+      title: "Ferramentas e práticas que uso para levar uma ideia até a interface final.",
+      groups: sharedSkillsPt,
+      toolsTitle: "Ferramentas",
+      tools: sharedToolsPt,
     },
     links: {
       eyebrow: "Links",
-      title: "Vamos criar algo com presenca.",
-      description: "Disponivel para front-end, colaboracoes de design e projetos web focados em portfolio ou marca.",
+      title: "Vamos criar algo com presença.",
+      description: "Disponível para front-end, colaborações de design e projetos web focados em portfólio ou marca.",
       items: [
         { label: "Email", href: "mailto:hello@silviocardoso.dev" },
-        { label: "LinkedIn", href: "https://www.linkedin.com/" },
-        { label: "GitHub", href: "https://github.com/" },
-        { label: "Behance", href: "https://www.behance.net/" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/silviocardoso/" },
+        { label: "GitHub", href: "https://github.com/silviocardosodev" },
+        { label: "WhatsApp", href: "https://wa.me/5511958060039" },
       ],
     },
   },

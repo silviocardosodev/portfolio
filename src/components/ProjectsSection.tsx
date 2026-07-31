@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { PointerEvent } from "react";
 import { Section } from "@/components/Section";
 import type { Project } from "@/data/portfolio";
@@ -31,12 +31,30 @@ export function ProjectsSection({
   copy: ProjectsCopy;
   projects: readonly Project[];
 }) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const projectsTrackRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [hasShownScrollHint, setHasShownScrollHint] = useState(false);
+  const [projectScrollProgress, setProjectScrollProgress] = useState(0);
   const [projectDrag, setProjectDrag] = useState<{
     pointerId: number;
     startX: number;
     startScrollLeft: number;
   } | null>(null);
+  const projectGroups = useMemo(
+    () =>
+      projects.reduce<Project[][]>((groups, project, index) => {
+        if (index % 2 === 0) {
+          groups.push([project]);
+        } else {
+          groups[groups.length - 1].push(project);
+        }
+
+        return groups;
+      }, []),
+    [projects],
+  );
+  const hasProjectSlider = projects.length > 2;
 
   useEffect(() => {
     if (!selectedProject) {
@@ -58,6 +76,28 @@ export function ProjectsSection({
     };
   }, [selectedProject]);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section || !hasProjectSlider || hasShownScrollHint) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasShownScrollHint(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.42 },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, [hasProjectSlider, hasShownScrollHint]);
+
   const selectedProjectImage = selectedProject
     ? projectImages[selectedProject.title as keyof typeof projectImages]
     : null;
@@ -75,8 +115,8 @@ export function ProjectsSection({
       return;
     }
 
-    const firstCard = track.querySelector<HTMLElement>(".project-card");
-    const cardStep = firstCard ? firstCard.offsetWidth + parseFloat(window.getComputedStyle(track).columnGap || "0") : track.clientWidth;
+    const firstSlide = track.querySelector<HTMLElement>(".projects__slide");
+    const cardStep = firstSlide ? firstSlide.offsetWidth + parseFloat(window.getComputedStyle(track).columnGap || "0") : track.clientWidth;
     const dragOffset = track.scrollLeft - drag.startScrollLeft;
     const direction = Math.abs(dragOffset) > Math.min(cardStep * 0.18, 140) ? Math.sign(dragOffset) : 0;
     const startIndex = Math.round(drag.startScrollLeft / cardStep);
@@ -127,51 +167,117 @@ export function ProjectsSection({
     finishProjectDrag(event.currentTarget);
   }
 
+  function updateProjectScrollProgress(track: HTMLDivElement) {
+    const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+    setProjectScrollProgress(maxScrollLeft > 0 ? track.scrollLeft / maxScrollLeft : 0);
+  }
+
+  function scrollProjects(direction: "previous" | "next") {
+    const track = projectsTrackRef.current;
+    const firstSlide = track?.querySelector<HTMLElement>(".projects__slide");
+
+    if (!track || !firstSlide) {
+      return;
+    }
+
+    const cardStep = firstSlide.offsetWidth + parseFloat(window.getComputedStyle(track).columnGap || "0");
+
+    track.scrollBy({
+      behavior: "smooth",
+      left: direction === "next" ? cardStep : -cardStep,
+    });
+  }
+
   return (
     <Section id="projects-content" eyebrow={copy.eyebrow} title={copy.title}>
       <div
-        className="projects"
-        onPointerDown={handleProjectPointerDown}
-        onPointerMove={handleProjectPointerMove}
-        onPointerUp={handleProjectPointerUp}
-        onPointerCancel={(event) => finishProjectDrag(event.currentTarget)}
-        onLostPointerCapture={(event) => finishProjectDrag(event.currentTarget)}
+        className={`projects-carousel${hasProjectSlider ? " projects-carousel--has-slider" : ""}${
+          hasShownScrollHint ? " projects-carousel--hint" : ""
+        }`}
+        ref={sectionRef}
       >
-        {projects.map((project) => (
-          <article className="project-card" key={project.title}>
-            <button
-              className="project-card__media"
-              type="button"
-              onClick={() => setSelectedProject(project)}
-              aria-label={`${copy.visit} ${project.title}`}
-            >
-              <Image
-                className="project-card__image"
-                src={projectImages[project.title as keyof typeof projectImages]}
-                alt={`${project.title} preview`}
-                width={projectImages[project.title as keyof typeof projectImages].width}
-                height={projectImages[project.title as keyof typeof projectImages].height}
-                sizes="(max-width: 640px) 100vw, 13rem"
-              />
-            </button>
-            <div className="project-card__content">
-              <p className="project-card__category">{project.category}</p>
-              <h3 className="project-card__title">{project.title}</h3>
-              <p className="project-card__description text-copy">{project.description}</p>
-              <ul className="project-card__stack" aria-label={`${project.title} stack`}>
-                {project.stack.map((item) => (
-                  <li className="project-card__stack-item" key={item}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <button className="project-card__link" type="button" onClick={() => setSelectedProject(project)}>
-                <span>{copy.visit}</span>
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </button>
+        {hasProjectSlider ? (
+          <button
+            className="projects-carousel__control projects-carousel__control--previous"
+            type="button"
+            aria-label="Previous project"
+            onClick={() => scrollProjects("previous")}
+          >
+            <ArrowLeft size={18} aria-hidden="true" />
+          </button>
+        ) : null}
+        <div
+          className="projects"
+          ref={projectsTrackRef}
+          onPointerDown={handleProjectPointerDown}
+          onPointerMove={handleProjectPointerMove}
+          onPointerUp={handleProjectPointerUp}
+          onPointerCancel={(event) => finishProjectDrag(event.currentTarget)}
+          onLostPointerCapture={(event) => finishProjectDrag(event.currentTarget)}
+          onScroll={(event) => updateProjectScrollProgress(event.currentTarget)}
+        >
+          {projectGroups.map((group) => (
+            <div className="projects__slide" key={group.map((project) => project.title).join("-")}>
+              {group.map((project) => (
+                <article className="project-card" key={project.title}>
+                  <button
+                    className="project-card__media"
+                    type="button"
+                    onClick={() => setSelectedProject(project)}
+                    aria-label={`${copy.visit} ${project.title}`}
+                  >
+                    <Image
+                      className="project-card__image"
+                      src={projectImages[project.title as keyof typeof projectImages]}
+                      alt={`${project.title} preview`}
+                      width={projectImages[project.title as keyof typeof projectImages].width}
+                      height={projectImages[project.title as keyof typeof projectImages].height}
+                      sizes="(max-width: 640px) 86vw, 13rem"
+                    />
+                  </button>
+                  <div className="project-card__content">
+                    <p className="project-card__category">{project.category}</p>
+                    <h3 className="project-card__title">{project.title}</h3>
+                    <p className="project-card__description text-copy">{project.description}</p>
+                    <ul className="project-card__stack" aria-label={`${project.title} stack`}>
+                      {project.stack.map((item) => (
+                        <li className="project-card__stack-item" key={item}>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <button className="project-card__link" type="button" onClick={() => setSelectedProject(project)}>
+                      <span>{copy.visit}</span>
+                      <ArrowUpRight size={17} aria-hidden="true" />
+                    </button>
+                  </div>
+                </article>
+              ))}
             </div>
-          </article>
-        ))}
+          ))}
+        </div>
+        {hasProjectSlider ? (
+          <button
+            className="projects-carousel__control projects-carousel__control--next"
+            type="button"
+            aria-label="Next project"
+            onClick={() => scrollProjects("next")}
+          >
+            <ArrowRight size={18} aria-hidden="true" />
+          </button>
+        ) : null}
+        {hasProjectSlider ? (
+          <div className="projects-scrollbar" aria-hidden="true">
+            <span
+              className="projects-scrollbar__thumb"
+              style={{
+                transform: `translateX(${projectScrollProgress * (projectGroups.length - 1) * 100}%)`,
+                width: `${100 / projectGroups.length}%`,
+              }}
+            />
+          </div>
+        ) : null}
       </div>
 
       {selectedProject && selectedProjectImage ? (

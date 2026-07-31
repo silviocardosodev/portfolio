@@ -1,5 +1,4 @@
 import { Section } from "@/components/Section";
-import { ArrowUpRight } from "lucide-react";
 
 type ExperienceCopy = {
   eyebrow: string;
@@ -8,11 +7,9 @@ type ExperienceCopy = {
     period: string;
     role: string;
     company: string;
-    details: string;
+    details: readonly string[];
   }[];
 };
-
-const selectedProjects = ["Interface System", "Campaign Visuals"];
 
 export function ExperienceSection({ copy }: { copy: ExperienceCopy }) {
   return (
@@ -29,23 +26,13 @@ export function ExperienceSection({ copy }: { copy: ExperienceCopy }) {
                 </div>
                 <span className="experience__period">{item.period}</span>
               </div>
-              <p className="experience__details text-copy">{item.details}</p>
-              <div className="experience__projects" aria-label="Selected projects">
-                <p className="experience__projects-title">Selected Projects</p>
-                <div className="experience__project-list">
-                  {selectedProjects.map((project, index) => (
-                    <article className="experience__project" key={`${item.role}-${project}`}>
-                      <div className={`experience__project-media experience__project-media--${index + 1}`} aria-hidden="true">
-                        <ArrowUpRight className="experience__project-icon" size={20} />
-                      </div>
-                      <div className="experience__project-content">
-                        <h4 className="experience__project-name">{project}</h4>
-                        <p className="experience__project-description">A focused digital work sample with polished visuals.</p>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
+              <ul className="experience__details text-copy">
+                {item.details.map((detail) => (
+                  <li className="experience__detail" key={detail}>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
             </div>
           </article>
         ))}

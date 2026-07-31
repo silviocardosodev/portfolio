@@ -22,6 +22,10 @@
   scrollbar-width: thin;
 }
 
+.portfolio__panel:nth-child(even) {
+  background: var(--color-red-panel-bg);
+}
+
 .portfolio__snap::-webkit-scrollbar:horizontal,
 .portfolio__panel::-webkit-scrollbar:horizontal {
   display: none;
@@ -32,9 +36,6 @@
 }
 
 .portfolio__panel--about {
-  background:
-    radial-gradient(circle at 28% 34%, rgba(255, 64, 64, 0.36), transparent 34rem),
-    linear-gradient(135deg, #2a0000 0%, #6f0505 46%, #1a0000 100%);
   position: relative;
 }
 
@@ -83,8 +84,43 @@
   min-height: 100vh;
 }
 
+.about-control {
+  align-items: center;
+  background: var(--color-control-bg);
+  backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 999px;
+  bottom: 3.05rem;
+  color: var(--color-ink);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.45rem;
+  justify-content: center;
+  position: absolute;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+  width: 2.45rem;
+  z-index: 3;
+}
+
+.about-control:hover {
+  background: var(--color-control-bg-hover);
+  border-color: var(--color-glass-border);
+  transform: scale(1.04);
+}
+
+.about-control--previous {
+  left: var(--space-page);
+}
+
+.about-control--next {
+  right: var(--space-page);
+}
+
 .about-scrollbar {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-scrollbar-track);
   bottom: 2rem;
   height: 1px;
   left: 50%;
@@ -97,7 +133,7 @@
 }
 
 .about-scrollbar__thumb {
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--color-scrollbar-thumb);
   display: block;
   height: 1px;
   transform: translateX(0);
@@ -133,9 +169,10 @@
 }
 
 .section-dots__link::before {
-  background: rgba(255, 255, 255, 0.26);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--color-dot-bg);
+  border: 1px solid var(--color-dot-border);
   border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
   content: "";
   height: 0.46rem;
   transition:
@@ -153,9 +190,10 @@
 }
 
 .section-dots__label {
-  background: var(--color-panel-strong);
+  background: var(--color-dot-label-bg);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-soft);
   color: var(--color-ink);
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -255,6 +293,10 @@
   }
 
   .about-scrollbar {
+    display: none;
+  }
+
+  .about-control {
     display: none;
   }
 

@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
+import { createPortal } from "react-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Play, X } from "lucide-react";
 import { Section } from "@/components/Section";
 import type { DesignWork } from "@/data/portfolio";
+import riqueBarcelonaImage from "@/assets/img/canaldorique-barcelona.jpeg";
+import riqueCucurellaImage from "@/assets/img/canaldorique-cucurella.jpeg";
+import riqueFinalImage from "@/assets/img/canaldorique-final.jpeg";
+import jotinhaCampeonatoImage from "@/assets/img/jotinhatv-campeonatox2.jpeg";
+import jotinhaNeymarImage from "@/assets/img/jotinhatv-neymar.jpeg";
+import jotinhaSpfcImage from "@/assets/img/jotinhatv-spfc.jpeg";
 import jotinhaImage from "@/assets/img/jotinhatv.png";
 import riqueImage from "@/assets/img/riquepaiva.png";
 
@@ -26,20 +33,71 @@ type ThumbnailGalleryItem = {
   image: StaticImageData;
 };
 
-const thumbnailGallery: ThumbnailGalleryItem[] = Array.from({ length: 10 }, (_, index) => ({
-  label: `Thumbnail example ${index + 1}`,
-  image: index % 2 === 0 ? riqueImage : jotinhaImage,
-}));
+const thumbnailGallery: ThumbnailGalleryItem[] = [
+  { label: "Canal do Rique Barcelona thumbnail", image: riqueBarcelonaImage },
+  { label: "Canal do Rique Cucurella thumbnail", image: riqueCucurellaImage },
+  { label: "Canal do Rique final thumbnail", image: riqueFinalImage },
+  { label: "Jotinha TV Campeonato X2 thumbnail", image: jotinhaCampeonatoImage },
+  { label: "Jotinha TV Neymar thumbnail", image: jotinhaNeymarImage },
+  { label: "Jotinha TV SPFC thumbnail", image: jotinhaSpfcImage },
+];
 
 export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
+  const galleryTrackRef = useRef<HTMLDivElement>(null);
   const [activeImage, setActiveImage] = useState<ThumbnailGalleryItem | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const galleryItems = useMemo(() => [...thumbnailGallery, thumbnailGallery[0]], []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setGalleryIndex((currentIndex) => currentIndex + 1);
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const track = galleryTrackRef.current;
+    const target = track?.children[galleryIndex] as HTMLElement | undefined;
+
+    if (!track || !target) {
+      return;
+    }
+
+    track.scrollTo({
+      behavior: "smooth",
+      left: target.offsetLeft - track.offsetLeft,
+    });
+
+    if (galleryIndex === thumbnailGallery.length) {
+      const timeout = window.setTimeout(() => {
+        track.scrollTo({ behavior: "instant", left: 0 });
+        setGalleryIndex(0);
+      }, 720);
+
+      return () => window.clearTimeout(timeout);
+    }
+  }, [galleryIndex]);
+
+  useEffect(() => {
+    if (!activeImage) {
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeImage]);
 
   function scrollGallery(direction: "previous" | "next") {
-    const gallery = document.querySelector<HTMLDivElement>(".design-work__gallery-track");
+    setGalleryIndex((currentIndex) => {
+      if (direction === "next") {
+        return currentIndex + 1;
+      }
 
-    gallery?.scrollBy({
-      behavior: "smooth",
-      left: direction === "next" ? 320 : -320,
+      return currentIndex <= 0 ? thumbnailGallery.length - 1 : currentIndex - 1;
     });
   }
 
@@ -90,11 +148,11 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
           >
             <ArrowLeft size={18} aria-hidden="true" />
           </button>
-          <div className="design-work__gallery-track">
-            {thumbnailGallery.map((item) => (
+          <div className="design-work__gallery-track" ref={galleryTrackRef}>
+            {galleryItems.map((item, index) => (
               <button
                 className="design-work__gallery-item"
-                key={item.label}
+                key={`${item.label}-${index}`}
                 type="button"
                 aria-label={`Expand ${item.label}`}
                 onClick={() => setActiveImage(item)}
@@ -120,7 +178,8 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
           </button>
         </div>
 
-        {activeImage ? (
+        {activeImage && typeof document !== "undefined"
+          ? createPortal(
           <div className="design-work__lightbox" role="dialog" aria-modal="true" aria-label={activeImage.label}>
             <button className="design-work__lightbox-backdrop" type="button" onClick={() => setActiveImage(null)} />
             <div className="design-work__lightbox-panel">
@@ -142,8 +201,10 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
                 priority
               />
             </div>
-          </div>
-        ) : null}
+          </div>,
+              document.body,
+            )
+          : null}
       </>
     </Section>
   );

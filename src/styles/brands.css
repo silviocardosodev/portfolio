@@ -47,12 +47,12 @@
 }
 
 .brands__media--light {
-  background: #fff;
+  background: #f4f4f4;
   padding: 1.4rem;
 }
 
 .brands__media--green {
-  background: #16968d;
+  background: #2f2f2f;
   padding: 1.4rem;
 }
 
@@ -63,10 +63,13 @@
 
 .brands__image {
   display: block;
+  filter: grayscale(1);
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 220ms ease;
+  transition:
+    filter 220ms ease,
+    transform 220ms ease;
   width: 100%;
 }
 

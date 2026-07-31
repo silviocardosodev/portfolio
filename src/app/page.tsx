@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { PointerEvent } from "react";
 import { BrandsSection } from "@/components/BrandsSection";
@@ -28,6 +29,7 @@ export default function Home() {
   } | null>(null);
   const [aboutScrollProgress, setAboutScrollProgress] = useState(0);
   const [hasPlayedAboutHint, setHasPlayedAboutHint] = useState(false);
+  const aboutTrackRef = useRef<HTMLDivElement>(null);
   const snapTrackRef = useRef<HTMLDivElement>(null);
   const wheelAccumulatorRef = useRef(0);
   const snapAnimationRef = useRef(0);
@@ -93,6 +95,19 @@ export default function Home() {
     const maxScrollLeft = track.scrollWidth - track.clientWidth;
 
     setAboutScrollProgress(maxScrollLeft > 0 ? track.scrollLeft / maxScrollLeft : 0);
+  }
+
+  function scrollAbout(direction: "previous" | "next") {
+    const track = aboutTrackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    track.scrollBy({
+      behavior: "smooth",
+      left: direction === "next" ? track.clientWidth : -track.clientWidth,
+    });
   }
 
   useEffect(() => {
@@ -238,6 +253,7 @@ export default function Home() {
         <div className="portfolio__panel portfolio__panel--about" id="summary">
           <div
             className="about-slides"
+            ref={aboutTrackRef}
             data-hint={hasPlayedAboutHint ? "played" : undefined}
             aria-label={copy.summary.title}
             onPointerDown={handleAboutPointerDown}
@@ -277,6 +293,22 @@ export default function Home() {
               <EducationSection copy={copy.education} />
             </div>
           </div>
+          <button
+            className="about-control about-control--previous"
+            type="button"
+            aria-label="Previous about section"
+            onClick={() => scrollAbout("previous")}
+          >
+            <ArrowLeft size={18} aria-hidden="true" />
+          </button>
+          <button
+            className="about-control about-control--next"
+            type="button"
+            aria-label="Next about section"
+            onClick={() => scrollAbout("next")}
+          >
+            <ArrowRight size={18} aria-hidden="true" />
+          </button>
           <div className="about-scrollbar" aria-hidden="true">
             <span
               className="about-scrollbar__thumb"
