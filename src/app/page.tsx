@@ -112,10 +112,9 @@ export default function Home() {
 
   useEffect(() => {
     const storedTheme = window.localStorage.getItem("portfolio-theme") as Theme | null;
-    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
 
     window.requestAnimationFrame(() => {
-      setTheme(storedTheme ?? (prefersLight ? "light" : "dark"));
+      setTheme(storedTheme ?? "dark");
     });
   }, []);
 
@@ -156,6 +155,10 @@ export default function Home() {
         return;
       }
 
+      if ((event.target as Element).closest(".project-modal, .design-work__lightbox")) {
+        return;
+      }
+
       if (isSnapAnimatingRef.current) {
         event.preventDefault();
         return;
@@ -178,7 +181,7 @@ export default function Home() {
 
       event.preventDefault();
 
-      wheelAccumulatorRef.current += event.deltaY;
+      wheelAccumulatorRef.current += event.deltaY * 1.2;
 
       const panels = Array.from(track.querySelectorAll<HTMLElement>(":scope > .portfolio__panel"));
       const currentIndex = Math.round(track.scrollTop / track.clientHeight);

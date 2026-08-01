@@ -4,11 +4,14 @@ import Image from "next/image";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { PointerEvent } from "react";
+import type { WheelEvent } from "react";
 import { Section } from "@/components/Section";
 import type { Project } from "@/data/portfolio";
 import centroVeterinarioImage from "@/assets/img/centroveterinario.png";
 import flpsicoflowImage from "@/assets/img/flpsicoflow.png";
+import kitchenaidCustomCheckoutMobileImage from "@/assets/img/kitchenaid-customcheckout-mobile.png";
 import kitchenaidImage from "@/assets/img/kitchenaid.png";
+import kitchenaidStoriesInstagramImage from "@/assets/img/kitchenaid-stories-instagram.png";
 import villamuImage from "@/assets/img/villamu.png";
 
 type ProjectsCopy = {
@@ -20,6 +23,11 @@ type ProjectsCopy = {
 const projectImages = {
   "Centro Veterinário Linda-a-Velha": centroVeterinarioImage,
   "KitchenAid Brasil": kitchenaidImage,
+  "KitchenAid Brazil - Instagram Stories-like Component": kitchenaidStoriesInstagramImage,
+  "KitchenAid Brazil - Componente similar aos Stories do Instagram": kitchenaidStoriesInstagramImage,
+  "KitchenAid Brasil - Componente similar aos Stories do Instagram": kitchenaidStoriesInstagramImage,
+  "KitchenAid Brazil - Custom Checkout VTEX": kitchenaidCustomCheckoutMobileImage,
+  "KitchenAid Brasil - Checkout VTEX Customizado": kitchenaidCustomCheckoutMobileImage,
   FLPsicoFlow: flpsicoflowImage,
   "Villa Mu": villamuImage,
 };
@@ -33,6 +41,7 @@ export function ProjectsSection({
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const projectsTrackRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [hasShownScrollHint, setHasShownScrollHint] = useState(false);
   const [projectScrollProgress, setProjectScrollProgress] = useState(0);
@@ -40,6 +49,11 @@ export function ProjectsSection({
     pointerId: number;
     startX: number;
     startScrollLeft: number;
+  } | null>(null);
+  const [modalDrag, setModalDrag] = useState<{
+    pointerId: number;
+    startY: number;
+    startScrollTop: number;
   } | null>(null);
   const projectGroups = useMemo(
     () =>
@@ -189,6 +203,68 @@ export function ProjectsSection({
     });
   }
 
+  function finishModalDrag(panel: HTMLDivElement, drag = modalDrag) {
+    if (!drag) {
+      return;
+    }
+
+    panel.classList.remove("project-modal__panel--dragging");
+    setModalDrag(null);
+  }
+
+  function handleModalPointerDown(event: PointerEvent<HTMLDivElement>) {
+    const interactiveElement = (event.target as Element).closest("button, a");
+    const content = modalContentRef.current;
+
+    if (interactiveElement || !content) {
+      return;
+    }
+
+    const panel = event.currentTarget;
+
+    setModalDrag({
+      pointerId: event.pointerId,
+      startY: event.clientY,
+      startScrollTop: content.scrollTop,
+    });
+    panel.classList.add("project-modal__panel--dragging");
+    panel.setPointerCapture(event.pointerId);
+  }
+
+  function handleModalPointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (!modalDrag || event.pointerId !== modalDrag.pointerId) {
+      return;
+    }
+
+    event.preventDefault();
+    const content = modalContentRef.current;
+
+    if (content) {
+      content.scrollTop = modalDrag.startScrollTop + modalDrag.startY - event.clientY;
+    }
+  }
+
+  function handleModalPointerUp(event: PointerEvent<HTMLDivElement>) {
+    if (!modalDrag || event.pointerId !== modalDrag.pointerId) {
+      return;
+    }
+
+    event.currentTarget.releasePointerCapture(event.pointerId);
+    finishModalDrag(event.currentTarget);
+  }
+
+  function handleModalWheel(event: WheelEvent<HTMLDivElement>) {
+    const content = modalContentRef.current;
+
+    if (!content) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    content.scrollTop += event.deltaY;
+  }
+
   return (
     <Section id="projects-content" eyebrow={copy.eyebrow} title={copy.title}>
       <div
@@ -291,8 +367,16 @@ export function ProjectsSection({
               setSelectedProject(null);
             }
           }}
+          onWheelCapture={handleModalWheel}
         >
-          <div className="project-modal__panel">
+          <div
+            className="project-modal__panel"
+            onPointerDown={handleModalPointerDown}
+            onPointerMove={handleModalPointerMove}
+            onPointerUp={handleModalPointerUp}
+            onPointerCancel={(event) => finishModalDrag(event.currentTarget)}
+            onLostPointerCapture={(event) => finishModalDrag(event.currentTarget)}
+          >
             <button
               className="project-modal__close"
               type="button"
@@ -311,7 +395,7 @@ export function ProjectsSection({
                 sizes="(max-width: 720px) 100vw, 42rem"
               />
             </div>
-            <div className="project-modal__content">
+            <div className="project-modal__content" ref={modalContentRef}>
               <p className="project-card__category">{selectedProject.category}</p>
               <h3 className="project-modal__title" id="project-modal-title">
                 {selectedProject.title}
