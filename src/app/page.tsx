@@ -224,9 +224,11 @@ export default function Home() {
 
   return (
     <main className="portfolio" id="top">
-      <LanguageToggle locale={locale} onChange={setLocale} labels={copy.language} />
-      <ThemeToggle theme={theme} onChange={setTheme} />
-      <QuickContactLinks />
+      <div className="top-controls" aria-label="Portfolio controls">
+        <LanguageToggle locale={locale} onChange={setLocale} labels={copy.language} />
+        <QuickContactLinks />
+        <ThemeToggle theme={theme} onChange={setTheme} />
+      </div>
       <MobileMenu
         items={copy.navigation}
         labels={copy.language}

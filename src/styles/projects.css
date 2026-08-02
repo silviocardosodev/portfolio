@@ -71,6 +71,7 @@
   display: grid;
   flex: 0 0 min(100%, 50rem);
   gap: 1.1rem;
+  grid-template-rows: repeat(2, minmax(24rem, auto));
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -99,7 +100,7 @@
   border-radius: var(--radius-sm);
   display: grid;
   grid-template-columns: 13rem 1fr;
-  min-height: 13.5rem;
+  min-height: 24rem;
   overflow: hidden;
 }
 
@@ -111,7 +112,7 @@
   cursor: pointer;
   display: flex;
   font: inherit;
-  min-height: 13.5rem;
+  min-height: 100%;
   overflow: hidden;
   padding: 1rem;
   position: relative;
@@ -364,10 +365,12 @@
 
   .projects__slide {
     flex-basis: min(86vw, 28rem);
+    grid-template-rows: repeat(2, minmax(31rem, auto));
   }
 
   .project-card {
     grid-template-columns: 1fr;
+    min-height: 31rem;
   }
 
   .project-card__media {

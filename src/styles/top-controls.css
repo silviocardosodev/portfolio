@@ -1,0 +1,180 @@
+.top-controls {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  justify-content: center;
+  left: 1.5rem;
+  padding: 0.28rem;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+}
+
+.top-controls .language-toggle,
+.top-controls .quick-contact,
+.top-controls .theme-toggle {
+  backdrop-filter: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  bottom: auto;
+  left: auto;
+  overflow: visible;
+  position: relative;
+  right: auto;
+  top: auto;
+  -webkit-backdrop-filter: none;
+}
+
+.top-controls .language-toggle {
+  flex-direction: column;
+  gap: 0.16rem;
+  padding: 0;
+}
+
+.top-controls .language-toggle::before,
+.top-controls .language-toggle::after {
+  display: none;
+}
+
+.top-controls .language-toggle__button,
+.top-controls .quick-contact__link {
+  align-items: center;
+  border-radius: 6px;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  min-height: 2rem;
+  min-width: 2rem;
+  width: 2rem;
+}
+
+.top-controls .language-toggle__button {
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.top-controls .language-toggle__button:hover,
+.top-controls .quick-contact__link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-ink);
+  transform: translateY(-1px);
+}
+
+.top-controls .language-toggle__button--active {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-ink);
+}
+
+.top-controls .quick-contact {
+  flex-direction: column;
+  gap: 0.12rem;
+  padding: 0;
+}
+
+.top-controls .quick-contact::before,
+.top-controls .theme-toggle::before {
+  background: rgba(255, 255, 255, 0.14);
+  content: "";
+  height: 1px;
+  left: 50%;
+  position: absolute;
+  top: -0.42rem;
+  transform: translateX(-50%);
+  width: 1.35rem;
+}
+
+.top-controls .quick-contact__link {
+  color: var(--color-soft);
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.top-controls .theme-toggle {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  flex-direction: column;
+  color: var(--color-soft);
+  gap: 0;
+  height: 3.8rem;
+  margin-top: 0.3rem;
+  padding: 0.18rem;
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+  width: 1.9rem;
+}
+
+.top-controls .theme-toggle__thumb {
+  background: var(--color-accent);
+  border-radius: 999px;
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  height: 1.42rem;
+  left: 50%;
+  right: auto;
+  top: 0.22rem;
+  transform: translate(-50%, 2rem);
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 220ms ease,
+    box-shadow 220ms ease;
+  width: 1.42rem;
+}
+
+.top-controls .theme-toggle--dark .theme-toggle__thumb {
+  right: auto;
+  transform: translate(-50%, 0);
+}
+
+.top-controls .theme-toggle__icon {
+  display: none;
+}
+
+.top-controls .theme-toggle:hover {
+  border-color: rgba(217, 182, 111, 0.44);
+  transform: translateY(-1px);
+}
+
+:root[data-theme="light"] .top-controls {
+  background: rgba(255, 248, 239, 0.9);
+  border-color: rgba(35, 28, 22, 0.16);
+  box-shadow: 0 18px 48px rgba(90, 64, 38, 0.16);
+}
+
+:root[data-theme="light"] .top-controls .quick-contact::before,
+:root[data-theme="light"] .top-controls .theme-toggle::before {
+  background: rgba(35, 28, 22, 0.14);
+}
+
+:root[data-theme="light"] .top-controls .theme-toggle {
+  background:
+    linear-gradient(180deg, rgba(35, 28, 22, 0.04), rgba(35, 28, 22, 0.02)),
+    rgba(35, 28, 22, 0.045);
+  border-color: rgba(35, 28, 22, 0.14);
+}
+
+@media (max-width: 860px) {
+  .top-controls {
+    display: none;
+  }
+}

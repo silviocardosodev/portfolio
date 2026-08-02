@@ -1,4 +1,3 @@
-import { Languages } from "lucide-react";
 import type { Locale } from "@/data/portfolio";
 
 type LanguageLabels = {
@@ -18,7 +17,6 @@ export function LanguageToggle({
 }) {
   return (
     <div className="language-toggle" aria-label={labels.aria}>
-      <Languages className="language-toggle__icon" size={16} aria-hidden="true" />
       <button
         className={`language-toggle__button ${locale === "en" ? "language-toggle__button--active" : ""}`}
         type="button"
