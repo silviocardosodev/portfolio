@@ -121,12 +121,13 @@
 
 .hero__role {
   color: #fff;
-  font-family: var(--font-horizon);
+  font-family: inherit;
   font-size: clamp(0.92rem, 1.55vw, 1.35rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1;
   margin: 1rem 0 0;
   text-transform: uppercase;
+  font-family: var(--font-mono);
 }
 
 .hero__description {

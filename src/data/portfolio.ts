@@ -61,11 +61,11 @@ const sharedSkillsPt = [
   },
   {
     title: "UI & Design de Produto",
-    items: ["Design de Interface", "Wireframing", "Prototipação", "Design Systems", "Design Responsivo"],
+    items: ["Design de Interface", "Wireframes", "Prototipação", "Sistemas de Design", "Design Responsivo"],
   },
   {
     title: "Produtos Digitais",
-    items: ["Componentes Reutilizáveis", "Otimização de Performance", "Interfaces SaaS", "Painéis Administrativos"],
+    items: ["Componentes Reutilizáveis", "Otimização de Performance", "Interfaces SaaS", "Painéis de Administração"],
   },
   {
     title: "E-commerce & Integrações",
@@ -73,10 +73,10 @@ const sharedSkillsPt = [
   },
   {
     title: "Design Visual",
-    items: ["Design Gráfico", "Thumbnails de YouTube", "Assets para Redes Sociais", "Materiais de Marca"],
+    items: ["Design Gráfico", "Thumbnails de YouTube", "Materiais para Redes Sociais", "Materiais de Marca"],
   },
   {
-    title: "Workflow",
+    title: "Fluxo de Trabalho",
     items: ["GitHub", "Vercel", "cPanel", "Desenvolvimento com IA"],
   },
 ] as const;
@@ -84,11 +84,24 @@ const sharedSkillsPt = [
 const sharedToolsEn = ["Figma", "Photoshop", "Illustrator", "VS Code", "GitHub", "Vercel", "Supabase", "VTEX", "cPanel", "AI Tools"] as const;
 const sharedToolsPt = ["Figma", "Photoshop", "Illustrator", "VS Code", "GitHub", "Vercel", "Supabase", "VTEX", "cPanel", "Ferramentas de IA"] as const;
 
+const birthDate = { year: 1996, month: 11, day: 22 } as const;
+
+function getAge({ year, month, day }: typeof birthDate) {
+  const today = new Date();
+  const birthdayThisYear = new Date(today.getFullYear(), month - 1, day);
+  const age = today.getFullYear() - year;
+
+  return today < birthdayThisYear ? age - 1 : age;
+}
+
+const heroRoleEn = `Front-end Developer  |  ${getAge(birthDate)} years old  |  Brazilian`;
+const heroRolePt = `Desenvolvedor Front-end  |  ${getAge(birthDate)} anos  |  Brasileiro`;
+
 export const portfolioCopy = {
   en: {
     language: { en: "EN", pt: "PT", aria: "Change language" },
     navigation: [
-      { href: "#hero", label: "Hero" },
+      { href: "#hero", label: "Home" },
       { href: "#summary", label: "About Me" },
       { href: "#projects", label: "Projects" },
       { href: "#collabs", label: "Collabs" },
@@ -100,22 +113,21 @@ export const portfolioCopy = {
       status: "Open to work",
       intro: "Portfolio 2026",
       name: "Silvio Cardoso",
-      role: "Front-end Developer / Graphic Designer",
+      role: heroRoleEn,
       description:
         "I build polished digital interfaces with a strong eye for layout, interaction, and brand presence.",
       contact: "Contact me",
+      experience: "View experience",
       cv: "Download CV",
       scroll: "Scroll",
     },
     summary: {
       eyebrow: "About me",
-      title: "About me",
+      title: "A little bit of my story",
       paragraphs: [
-        "I've always had a strong connection with technology. Since childhood, computers and video games have sparked my curiosity, and every moment spent in this universe has only increased my interest. I was influenced by my uncle, who is a programmer, to pursue a career in IT.",
-        "At 13, I had my first professional experience as a graphic designer at a company in my hometown. Due to my age, I needed to end this phase, but it was there that I began to understand how much I enjoyed creating visual and digital solutions.",
-        "Over time, I completed my training in Computer Support and Maintenance, graduated in Computer Science, and am currently pursuing a master's degree in California, an important step for both my personal life and my career.",
-        "My web development journey began more concretely during an internship at Jüssi, in Brazil. Before that, I had already studied on my own, following courses and content on YouTube simply out of interest in learning and evolving in the field.",
-        "Since then, my passion for technology and design has only grown. I have had the opportunity to work with large companies, good professionals, and real projects, developing an increasingly keen eye for well-built, responsive, reusable digital products designed especially for the user experience.",
+        "I’m a Brazilian frontend developer and graphic designer with over five years of experience building responsive, high-performance digital products.",
+        "My background combines Computer Science, graphic design, and hands-on experience with real-world projects. I began my professional career in web development at Jüssi and, since then, I have worked with multidisciplinary teams and major brands such as KitchenAid, Itaú, and Honda, developing accessible, responsive, and reusable interfaces.",
+        "Today, I work primarily with React and TypeScript, with a strong focus on component architecture, performance and user experience. I’m currently pursuing a master’s degree in California, expanding both my technical and product-oriented perspective.",
       ],
       funFactsTitle: "Fun Facts",
       funFacts: [
@@ -200,6 +212,15 @@ export const portfolioCopy = {
       eyebrow: "Projects",
       title: "Selected work shaped for clarity, speed, and visual impact.",
       visit: "View project",
+      previous: "Previous project",
+      next: "Next project",
+      close: "Close project details",
+      details: {
+        role: "Role",
+        challenge: "Challenge",
+        solution: "Solution",
+        impact: "Impact",
+      },
     },
     projectItems: [
       {
@@ -261,6 +282,7 @@ export const portfolioCopy = {
     brands: {
       eyebrow: "Collaborations",
       title: "Selected Brands & Collabs",
+      imageAlt: "visual work preview",
       items: [
         {
           name: "KitchenAid Brasil",
@@ -279,7 +301,7 @@ export const portfolioCopy = {
           description: "Visual and digital design work for renewable energy communication materials.",
         },
         {
-          name: "Jussi",
+          name: "Jüssi",
           description: "Digital and visual work connected to product, brand, and communication initiatives.",
         },
         {
@@ -292,6 +314,12 @@ export const portfolioCopy = {
       eyebrow: "Design Work",
       title: "YouTube thumbnails and visual assets built for attention.",
       visit: "View channel",
+      imageAlt: "thumbnail preview",
+      galleryLabel: "Thumbnail gallery",
+      previous: "Previous thumbnails",
+      next: "Next thumbnails",
+      expand: "Expand",
+      close: "Close image preview",
       items: [
         {
           name: "Canal do Rique",
@@ -318,10 +346,10 @@ export const portfolioCopy = {
     },
     links: {
       eyebrow: "Links",
-      title: "Let's build something with presence.",
-      description: "Available for front-end work, design collaboration, and portfolio or brand-focused web projects.",
+      title: "Let's build something together.",
+      description: "Available for front-end opportunities and projects, creating responsive, high-performance interfaces that stay true to the design.",
       items: [
-        { label: "Email", href: "mailto:hello@silviocardoso.dev" },
+        { label: "Email", href: "mailto:silviocardos@hotmail.com" },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/silviocardoso/" },
         { label: "GitHub", href: "https://github.com/silviocardosodev" },
         { label: "WhatsApp", href: "https://wa.me/5511958060039" },
@@ -331,7 +359,7 @@ export const portfolioCopy = {
   pt: {
     language: { en: "EN", pt: "PT", aria: "Trocar idioma" },
     navigation: [
-      { href: "#hero", label: "Hero" },
+      { href: "#hero", label: "Início" },
       { href: "#summary", label: "Sobre mim" },
       { href: "#projects", label: "Projetos" },
       { href: "#collabs", label: "Colaborações" },
@@ -340,25 +368,24 @@ export const portfolioCopy = {
       { href: "#links", label: "Links" },
     ],
     hero: {
-      status: "Open to work",
-      intro: "Portfolio 2026",
+      status: "Disponível para trabalho",
+      intro: "Portfólio 2026",
       name: "Silvio Cardoso",
-      role: "Front-end Developer / Graphic Designer",
+      role: heroRolePt,
       description:
         "Crio interfaces digitais refinadas, com olhar forte para layout, interação e presença de marca.",
       contact: "Entrar em contato",
+      experience: "Ver experiência",
       cv: "Baixar CV",
       scroll: "Rolar",
     },
     summary: {
       eyebrow: "Sobre mim",
-      title: "Sobre mim",
+      title: "Um pouco da minha história",
       paragraphs: [
-        "Sempre tive uma forte conexão com tecnologia. Desde criança, computadores e videogames despertavam minha curiosidade, e cada momento envolvido com esse universo tornava meu interesse ainda maior. Fui influenciado pelo meu tio, que é programador, a seguir carreira na área de TI.",
-        "Aos 13 anos, tive minha primeira experiência profissional como designer gráfico em uma empresa da minha cidade natal. Por conta da minha idade, precisei encerrar essa etapa, mas foi ali que comecei a entender o quanto gostava de criar soluções visuais e digitais.",
-        "Com o tempo, concluí minha formação em Suporte e Manutenção de Computadores, me graduei em Ciência da Computação e atualmente curso um mestrado na Califórnia, um passo importante tanto para minha vida pessoal quanto para minha carreira.",
-        "Minha trajetória em desenvolvimento web começou de forma mais concreta durante um estágio na Jüssi, no Brasil. Antes disso, eu já estudava por conta própria, acompanhando cursos e conteúdos no YouTube simplesmente pelo interesse em aprender e evoluir na área.",
-        "Desde então, minha paixão por tecnologia e design só cresceu. Tive a oportunidade de trabalhar com grandes empresas, bons profissionais e projetos reais, desenvolvendo um olhar cada vez mais atento para produtos digitais bem construídos, responsivos, reutilizáveis e pensados especialmente para a experiência do usuário.",
+        "Sou um desenvolvedor front-end e designer gráfico brasileiro com mais de cinco anos de experiência criando produtos digitais responsivos e de alta performance.",
+        "Minha trajetória combina Ciência da Computação, design gráfico e experiência prática com projetos reais. Comecei minha carreira profissional em desenvolvimento web na Jüssi e, desde então, trabalhei com times multidisciplinares e grandes marcas como KitchenAid, Itaú e Honda, desenvolvendo interfaces acessíveis, responsivas e reutilizáveis.",
+        "Hoje, trabalho principalmente com React e TypeScript, com forte foco em arquitetura de componentes, performance e experiência do usuário. Atualmente curso um mestrado na Califórnia, ampliando minha perspectiva técnica e orientada a produto.",
       ],
       funFactsTitle: "Curiosidades",
       funFacts: [
@@ -441,17 +468,26 @@ export const portfolioCopy = {
     },
     projects: {
       eyebrow: "Projetos",
-      title: "Trabalhos selecionados com clareza, velocidade e impacto visual.",
+      title: "Projetos selecionados com clareza, velocidade e impacto visual.",
       visit: "Ver projeto",
+      previous: "Projeto anterior",
+      next: "Próximo projeto",
+      close: "Fechar detalhes do projeto",
+      details: {
+        role: "Função",
+        challenge: "Desafio",
+        solution: "Solução",
+        impact: "Impacto",
+      },
     },
     projectItems: [
       {
         title: "KitchenAid Brasil - Componente similar aos Stories do Instagram",
-        category: "E-commerce enterprise",
+        category: "E-commerce corporativo",
         description: "Componente em VTEX inspirado nos Stories do Instagram, criado para destacar conteúdos de produto e campanhas em um formato familiar e interativo.",
         role: "Desenvolvimento front-end e implementação de componente reutilizável",
-        challenge: "Levar um padrão de interação inspirado em redes sociais para uma loja enterprise sem perder responsividade, performance ou consistência de marca.",
-        solution: "Construção de um componente front-end reutilizável para VTEX, com comportamento responsivo, apresentação focada em imagem e interação familiar para usuários mobile.",
+        challenge: "Levar um padrão de interação inspirado em redes sociais para uma loja corporativa sem perder responsividade, performance ou consistência de marca.",
+        solution: "Construção de um componente front-end reutilizável para VTEX, com comportamento responsivo, apresentação focada em imagem e interação familiar para usuários em dispositivos móveis.",
         impact: "Criação de uma experiência mais rica para descoberta de produtos, campanhas e storytelling da KitchenAid Brasil.",
         stack: ["VTEX IO", "React", "TypeScript", "CSS", "Componentes Reutilizáveis"],
         url: "https://www.kitchenaid.com.br/",
@@ -459,11 +495,11 @@ export const portfolioCopy = {
       {
         title: "KitchenAid Brasil - Checkout VTEX Customizado",
         category: "Checkout customizado",
-        description: "Experiência de checkout customizada em VTEX para KitchenAid Brasil, com foco em refinamentos de interface, usabilidade mobile e clareza no fluxo de compra.",
+        description: "Experiência de checkout customizada em VTEX para KitchenAid Brasil, com foco em refinamentos de interface, usabilidade em dispositivos móveis e clareza no fluxo de compra.",
         role: "Desenvolvimento front-end e customização de interface de checkout",
         challenge: "Adaptar o checkout VTEX para uma experiência mais polida, alinhada à marca e fácil de usar em diferentes dispositivos.",
         solution: "Implementação de customizações no checkout com CSS responsivo e ajustes front-end nas principais telas do fluxo de compra.",
-        impact: "Melhoria na apresentação e usabilidade do checkout em uma operação enterprise de e-commerce em produção.",
+        impact: "Melhoria na apresentação e usabilidade do checkout em uma operação corporativa de e-commerce em produção.",
         stack: ["VTEX Checkout", "JavaScript", "CSS", "UI Responsiva", "E-commerce"],
         url: "https://www.kitchenaid.com.br/checkout",
       },
@@ -484,16 +520,16 @@ export const portfolioCopy = {
         description: "Site institucional para uma clínica veterinária em Portugal, com foco em apresentação clara dos serviços, layout responsivo, credibilidade local e uma experiência digital amigável para tutores de pets.",
         role: "Desenvolvimento front-end, interface responsiva e estrutura de conteúdo institucional",
         challenge: "Apresentar os serviços da clínica com clareza, confiança local e uma experiência acessível para tutores em diferentes dispositivos.",
-        solution: "Criação de um site institucional responsivo com seções focadas em serviços, hierarquia visual amigável e implementação pronta para deploy.",
+        solution: "Criação de um site institucional responsivo com seções focadas em serviços, hierarquia visual amigável e implementação pronta para publicação.",
         impact: "Fortalecimento da presença digital da clínica para descoberta de serviços, credibilidade e conversão de contatos.",
         stack: ["Next.js", "React", "TypeScript", "CSS", "GitHub", "Vercel"],
         url: "#",
       },
       {
         title: "Villa Mu",
-        category: "MMORPG Game Platform",
         description: "Site para a Villa Mu (Jogo MMORPG) com área logada do jogador, exibição de rankings, sistema de indicações e integrações de pagamento.",
-        role: "Frontend, integrações backend e funcionalidades de produto",
+        category: "Plataforma de jogo MMORPG",
+        role: "Front-end, integrações back-end e funcionalidades de produto",
         challenge: "Criar uma plataforma completa para jogadores com área logada, rankings, recompensas e fluxos de pagamento.",
         solution: "Construção das páginas do jogador, recompensas por indicação, integrações com SQL Server e pagamentos com Mercado Pago e Stripe.",
         impact: "Produto em produção com usuários reais, transações reais e evolução contínua de funcionalidades.",
@@ -504,10 +540,11 @@ export const portfolioCopy = {
     brands: {
       eyebrow: "Colaborações",
       title: "Marcas e colaborações selecionadas",
+      imageAlt: "prévia de trabalho visual",
       items: [
         {
           name: "KitchenAid Brasil",
-          description: "Front-end e produto digital para uma experiência de e-commerce enterprise.",
+          description: "Front-end e produto digital para uma experiência corporativa de e-commerce.",
         },
         {
           name: "Honda",
@@ -515,31 +552,37 @@ export const portfolioCopy = {
         },
         {
           name: "Itaú",
-          description: "Design gráfico e assets digitais para projetos de comunicação de marca.",
+          description: "Design gráfico e materiais digitais para projetos de comunicação de marca.",
         },
         {
           name: "Órigo Energia",
           description: "Design visual e digital para materiais de comunicação de energia renovável.",
         },
         {
-          name: "Jussi",
+          name: "Jüssi",
           description: "Trabalho digital e visual conectado a iniciativas de produto, marca e comunicação.",
         },
         {
           name: "M7A7",
-          description: "Assets visuais e materiais de marca para projetos de comunicação digital.",
+          description: "Materiais visuais e peças de marca para projetos de comunicação digital.",
         },
       ],
     },
     designWork: {
-      eyebrow: "Design Work",
-      title: "Thumbnails de YouTube e assets visuais criados para chamar atenção.",
+      eyebrow: "Design",
+      title: "Thumbnails de YouTube e materiais visuais criados para chamar atenção.",
       visit: "Ver canal",
+      imageAlt: "prévia de thumbnail",
+      galleryLabel: "Galeria de thumbnails",
+      previous: "Thumbnails anteriores",
+      next: "Próximas thumbnails",
+      expand: "Expandir",
+      close: "Fechar prévia da imagem",
       items: [
         {
           name: "Rique Paiva",
           category: "Thumbnails de YouTube",
-          description: "Comecei antes do canal chegar a 1 mil inscritos. Hoje, o canal tem mais de 251 mil inscritos, com thumbnails e assets visuais criados para atenção, clareza e crescimento.",
+          description: "Comecei antes do canal chegar a 1 mil inscritos. Hoje, o canal tem mais de 251 mil inscritos, com thumbnails e materiais visuais criados para gerar atenção, clareza e crescimento.",
           url: "https://www.youtube.com/@CanalDoRique7/videos",
           tone: "red",
         },
@@ -561,10 +604,10 @@ export const portfolioCopy = {
     },
     links: {
       eyebrow: "Links",
-      title: "Vamos criar algo com presença.",
-      description: "Disponível para front-end, colaborações de design e projetos web focados em portfólio ou marca.",
+      title: "Vamos construir algo juntos.",
+      description: "Disponível para oportunidades e projetos de front-end, criando interfaces responsivas, performáticas e fiéis ao design.",
       items: [
-        { label: "Email", href: "mailto:hello@silviocardoso.dev" },
+        { label: "Email", href: "mailto:silviocardos@hotmail.com" },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/silviocardoso/" },
         { label: "GitHub", href: "https://github.com/silviocardosodev" },
         { label: "WhatsApp", href: "https://wa.me/5511958060039" },

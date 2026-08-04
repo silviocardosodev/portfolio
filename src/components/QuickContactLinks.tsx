@@ -2,17 +2,17 @@ import { Link2, Mail, MessageCircle } from "lucide-react";
 
 const quickLinks = [
   {
-    href: "mailto:hello@silviocardoso.dev",
+    href: "mailto:silviocardos@hotmail.com",
     icon: Mail,
     label: "Email",
   },
   {
-    href: "https://wa.me/",
+    href: "https://wa.me/5511958060039",
     icon: MessageCircle,
     label: "WhatsApp",
   },
   {
-    href: "https://www.linkedin.com/",
+    href: "https://www.linkedin.com/in/silviocardoso/",
     icon: Link2,
     label: "LinkedIn",
   },

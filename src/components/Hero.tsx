@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowDown, Mail } from "lucide-react";
+import { ArrowDown, BriefcaseBusiness, Mail } from "lucide-react";
 import { CvDownloadButton } from "@/components/CvDownloadButton";
 import silvioPortrait from "@/assets/img/silviocardoso.webp";
 
@@ -8,6 +8,7 @@ type HeroCopy = {
   role: string;
   description: string;
   contact: string;
+  experience: string;
   cv: string;
   scroll: string;
 };
@@ -37,11 +38,15 @@ export function Hero({ copy }: { copy: HeroCopy }) {
           </h1>
           <p className="hero__role">{copy.role}</p>
           <div className="hero__actions">
-            <a className="button button--primary" href="mailto:hello@silviocardoso.dev">
+            <a className="button button--red" href="mailto:silviocardos@hotmail.com">
               <Mail size={18} aria-hidden="true" />
               <span>{copy.contact}</span>
             </a>
-            <CvDownloadButton className="button button--secondary" label={copy.cv} />
+            <a className="button button--white" href="#experience">
+              <BriefcaseBusiness size={18} aria-hidden="true" />
+              <span>{copy.experience}</span>
+            </a>
+            <CvDownloadButton className="button button--black" label={copy.cv} />
           </div>
         </div>
       </div>

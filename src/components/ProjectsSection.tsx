@@ -18,6 +18,15 @@ type ProjectsCopy = {
   eyebrow: string;
   title: string;
   visit: string;
+  previous: string;
+  next: string;
+  close: string;
+  details: {
+    role: string;
+    challenge: string;
+    solution: string;
+    impact: string;
+  };
 };
 
 const projectImages = {
@@ -117,10 +126,10 @@ export function ProjectsSection({
     : null;
   const selectedProjectDetails = selectedProject
     ? [
-        { label: "Role", value: selectedProject.role },
-        { label: "Challenge", value: selectedProject.challenge },
-        { label: "Solution", value: selectedProject.solution },
-        { label: "Impact", value: selectedProject.impact },
+        { label: copy.details.role, value: selectedProject.role },
+        { label: copy.details.challenge, value: selectedProject.challenge },
+        { label: copy.details.solution, value: selectedProject.solution },
+        { label: copy.details.impact, value: selectedProject.impact },
       ].filter((detail): detail is { label: string; value: string } => Boolean(detail.value))
     : [];
 
@@ -277,7 +286,7 @@ export function ProjectsSection({
           <button
             className="projects-carousel__control projects-carousel__control--previous"
             type="button"
-            aria-label="Previous project"
+            aria-label={copy.previous}
             onClick={() => scrollProjects("previous")}
           >
             <ArrowLeft size={18} aria-hidden="true" />
@@ -337,7 +346,7 @@ export function ProjectsSection({
           <button
             className="projects-carousel__control projects-carousel__control--next"
             type="button"
-            aria-label="Next project"
+            aria-label={copy.next}
             onClick={() => scrollProjects("next")}
           >
             <ArrowRight size={18} aria-hidden="true" />
@@ -381,7 +390,7 @@ export function ProjectsSection({
               className="project-modal__close"
               type="button"
               onClick={() => setSelectedProject(null)}
-              aria-label="Close project details"
+              aria-label={copy.close}
             >
               <X size={18} aria-hidden="true" />
             </button>

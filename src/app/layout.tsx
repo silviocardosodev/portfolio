@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Silvio Cardoso | Front-end Developer / Graphic Designer",
+  title: "Silvio Cardoso | Front-end Developer",
   description:
-    "Professional portfolio of Silvio Cardoso, Front-end Developer and Graphic Designer.",
+    "Professional portfolio of Silvio Cardoso, Front-end Developer.",
 };
 
 export default function RootLayout({

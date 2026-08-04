@@ -19,6 +19,12 @@ type DesignWorkCopy = {
   eyebrow: string;
   title: string;
   visit: string;
+  imageAlt: string;
+  galleryLabel: string;
+  previous: string;
+  next: string;
+  expand: string;
+  close: string;
   items: readonly DesignWork[];
 };
 
@@ -34,12 +40,12 @@ type ThumbnailGalleryItem = {
 };
 
 const thumbnailGallery: ThumbnailGalleryItem[] = [
-  { label: "Canal do Rique Barcelona thumbnail", image: riqueBarcelonaImage },
-  { label: "Canal do Rique Cucurella thumbnail", image: riqueCucurellaImage },
-  { label: "Canal do Rique final thumbnail", image: riqueFinalImage },
-  { label: "Jotinha TV Campeonato X2 thumbnail", image: jotinhaCampeonatoImage },
-  { label: "Jotinha TV Neymar thumbnail", image: jotinhaNeymarImage },
-  { label: "Jotinha TV SPFC thumbnail", image: jotinhaSpfcImage },
+  { label: "Canal do Rique - Barcelona", image: riqueBarcelonaImage },
+  { label: "Canal do Rique - Cucurella", image: riqueCucurellaImage },
+  { label: "Canal do Rique - Final", image: riqueFinalImage },
+  { label: "Jotinha TV - Campeonato X2", image: jotinhaCampeonatoImage },
+  { label: "Jotinha TV - Neymar", image: jotinhaNeymarImage },
+  { label: "Jotinha TV - SPFC", image: jotinhaSpfcImage },
 ];
 
 export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
@@ -115,7 +121,7 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
                     <Image
                       className="design-work__image"
                       src={image}
-                      alt={`${item.name} thumbnail preview`}
+                      alt={`${item.name} ${copy.imageAlt}`}
                       width={image.width}
                       height={image.height}
                       sizes="(max-width: 860px) 100vw, 32vw"
@@ -139,11 +145,11 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
           })}
         </div>
 
-        <div className="design-work__gallery" aria-label="Thumbnail gallery">
+        <div className="design-work__gallery" aria-label={copy.galleryLabel}>
           <button
             className="design-work__gallery-control design-work__gallery-control--previous"
             type="button"
-            aria-label="Previous thumbnails"
+            aria-label={copy.previous}
             onClick={() => scrollGallery("previous")}
           >
             <ArrowLeft size={18} aria-hidden="true" />
@@ -154,7 +160,7 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
                 className="design-work__gallery-item"
                 key={`${item.label}-${index}`}
                 type="button"
-                aria-label={`Expand ${item.label}`}
+                aria-label={`${copy.expand} ${item.label}`}
                 onClick={() => setActiveImage(item)}
               >
                 <Image
@@ -171,7 +177,7 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
           <button
             className="design-work__gallery-control design-work__gallery-control--next"
             type="button"
-            aria-label="Next thumbnails"
+            aria-label={copy.next}
             onClick={() => scrollGallery("next")}
           >
             <ArrowRight size={18} aria-hidden="true" />
@@ -186,7 +192,7 @@ export function DesignWorkSection({ copy }: { copy: DesignWorkCopy }) {
               <button
                 className="design-work__lightbox-close"
                 type="button"
-                aria-label="Close image preview"
+                aria-label={copy.close}
                 onClick={() => setActiveImage(null)}
               >
                 <X size={20} aria-hidden="true" />
