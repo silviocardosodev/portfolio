@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { BriefcaseBusiness, FolderKanban, Languages, Link2, Menu, Sparkles, UserRound, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import type { Locale } from "@/data/portfolio";
+import { LanguageToggle } from "@/components/LanguageToggle";
 import { ThemeToggle, type Theme } from "@/components/ThemeToggle";
-
-const icons = [UserRound, BriefcaseBusiness, FolderKanban, Sparkles, Link2];
+import { fallbackNavigationIcon, navigationIcons } from "@/components/navigationIcons";
 
 type MobileMenuProps = {
   items: readonly { href: string; label: string }[];
@@ -30,32 +30,23 @@ export function MobileMenu({ items, labels, locale, onLocaleChange, theme, onThe
         {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
       </button>
 
+      <button
+        className="mobile-menu__backdrop"
+        type="button"
+        aria-label="Close menu"
+        onClick={() => setIsOpen(false)}
+      />
+
       <div className="mobile-menu__panel">
         <div className="mobile-menu__controls">
-          <div className="mobile-menu__languages" aria-label={labels.aria}>
-            <Languages className="mobile-menu__language-icon" size={16} aria-hidden="true" />
-            <button
-              className={`mobile-menu__language-button ${locale === "en" ? "mobile-menu__language-button--active" : ""}`}
-              type="button"
-              onClick={() => onLocaleChange("en")}
-            >
-              {labels.en}
-            </button>
-            <button
-              className={`mobile-menu__language-button ${locale === "pt" ? "mobile-menu__language-button--active" : ""}`}
-              type="button"
-              onClick={() => onLocaleChange("pt")}
-            >
-              {labels.pt}
-            </button>
-          </div>
+          <LanguageToggle locale={locale} onChange={onLocaleChange} labels={labels} />
           <ThemeToggle className="mobile-menu__theme" theme={theme} onChange={onThemeChange} />
         </div>
 
         <nav className="mobile-menu__nav" aria-label="Mobile portfolio navigation">
           <ul className="mobile-menu__list">
             {items.map((item, index) => {
-              const Icon = icons[index] ?? Link2;
+              const Icon = navigationIcons[index] ?? fallbackNavigationIcon;
               return (
                 <li className="mobile-menu__item" key={item.href}>
                   <a

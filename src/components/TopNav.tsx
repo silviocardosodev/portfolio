@@ -1,6 +1,4 @@
-import { BriefcaseBusiness, FolderKanban, Link2, Sparkles, UserRound } from "lucide-react";
-
-const icons = [UserRound, BriefcaseBusiness, FolderKanban, Sparkles, Link2];
+import { fallbackNavigationIcon, navigationIcons } from "@/components/navigationIcons";
 
 export function TopNav({
   items,
@@ -13,7 +11,7 @@ export function TopNav({
     <nav className="top-nav" aria-label="Portfolio navigation">
       <ul className="top-nav__list">
         {items.map((item, index) => {
-          const Icon = icons[index] ?? Link2;
+          const Icon = navigationIcons[index] ?? fallbackNavigationIcon;
           return (
             <li className="top-nav__item" key={item.href}>
               <a
