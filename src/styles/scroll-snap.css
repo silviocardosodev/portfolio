@@ -12,6 +12,12 @@
   scrollbar-width: none;
 }
 
+.portfolio__snap--dragging {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
 .portfolio__panel {
   animation: portfolio-panel-enter 720ms ease both;
   min-height: 100vh;

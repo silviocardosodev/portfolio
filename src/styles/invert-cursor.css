@@ -1,0 +1,45 @@
+@media (hover: hover) and (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+
+  .invert-cursor {
+    inset: 0;
+    mix-blend-mode: difference;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition: opacity 120ms ease;
+    z-index: 2147483647;
+  }
+
+  .invert-cursor[data-visible="true"] {
+    opacity: 1;
+  }
+
+  .invert-cursor__dot {
+    --cursor-x: -100px;
+    --cursor-y: -100px;
+    --trail-index: 0;
+    --trail-size: calc(22px - (var(--trail-index) * 2px));
+    --trail-opacity: calc(1 - (var(--trail-index) * 0.13));
+
+    background: #ffffff;
+    border-radius: 50%;
+    display: block;
+    height: var(--trail-size);
+    left: 0;
+    opacity: var(--trail-opacity);
+    position: absolute;
+    top: 0;
+    transform: translate3d(
+      calc(var(--cursor-x) - 50%),
+      calc(var(--cursor-y) - 50%),
+      0
+    );
+    width: var(--trail-size);
+    will-change: transform;
+  }
+}

@@ -8,6 +8,7 @@ import { DesignWorkSection } from "@/components/DesignWorkSection";
 import { EducationSection } from "@/components/EducationSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { Hero } from "@/components/Hero";
+import { InvertCursor } from "@/components/InvertCursor";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { LinksSection } from "@/components/LinksSection";
 import { MobileMenu } from "@/components/MobileMenu";
@@ -23,14 +24,23 @@ export default function Home() {
   const [locale, setLocale] = useState<Locale>("en");
   const [theme, setTheme] = useState<Theme>("dark");
   const [aboutDrag, setAboutDrag] = useState<{
+    mode: "horizontal" | "vertical" | null;
     pointerId: number;
     startX: number;
+    startY: number;
     startScrollLeft: number;
+    startSnapScrollTop: number;
   } | null>(null);
   const [aboutScrollProgress, setAboutScrollProgress] = useState(0);
   const [hasPlayedAboutHint, setHasPlayedAboutHint] = useState(false);
   const aboutTrackRef = useRef<HTMLDivElement>(null);
   const snapTrackRef = useRef<HTMLDivElement>(null);
+  const snapDragRef = useRef<{
+    pointerId: number;
+    startY: number;
+    startScrollTop: number;
+    lastY: number;
+  } | null>(null);
   const wheelAccumulatorRef = useRef(0);
   const snapAnimationRef = useRef(0);
   const isSnapAnimatingRef = useRef(false);
@@ -39,6 +49,23 @@ export default function Home() {
 
   function finishAboutDrag(track: HTMLDivElement, drag = aboutDrag) {
     if (!drag) {
+      return;
+    }
+
+    if (drag.mode === "vertical") {
+      const snapTrack = snapTrackRef.current;
+
+      if (snapTrack) {
+        finishSnapDrag(snapTrack, {
+          pointerId: drag.pointerId,
+          startY: drag.startY,
+          startScrollTop: drag.startSnapScrollTop,
+          lastY: drag.startY,
+        });
+      }
+
+      track.classList.remove("about-slides--dragging");
+      setAboutDrag(null);
       return;
     }
 
@@ -65,9 +92,12 @@ export default function Home() {
     const track = event.currentTarget;
 
     setAboutDrag({
+      mode: null,
       pointerId: event.pointerId,
       startX: event.clientX,
+      startY: event.clientY,
       startScrollLeft: track.scrollLeft,
+      startSnapScrollTop: snapTrackRef.current?.scrollTop ?? 0,
     });
     track.classList.add("about-slides--dragging");
     track.setPointerCapture(event.pointerId);
@@ -78,7 +108,33 @@ export default function Home() {
       return;
     }
 
+    const snapTrack = snapTrackRef.current;
+    const dragX = event.clientX - aboutDrag.startX;
+    const dragY = event.clientY - aboutDrag.startY;
+    const nextMode =
+      aboutDrag.mode ??
+      (Math.max(Math.abs(dragX), Math.abs(dragY)) > 8
+        ? Math.abs(dragY) > Math.abs(dragX)
+          ? "vertical"
+          : "horizontal"
+        : null);
+
+    if (!nextMode) {
+      return;
+    }
+
+    if (nextMode !== aboutDrag.mode) {
+      setAboutDrag({ ...aboutDrag, mode: nextMode });
+    }
+
     event.preventDefault();
+
+    if (nextMode === "vertical" && snapTrack) {
+      snapTrack.classList.add("portfolio__snap--dragging");
+      snapTrack.scrollTop = aboutDrag.startSnapScrollTop + aboutDrag.startY - event.clientY;
+      return;
+    }
+
     event.currentTarget.scrollLeft = aboutDrag.startScrollLeft + aboutDrag.startX - event.clientX;
   }
 
@@ -88,6 +144,25 @@ export default function Home() {
     }
 
     event.currentTarget.releasePointerCapture(event.pointerId);
+
+    if (aboutDrag.mode === "vertical") {
+      const snapTrack = snapTrackRef.current;
+
+      event.currentTarget.classList.remove("about-slides--dragging");
+      setAboutDrag(null);
+
+      if (snapTrack) {
+        finishSnapDrag(snapTrack, {
+          pointerId: aboutDrag.pointerId,
+          startY: aboutDrag.startY,
+          startScrollTop: aboutDrag.startSnapScrollTop,
+          lastY: event.clientY,
+        });
+      }
+
+      return;
+    }
+
     finishAboutDrag(event.currentTarget);
   }
 
@@ -108,6 +183,84 @@ export default function Home() {
       behavior: "smooth",
       left: direction === "next" ? track.clientWidth : -track.clientWidth,
     });
+  }
+
+  function finishSnapDrag(track: HTMLDivElement, drag = snapDragRef.current) {
+    if (!drag) {
+      return;
+    }
+
+    const panels = Array.from(track.querySelectorAll<HTMLElement>(":scope > .portfolio__panel"));
+    const dragOffset = track.scrollTop - drag.startScrollTop;
+    const direction = Math.abs(dragOffset) > Math.min(track.clientHeight * 0.18, 160) ? Math.sign(dragOffset) : 0;
+    const startIndex = Math.round(drag.startScrollTop / track.clientHeight);
+    const currentIndex = Math.round(track.scrollTop / track.clientHeight);
+    const targetIndex = direction
+      ? Math.min(panels.length - 1, Math.max(0, startIndex + direction))
+      : Math.min(panels.length - 1, Math.max(0, currentIndex));
+
+    track.classList.remove("portfolio__snap--dragging");
+    snapDragRef.current = null;
+    isSnapAnimatingRef.current = true;
+    track.scrollTo({
+      behavior: "smooth",
+      top: panels[targetIndex]?.offsetTop ?? targetIndex * track.clientHeight,
+    });
+
+    window.clearTimeout(snapAnimationRef.current);
+    snapAnimationRef.current = window.setTimeout(() => {
+      isSnapAnimatingRef.current = false;
+    }, 560);
+  }
+
+  function handleSnapPointerDown(event: PointerEvent<HTMLDivElement>) {
+    if (window.matchMedia("(max-width: 860px), (prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    if (
+      (event.target as Element).closest(
+        "a, button, input, textarea, select, [role='button'], .about-slides, .projects, .project-modal, .design-work__lightbox",
+      )
+    ) {
+      return;
+    }
+
+    const track = event.currentTarget;
+
+    window.clearTimeout(snapAnimationRef.current);
+    isSnapAnimatingRef.current = false;
+    snapDragRef.current = {
+      pointerId: event.pointerId,
+      startY: event.clientY,
+      startScrollTop: track.scrollTop,
+      lastY: event.clientY,
+    };
+    track.classList.add("portfolio__snap--dragging");
+    track.setPointerCapture(event.pointerId);
+  }
+
+  function handleSnapPointerMove(event: PointerEvent<HTMLDivElement>) {
+    const drag = snapDragRef.current;
+
+    if (!drag || event.pointerId !== drag.pointerId) {
+      return;
+    }
+
+    event.preventDefault();
+    drag.lastY = event.clientY;
+    event.currentTarget.scrollTop = drag.startScrollTop + drag.startY - event.clientY;
+  }
+
+  function handleSnapPointerUp(event: PointerEvent<HTMLDivElement>) {
+    const drag = snapDragRef.current;
+
+    if (!drag || event.pointerId !== drag.pointerId) {
+      return;
+    }
+
+    event.currentTarget.releasePointerCapture(event.pointerId);
+    finishSnapDrag(event.currentTarget, drag);
   }
 
   useEffect(() => {
@@ -224,6 +377,7 @@ export default function Home() {
 
   return (
     <main className="portfolio" id="top">
+      <InvertCursor />
       <div className="top-controls" aria-label="Portfolio controls">
         <LanguageToggle locale={locale} onChange={setLocale} labels={copy.language} />
         <QuickContactLinks />
@@ -251,7 +405,15 @@ export default function Home() {
           </a>
         ))}
       </nav>
-      <div className="portfolio__snap" ref={snapTrackRef}>
+      <div
+        className="portfolio__snap"
+        ref={snapTrackRef}
+        onPointerDown={handleSnapPointerDown}
+        onPointerMove={handleSnapPointerMove}
+        onPointerUp={handleSnapPointerUp}
+        onPointerCancel={(event) => finishSnapDrag(event.currentTarget)}
+        onLostPointerCapture={(event) => finishSnapDrag(event.currentTarget)}
+      >
         <div className="portfolio__panel portfolio__panel--hero" id="hero">
           <Hero copy={copy.hero} />
         </div>
