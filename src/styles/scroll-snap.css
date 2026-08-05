@@ -42,6 +42,11 @@
 }
 
 .portfolio__panel--about {
+  --about-navigation-width: min(
+    calc(100% - (var(--space-page) * 2)),
+    calc(var(--content-max) - (var(--space-page) * 2))
+  );
+
   position: relative;
 }
 
@@ -118,11 +123,11 @@
 }
 
 .about-control--previous {
-  left: var(--space-page);
+  left: calc((100% - var(--about-navigation-width)) / 2);
 }
 
 .about-control--next {
-  right: var(--space-page);
+  right: calc((100% - var(--about-navigation-width)) / 2);
 }
 
 .about-scrollbar {
@@ -130,11 +135,10 @@
   bottom: 2rem;
   height: 1px;
   left: 50%;
-  max-width: var(--content-max);
   pointer-events: none;
   position: absolute;
   transform: translateX(-50%);
-  width: calc(100% - (var(--space-page) * 2));
+  width: var(--about-navigation-width);
   z-index: 2;
 }
 
