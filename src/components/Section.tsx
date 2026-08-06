@@ -4,11 +4,13 @@ export function Section({
   id,
   eyebrow,
   title,
+  headerExtra,
   children,
 }: {
   id: string;
   eyebrow: string;
   title: string;
+  headerExtra?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -18,6 +20,7 @@ export function Section({
         <h2 className="section__title" id={`${id}-title`}>
           {title}
         </h2>
+        {headerExtra}
       </div>
       <div className="section__body">{children}</div>
     </section>

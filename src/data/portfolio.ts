@@ -226,6 +226,9 @@ export const portfolioCopy = {
     demos: {
       eyebrow: "Demos",
       title: "Interactive prototypes with real product behavior.",
+      description:
+        "Instagram Stories interaction rebuilt from scratch — including timed progress, navigation, pause states and touch interactions.",
+      stack: ["React", "TypeScript", "Next.js", "CSS", "Pointer Events"],
     },
     projectItems: [
       {
@@ -489,6 +492,9 @@ export const portfolioCopy = {
     demos: {
       eyebrow: "Demos",
       title: "Protótipos interativos com comportamento real de produto.",
+      description:
+        "Interação de Instagram Stories reconstruída do zero — incluindo progresso temporizado, navegação, estados de pausa e interações por toque.",
+      stack: ["React", "TypeScript", "Next.js", "CSS", "Pointer Events"],
     },
     projectItems: [
       {

@@ -488,7 +488,23 @@ export default function Home() {
           <ProjectsSection copy={copy.projects} projects={copy.projectItems} />
         </div>
         <div className="portfolio__panel portfolio__panel--demos" id="demos">
-          <Section id="stories-demo" eyebrow={copy.demos.eyebrow} title={copy.demos.title}>
+          <Section
+            id="stories-demo"
+            eyebrow={copy.demos.eyebrow}
+            title={copy.demos.title}
+            headerExtra={
+              <div className="demos-section__intro">
+                <p className="demos-section__description">{copy.demos.description}</p>
+                <ul className="demos-section__stack" aria-label="Demo stack">
+                  {copy.demos.stack.map((item) => (
+                    <li className="demos-section__stack-item" key={item}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
+          >
             <div className="demos-section">
               <StoriesDemo locale={locale} />
             </div>
