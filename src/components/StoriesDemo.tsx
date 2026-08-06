@@ -111,6 +111,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
       return;
     }
 
+    event.preventDefault();
     setIsHoldingStory(true);
   }
 
@@ -263,14 +264,31 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
       setIsHoldingStory(false);
     }
 
+    function releaseStoryHoldFromTouch(event: TouchEvent) {
+      event.preventDefault();
+      setIsHoldingStory(false);
+    }
+
     window.addEventListener("pointerup", releaseStoryHold);
     window.addEventListener("pointercancel", releaseStoryHold);
+    window.addEventListener("mouseup", releaseStoryHold);
+    window.addEventListener("dragend", releaseStoryHold);
+    window.addEventListener("drop", releaseStoryHold);
+    window.addEventListener("touchend", releaseStoryHoldFromTouch, { passive: false });
+    window.addEventListener("touchcancel", releaseStoryHoldFromTouch, { passive: false });
     window.addEventListener("blur", releaseStoryHold);
+    document.addEventListener("visibilitychange", releaseStoryHold);
 
     return () => {
       window.removeEventListener("pointerup", releaseStoryHold);
       window.removeEventListener("pointercancel", releaseStoryHold);
+      window.removeEventListener("mouseup", releaseStoryHold);
+      window.removeEventListener("dragend", releaseStoryHold);
+      window.removeEventListener("drop", releaseStoryHold);
+      window.removeEventListener("touchend", releaseStoryHoldFromTouch);
+      window.removeEventListener("touchcancel", releaseStoryHoldFromTouch);
       window.removeEventListener("blur", releaseStoryHold);
+      document.removeEventListener("visibilitychange", releaseStoryHold);
     };
   }, [isHoldingStory]);
 
@@ -319,6 +337,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
             aria-modal="true"
             aria-label={activeStoryLabel}
             onClick={handleStoryViewerClick}
+            onDragStart={(event) => event.preventDefault()}
             onPointerDown={handleStoryViewerPointerDown}
           >
             {activeStorySlide ? (
@@ -328,6 +347,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
                 alt=""
                 fill
                 priority
+                draggable={false}
                 sizes="(max-width: 640px) 88vw, 21rem"
                 onLoad={() => setIsStoryImageLoading(false)}
               />

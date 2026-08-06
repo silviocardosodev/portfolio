@@ -19,8 +19,13 @@ export function InvertCursor() {
     const pointer = { x: -100, y: -100 };
     const trail = Array.from({ length: trailLength }, () => ({ x: pointer.x, y: pointer.y }));
     let animationFrame = 0;
+    let isEnabled = true;
 
     function animateTrail() {
+      if (!isEnabled) {
+        return;
+      }
+
       trail.forEach((dot, index) => {
         const target = index === 0 ? pointer : trail[index - 1];
         const ease = index === 0 ? 1 : 0.34;
@@ -44,16 +49,31 @@ export function InvertCursor() {
       cursor?.removeAttribute("data-visible");
     }
 
+    function handlePointerCapabilityChange(event: MediaQueryListEvent) {
+      isEnabled = event.matches;
+
+      if (isEnabled) {
+        animateTrail();
+        return;
+      }
+
+      hideCursor();
+      window.cancelAnimationFrame(animationFrame);
+    }
+
     animateTrail();
     window.addEventListener("pointermove", moveCursor, { passive: true });
     window.addEventListener("pointerleave", hideCursor);
     window.addEventListener("blur", hideCursor);
+    finePointer.addEventListener("change", handlePointerCapabilityChange);
 
     return () => {
+      isEnabled = false;
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener("pointermove", moveCursor);
       window.removeEventListener("pointerleave", hideCursor);
       window.removeEventListener("blur", hideCursor);
+      finePointer.removeEventListener("change", handlePointerCapabilityChange);
     };
   }, []);
 

@@ -6,13 +6,16 @@
   }
 
   .invert-cursor {
-    inset: 0;
+    height: 0;
+    left: 0;
     mix-blend-mode: difference;
     opacity: 0;
     pointer-events: none;
     position: fixed;
+    top: 0;
     transition: opacity 120ms ease;
-    z-index: 2147483647;
+    width: 0;
+    z-index: 10000;
   }
 
   .invert-cursor[data-visible="true"] {
@@ -32,7 +35,8 @@
     height: var(--trail-size);
     left: 0;
     opacity: var(--trail-opacity);
-    position: absolute;
+    pointer-events: none;
+    position: fixed;
     top: 0;
     transform: translate3d(
       calc(var(--cursor-x) - 50%),
