@@ -104,6 +104,7 @@ export const portfolioCopy = {
       { href: "#hero", label: "Home" },
       { href: "#summary", label: "About Me" },
       { href: "#projects", label: "Projects" },
+      { href: "#demos", label: "Demos" },
       { href: "#collabs", label: "Collabs" },
       { href: "#design-work", label: "Design Work" },
       { href: "#skills", label: "Skills" },
@@ -221,6 +222,10 @@ export const portfolioCopy = {
         solution: "Solution",
         impact: "Impact",
       },
+    },
+    demos: {
+      eyebrow: "Demos",
+      title: "Interactive prototypes with real product behavior.",
     },
     projectItems: [
       {
@@ -362,6 +367,7 @@ export const portfolioCopy = {
       { href: "#hero", label: "Início" },
       { href: "#summary", label: "Sobre mim" },
       { href: "#projects", label: "Projetos" },
+      { href: "#demos", label: "Demos" },
       { href: "#collabs", label: "Colaborações" },
       { href: "#design-work", label: "Design" },
       { href: "#skills", label: "Habilidades" },
@@ -479,6 +485,10 @@ export const portfolioCopy = {
         solution: "Solução",
         impact: "Impacto",
       },
+    },
+    demos: {
+      eyebrow: "Demos",
+      title: "Protótipos interativos com comportamento real de produto.",
     },
     projectItems: [
       {

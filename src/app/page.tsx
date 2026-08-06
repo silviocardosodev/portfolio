@@ -16,6 +16,7 @@ import { ProjectsSection } from "@/components/ProjectsSection";
 import { QuickContactLinks } from "@/components/QuickContactLinks";
 import { Section } from "@/components/Section";
 import { SkillsSection } from "@/components/SkillsSection";
+import { StoriesDemo } from "@/components/StoriesDemo";
 import { ThemeToggle, type Theme } from "@/components/ThemeToggle";
 import { portfolioCopy, type Locale } from "@/data/portfolio";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -220,7 +221,7 @@ export default function Home() {
 
     if (
       (event.target as Element).closest(
-        "a, button, input, textarea, select, [role='button'], .about-slides, .projects, .project-modal, .design-work__lightbox",
+        "a, button, input, textarea, select, [role='button'], .about-slides, .projects, .stories-phone, .project-modal, .design-work__lightbox",
       )
     ) {
       return;
@@ -485,6 +486,13 @@ export default function Home() {
         </div>
         <div className="portfolio__panel portfolio__panel--projects" id="projects">
           <ProjectsSection copy={copy.projects} projects={copy.projectItems} />
+        </div>
+        <div className="portfolio__panel portfolio__panel--demos" id="demos">
+          <Section id="stories-demo" eyebrow={copy.demos.eyebrow} title={copy.demos.title}>
+            <div className="demos-section">
+              <StoriesDemo locale={locale} />
+            </div>
+          </Section>
         </div>
         <div className="portfolio__panel portfolio__panel--collabs" id="collabs">
           <BrandsSection copy={copy.brands} />

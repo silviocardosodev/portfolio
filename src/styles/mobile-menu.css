@@ -110,6 +110,16 @@
     visibility: visible;
   }
 
+  html[data-mobile-menu-open],
+  html[data-mobile-menu-open] body {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  html[data-mobile-menu-open] .portfolio__snap {
+    overflow: hidden;
+  }
+
   .mobile-menu__controls .language-toggle {
     backdrop-filter: none;
     background: transparent;

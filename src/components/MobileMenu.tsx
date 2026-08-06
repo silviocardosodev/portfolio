@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import type { Locale } from "@/data/portfolio";
 import { LanguageToggle } from "@/components/LanguageToggle";
@@ -17,6 +17,14 @@ type MobileMenuProps = {
 
 export function MobileMenu({ items, labels, locale, onLocaleChange, theme, onThemeChange, activeHref }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-mobile-menu-open", isOpen);
+
+    return () => {
+      document.documentElement.removeAttribute("data-mobile-menu-open");
+    };
+  }, [isOpen]);
 
   return (
     <div className={`mobile-menu ${isOpen ? "mobile-menu--open" : ""}`}>

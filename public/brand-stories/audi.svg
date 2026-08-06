@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Audi">
+  <rect width="96" height="96" rx="48" fill="#f3f3f3"/>
+  <g fill="none" stroke="#111" stroke-width="4">
+    <circle cx="31" cy="48" r="13"/>
+    <circle cx="43" cy="48" r="13"/>
+    <circle cx="55" cy="48" r="13"/>
+    <circle cx="67" cy="48" r="13"/>
+  </g>
+</svg>
