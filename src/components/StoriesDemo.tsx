@@ -302,7 +302,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
         </div>
         <div className="stories-phone__content">
           <div className="stories-demo-callout">
-            <p>Try me! Click in some brand</p>
+            <p>Try me! Select a brand to start</p>
           </div>
           <div
             className={`stories-list ${isDraggingStories ? "stories-list--dragging" : ""}`}

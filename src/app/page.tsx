@@ -495,13 +495,26 @@ export default function Home() {
             headerExtra={
               <div className="demos-section__intro">
                 <p className="demos-section__description">{copy.demos.description}</p>
-                <ul className="demos-section__stack" aria-label="Demo stack">
-                  {copy.demos.stack.map((item) => (
-                    <li className="demos-section__stack-item" key={item}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div className="demos-section__interactions">
+                  <h3 className="demos-section__label">{copy.demos.interactionsTitle}</h3>
+                  <ul className="demos-section__pills" aria-label={copy.demos.interactionsTitle}>
+                    {copy.demos.interactions.map((item) => (
+                      <li className="demos-section__pill" key={item}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="demos-section__stack">
+                  <h3 className="demos-section__label">{copy.demos.stackTitle}</h3>
+                  <ul className="demos-section__pills" aria-label={copy.demos.stackTitle}>
+                    {copy.demos.stack.map((item) => (
+                      <li className="demos-section__pill" key={item}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             }
           >

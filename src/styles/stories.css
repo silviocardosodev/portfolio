@@ -19,7 +19,23 @@
   max-width: 34rem;
 }
 
+.demos-section__interactions,
 .demos-section__stack {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.demos-section__label {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.demos-section__pills {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -29,7 +45,7 @@
   padding: 0;
 }
 
-.demos-section__stack-item {
+.demos-section__pill {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-xs);
@@ -58,6 +74,7 @@
     inset 0 0 0 0.42rem #101010;
   max-height: min(82vh, 52rem);
   max-width: min(88vw, 29.25rem);
+  overflow: hidden;
   padding: 0.8rem;
   position: relative;
   width: min(78vw, 24rem);
@@ -78,7 +95,9 @@
 .stories-phone__screen {
   background: #ffffff;
   border-radius: 1.55rem;
+  contain: paint;
   height: 100%;
+  isolation: isolate;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -284,6 +303,8 @@
   display: flex;
   inset: 0;
   justify-content: center;
+  min-height: 0;
+  overflow: hidden;
   padding: 2rem;
   position: absolute;
   transition: transform 160ms ease;
@@ -303,6 +324,7 @@
   height: 100%;
   inset: 0;
   object-fit: cover;
+  object-position: center;
   pointer-events: none;
   position: absolute;
   user-select: none;

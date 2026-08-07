@@ -225,9 +225,12 @@ export const portfolioCopy = {
     },
     demos: {
       eyebrow: "Demos",
-      title: "Interactive prototypes with real product behavior.",
+      title: "Instagram stories-like component",
       description:
-        "Instagram Stories interaction rebuilt from scratch — including timed progress, navigation, pause states and touch interactions.",
+        "An Instagram Stories interaction prototype rebuilt from scratch — featuring timed progress, navigation, pause states and touch interactions.",
+      interactionsTitle: "Interactions",
+      interactions: ["Tap", "Hold to pause", "Next / Previous", "Auto progress"],
+      stackTitle: "Stack",
       stack: ["React", "TypeScript", "Next.js", "CSS", "Pointer Events"],
     },
     projectItems: [
@@ -491,9 +494,12 @@ export const portfolioCopy = {
     },
     demos: {
       eyebrow: "Demos",
-      title: "Protótipos interativos com comportamento real de produto.",
+      title: "Componente similar aos Stories do Instagram",
       description:
-        "Interação de Instagram Stories reconstruída do zero — incluindo progresso temporizado, navegação, estados de pausa e interações por toque.",
+        "Um protótipo de interação inspirado nos Stories do Instagram reconstruído do zero — com progresso temporizado, navegação, estados de pausa e interações por toque.",
+      interactionsTitle: "Interações",
+      interactions: ["Toque", "Segure para pausar", "Próximo / Anterior", "Progresso automático"],
+      stackTitle: "Tecnologias",
       stack: ["React", "TypeScript", "Next.js", "CSS", "Pointer Events"],
     },
     projectItems: [
