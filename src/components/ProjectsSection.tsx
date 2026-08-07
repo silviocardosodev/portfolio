@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { PointerEvent } from "react";
-import type { WheelEvent } from "react";
 import { Section } from "@/components/Section";
 import type { Project } from "@/data/portfolio";
 import centroVeterinarioImage from "@/assets/img/centroveterinario.png";
@@ -20,13 +19,6 @@ type ProjectsCopy = {
   visit: string;
   previous: string;
   next: string;
-  close: string;
-  details: {
-    role: string;
-    challenge: string;
-    solution: string;
-    impact: string;
-  };
 };
 
 const projectImages = {
@@ -50,24 +42,18 @@ export function ProjectsSection({
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const projectsTrackRef = useRef<HTMLDivElement>(null);
-  const modalContentRef = useRef<HTMLDivElement>(null);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [hasShownScrollHint, setHasShownScrollHint] = useState(false);
+  const [projectsPerSlide, setProjectsPerSlide] = useState(2);
   const [projectScrollProgress, setProjectScrollProgress] = useState(0);
   const [projectDrag, setProjectDrag] = useState<{
     pointerId: number;
     startX: number;
     startScrollLeft: number;
   } | null>(null);
-  const [modalDrag, setModalDrag] = useState<{
-    pointerId: number;
-    startY: number;
-    startScrollTop: number;
-  } | null>(null);
   const projectGroups = useMemo(
     () =>
       projects.reduce<Project[][]>((groups, project, index) => {
-        if (index % 2 === 0) {
+        if (index % projectsPerSlide === 0) {
           groups.push([project]);
         } else {
           groups[groups.length - 1].push(project);
@@ -75,29 +61,22 @@ export function ProjectsSection({
 
         return groups;
       }, []),
-    [projects],
+    [projects, projectsPerSlide],
   );
-  const hasProjectSlider = projects.length > 2;
+  const hasProjectSlider = projects.length > projectsPerSlide;
 
   useEffect(() => {
-    if (!selectedProject) {
-      return;
+    const mediaQuery = window.matchMedia("(max-width: 640px)");
+
+    function updateProjectsPerSlide() {
+      setProjectsPerSlide(mediaQuery.matches ? 1 : 2);
     }
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setSelectedProject(null);
-      }
-    };
+    updateProjectsPerSlide();
+    mediaQuery.addEventListener("change", updateProjectsPerSlide);
 
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedProject]);
+    return () => mediaQuery.removeEventListener("change", updateProjectsPerSlide);
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -120,18 +99,6 @@ export function ProjectsSection({
 
     return () => observer.disconnect();
   }, [hasProjectSlider, hasShownScrollHint]);
-
-  const selectedProjectImage = selectedProject
-    ? projectImages[selectedProject.title as keyof typeof projectImages]
-    : null;
-  const selectedProjectDetails = selectedProject
-    ? [
-        { label: copy.details.role, value: selectedProject.role },
-        { label: copy.details.challenge, value: selectedProject.challenge },
-        { label: copy.details.solution, value: selectedProject.solution },
-        { label: copy.details.impact, value: selectedProject.impact },
-      ].filter((detail): detail is { label: string; value: string } => Boolean(detail.value))
-    : [];
 
   function finishProjectDrag(track: HTMLDivElement, drag = projectDrag) {
     if (!drag) {
@@ -212,68 +179,6 @@ export function ProjectsSection({
     });
   }
 
-  function finishModalDrag(panel: HTMLDivElement, drag = modalDrag) {
-    if (!drag) {
-      return;
-    }
-
-    panel.classList.remove("project-modal__panel--dragging");
-    setModalDrag(null);
-  }
-
-  function handleModalPointerDown(event: PointerEvent<HTMLDivElement>) {
-    const interactiveElement = (event.target as Element).closest("button, a");
-    const content = modalContentRef.current;
-
-    if (interactiveElement || !content) {
-      return;
-    }
-
-    const panel = event.currentTarget;
-
-    setModalDrag({
-      pointerId: event.pointerId,
-      startY: event.clientY,
-      startScrollTop: content.scrollTop,
-    });
-    panel.classList.add("project-modal__panel--dragging");
-    panel.setPointerCapture(event.pointerId);
-  }
-
-  function handleModalPointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (!modalDrag || event.pointerId !== modalDrag.pointerId) {
-      return;
-    }
-
-    event.preventDefault();
-    const content = modalContentRef.current;
-
-    if (content) {
-      content.scrollTop = modalDrag.startScrollTop + modalDrag.startY - event.clientY;
-    }
-  }
-
-  function handleModalPointerUp(event: PointerEvent<HTMLDivElement>) {
-    if (!modalDrag || event.pointerId !== modalDrag.pointerId) {
-      return;
-    }
-
-    event.currentTarget.releasePointerCapture(event.pointerId);
-    finishModalDrag(event.currentTarget);
-  }
-
-  function handleModalWheel(event: WheelEvent<HTMLDivElement>) {
-    const content = modalContentRef.current;
-
-    if (!content) {
-      return;
-    }
-
-    event.preventDefault();
-    event.stopPropagation();
-    content.scrollTop += event.deltaY;
-  }
-
   return (
     <Section id="projects-content" eyebrow={copy.eyebrow} title={copy.title}>
       <div
@@ -306,11 +211,12 @@ export function ProjectsSection({
             <div className="projects__slide" key={group.map((project) => project.title).join("-")}>
               {group.map((project) => (
                 <article className="project-card" key={project.title}>
-                  <button
+                  <a
                     className="project-card__media"
-                    type="button"
-                    onClick={() => setSelectedProject(project)}
                     aria-label={`${copy.visit} ${project.title}`}
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     <Image
                       className="project-card__image"
@@ -320,7 +226,7 @@ export function ProjectsSection({
                       height={projectImages[project.title as keyof typeof projectImages].height}
                       sizes="(max-width: 640px) 86vw, 13rem"
                     />
-                  </button>
+                  </a>
                   <div className="project-card__content">
                     <p className="project-card__category">{project.category}</p>
                     <h3 className="project-card__title">{project.title}</h3>
@@ -332,10 +238,10 @@ export function ProjectsSection({
                         </li>
                       ))}
                     </ul>
-                    <button className="project-card__link" type="button" onClick={() => setSelectedProject(project)}>
+                    <a className="project-card__link" href={project.url} target="_blank" rel="noreferrer">
                       <span>{copy.visit}</span>
                       <ArrowUpRight size={17} aria-hidden="true" />
-                    </button>
+                    </a>
                   </div>
                 </article>
               ))}
@@ -365,76 +271,6 @@ export function ProjectsSection({
         ) : null}
       </div>
 
-      {selectedProject && selectedProjectImage ? (
-        <div
-          className="project-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="project-modal-title"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setSelectedProject(null);
-            }
-          }}
-          onWheelCapture={handleModalWheel}
-        >
-          <div
-            className="project-modal__panel"
-            onPointerDown={handleModalPointerDown}
-            onPointerMove={handleModalPointerMove}
-            onPointerUp={handleModalPointerUp}
-            onPointerCancel={(event) => finishModalDrag(event.currentTarget)}
-            onLostPointerCapture={(event) => finishModalDrag(event.currentTarget)}
-          >
-            <button
-              className="project-modal__close"
-              type="button"
-              onClick={() => setSelectedProject(null)}
-              aria-label={copy.close}
-            >
-              <X size={18} aria-hidden="true" />
-            </button>
-            <div className="project-modal__media">
-              <Image
-                className="project-modal__image"
-                src={selectedProjectImage}
-                alt={`${selectedProject.title} preview`}
-                width={selectedProjectImage.width}
-                height={selectedProjectImage.height}
-                sizes="(max-width: 720px) 100vw, 42rem"
-              />
-            </div>
-            <div className="project-modal__content" ref={modalContentRef}>
-              <p className="project-card__category">{selectedProject.category}</p>
-              <h3 className="project-modal__title" id="project-modal-title">
-                {selectedProject.title}
-              </h3>
-              <p className="project-modal__description text-copy">{selectedProject.description}</p>
-              {selectedProjectDetails.length > 0 ? (
-                <dl className="project-modal__details">
-                  {selectedProjectDetails.map((detail) => (
-                    <div className="project-modal__detail" key={detail.label}>
-                      <dt>{detail.label}</dt>
-                      <dd>{detail.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : null}
-              <ul className="project-card__stack" aria-label={`${selectedProject.title} stack`}>
-                {selectedProject.stack.map((item) => (
-                  <li className="project-card__stack-item" key={item}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <a className="button button--primary project-modal__live" href={selectedProject.url} target="_blank" rel="noreferrer">
-                <span>{copy.visit}</span>
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </Section>
   );
 }
