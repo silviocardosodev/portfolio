@@ -301,6 +301,9 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
           <span>5G</span>
         </div>
         <div className="stories-phone__content">
+          <div className="stories-demo-callout">
+            <p>Try me! Click in some brand</p>
+          </div>
           <div
             className={`stories-list ${isDraggingStories ? "stories-list--dragging" : ""}`}
             aria-label={copy.categoriesAria}
@@ -325,6 +328,15 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
                 </span>
                 <span className="stories-list__label">{item[locale]}</span>
               </button>
+            ))}
+          </div>
+          <div className="stories-skeleton-grid" aria-hidden="true">
+            {Array.from({ length: 4 }, (_, index) => (
+              <div className="stories-skeleton-card" key={index}>
+                <span className="stories-skeleton-card__media" />
+                <span className="stories-skeleton-card__line stories-skeleton-card__line--wide" />
+                <span className="stories-skeleton-card__line" />
+              </div>
             ))}
           </div>
         </div>
