@@ -3,7 +3,7 @@
 import { Pause, Play, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import ferrariLogo from "@/assets/img/ferrari.png";
+import ferrariLogo from "@/assets/img/ferrari.webp";
 import { InvertCursor } from "@/components/InvertCursor";
 
 const LAP_DURATION_MS = 67934;

@@ -6,12 +6,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { PointerEvent } from "react";
 import { Section } from "@/components/Section";
 import type { Project } from "@/data/portfolio";
-import centroVeterinarioImage from "@/assets/img/centroveterinario.png";
-import flpsicoflowImage from "@/assets/img/flpsicoflow.png";
-import kitchenaidCustomCheckoutMobileImage from "@/assets/img/kitchenaid-customcheckout-mobile.png";
-import kitchenaidImage from "@/assets/img/kitchenaid.png";
-import kitchenaidStoriesInstagramImage from "@/assets/img/kitchenaid-stories-instagram.png";
-import villamuImage from "@/assets/img/villamu.png";
+import centroVeterinarioImage from "@/assets/img/centroveterinario.webp";
+import flpsicoflowImage from "@/assets/img/flpsicoflow.webp";
+import kitchenaidCustomCheckoutMobileImage from "@/assets/img/kitchenaid-customcheckout-mobile.webp";
+import kitchenaidImage from "@/assets/img/kitchenaid.webp";
+import kitchenaidStoriesInstagramImage from "@/assets/img/kitchenaid-stories-instagram.webp";
+import villamuImage from "@/assets/img/villamu.webp";
 
 type ProjectsCopy = {
   eyebrow: string;

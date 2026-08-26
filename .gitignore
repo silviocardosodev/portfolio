@@ -20,6 +20,13 @@
 # production
 /build
 
+# source media
+/src/assets/**/*.mp4
+/src/assets/**/*.mov
+/src/assets/**/*.m4v
+/src/assets/**/*.avi
+/src/assets/**/*.mkv
+
 # misc
 .DS_Store
 *.pem

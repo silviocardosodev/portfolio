@@ -1,10 +1,10 @@
 ﻿import Image from "next/image";
-import hondaImage from "@/assets/img/honda.png";
-import itauImage from "@/assets/img/itau.png";
-import kitchenaidLogo from "@/assets/img/kitchenaid-logo.png";
+import hondaImage from "@/assets/img/honda.webp";
+import itauImage from "@/assets/img/itau.webp";
+import kitchenaidLogo from "@/assets/img/kitchenaid-logo.webp";
 import m7a7Logo from "@/assets/img/m7a7-logo.svg";
 import origoLogo from "@/assets/img/origo-logo.webp";
-import wppLogo from "@/assets/img/wpp-logo.png";
+import wppLogo from "@/assets/img/wpp-logo.webp";
 
 type BrandsCopy = {
   eyebrow: string;

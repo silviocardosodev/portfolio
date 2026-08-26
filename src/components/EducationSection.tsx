@@ -1,6 +1,6 @@
 import Image from "next/image";
-import carolineLogo from "@/assets/img/logo-caroline-university.jpg";
-import ifgLogo from "@/assets/img/logo-ifg.jpg";
+import carolineLogo from "@/assets/img/logo-caroline-university.webp";
+import ifgLogo from "@/assets/img/logo-ifg.webp";
 import uninoveLogo from "@/assets/img/logo-uninove.svg";
 import type { EducationItem } from "@/data/portfolio";
 

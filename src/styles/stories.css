@@ -382,7 +382,7 @@
 }
 
 .story-viewer__progress-fill--active {
-  animation: story-progress 5s linear forwards;
+  animation: story-progress var(--story-duration, 5s) linear forwards;
 }
 
 .story-viewer__progress-fill--complete {

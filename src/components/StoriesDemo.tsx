@@ -2,23 +2,33 @@
 
 import { Check, Copy, Send, Share2, X } from "lucide-react";
 import Image from "next/image";
+import type { StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { MouseEvent, PointerEvent } from "react";
-import mercedesStory1 from "@/assets/img/stories/mercedes/mercedes1.jpg";
-import mercedesStory2 from "@/assets/img/stories/mercedes/mercedes2.jpg";
-import mercedesStory3 from "@/assets/img/stories/mercedes/mercedes3.jpg";
-import acuraStory from "@/assets/img/stories/acura/acura.jpg";
-import audiStory1 from "@/assets/img/stories/audi/audi1.jpg";
-import audiStory2 from "@/assets/img/stories/audi/audi2.jpg";
-import audiStory3 from "@/assets/img/stories/audi/audi3.jpg";
-import lexusStory from "@/assets/img/stories/lexus/lexus.jpg";
-import mazdaStory1 from "@/assets/img/stories/mazda/mazda1.jpg";
-import mazdaStory2 from "@/assets/img/stories/mazda/mazda2.jpg";
-import teslaStory from "@/assets/img/stories/tesla/tesla.jpg";
+import type { CSSProperties, MouseEvent, PointerEvent } from "react";
+import mercedesStory1 from "@/assets/img/stories/mercedes/mercedes1.webp";
+import mercedesStory2 from "@/assets/img/stories/mercedes/mercedes2.webp";
+import mercedesStory3 from "@/assets/img/stories/mercedes/mercedes3.webp";
+import acuraStory from "@/assets/img/stories/acura/acura.webp";
+import audiStory1 from "@/assets/img/stories/audi/audi1.webp";
+import audiStory2 from "@/assets/img/stories/audi/audi2.webp";
+import audiStory3 from "@/assets/img/stories/audi/audi3.webp";
+import lexusStory from "@/assets/img/stories/lexus/lexus.webp";
+import mazdaStory1 from "@/assets/img/stories/mazda/mazda1.webp";
+import mazdaStory2 from "@/assets/img/stories/mazda/mazda2.webp";
+import teslaStory from "@/assets/img/stories/tesla/tesla.webp";
 import type { Locale } from "@/data/portfolio";
 
+type StorySlide = StaticImageData | string;
+const STORY_IMAGE_DURATION_SECONDS = 5;
+
 const storyItems = [
-  { id: "mercedes", en: "Mercedes", pt: "Mercedes", image: "/brand-stories/mercedes.svg", slides: [mercedesStory1, mercedesStory2, mercedesStory3] },
+  {
+    id: "mercedes",
+    en: "Mercedes",
+    pt: "Mercedes",
+    image: "/brand-stories/mercedes.svg",
+    slides: [mercedesStory1, "/stories/mercedes/mercedes-video-1.webm", mercedesStory2, mercedesStory3],
+  },
   { id: "tesla", en: "Tesla", pt: "Tesla", image: "/brand-stories/tesla.svg", slides: [teslaStory] },
   { id: "audi", en: "Audi", pt: "Audi", image: "/brand-stories/audi.svg", slides: [audiStory1, audiStory2, audiStory3] },
   { id: "acura", en: "Acura", pt: "Acura", image: "/brand-stories/acura.svg", slides: [acuraStory] },
@@ -57,6 +67,10 @@ const storiesCopy = {
 
 type StoryItem = (typeof storyItems)[number];
 
+function isVideoSlide(slide: StorySlide) {
+  return typeof slide === "string" && /\.(mp4|webm|ogg)(\?.*)?$/iu.test(slide);
+}
+
 export function StoriesDemo({ locale }: { locale: Locale }) {
   const [activeStoryId, setActiveStoryId] = useState<string | null>(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -66,10 +80,12 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [hasCopiedShareUrl, setHasCopiedShareUrl] = useState(false);
   const [isStoryImageLoading, setIsStoryImageLoading] = useState(false);
+  const [activeStoryDuration, setActiveStoryDuration] = useState(STORY_IMAGE_DURATION_SECONDS);
   const [loadingStoryId, setLoadingStoryId] = useState<string | null>(null);
   const [visitedStories, setVisitedStories] = useState<string[]>([]);
   const loadingTimerRef = useRef(0);
   const activeStoryIdRef = useRef<string | null>(null);
+  const activeVideoRef = useRef<HTMLVideoElement>(null);
   const storiesDragRef = useRef<{
     pointerId: number;
     startX: number;
@@ -84,8 +100,12 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
   const activeStory = storyItems.find((item) => item.id === activeStoryId);
   const activeStoryLabel = activeStory?.[locale] ?? "";
   const activeStoryIndex = activeStoryId ? storyItems.findIndex((item) => item.id === activeStoryId) : -1;
-  const activeStorySlide = activeStory?.slides[activeSlideIndex];
+  const activeStorySlide = activeStory?.slides[activeSlideIndex] as StorySlide | undefined;
   const activeStoryTotalSlides = Math.max(1, activeStory?.slides.length ?? 0);
+  const isActiveStoryVideo = activeStorySlide ? isVideoSlide(activeStorySlide) : false;
+  const activeStoryDurationStyle = {
+    "--story-duration": `${activeStoryDuration}s`,
+  } as CSSProperties;
 
   function markStoryAsVisited(itemId: string) {
     setVisitedStories((items) => [...items.filter((visitedItem) => visitedItem !== itemId), itemId]);
@@ -101,6 +121,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
     setIsShareOpen(false);
     setHasCopiedShareUrl(false);
     setIsStoryImageLoading(false);
+    setActiveStoryDuration(STORY_IMAGE_DURATION_SECONDS);
     activeStoryIdRef.current = null;
     setActiveSlideIndex(0);
     setActiveStoryId(null);
@@ -158,6 +179,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
       setLoadingStoryId(null);
       activeStoryIdRef.current = item.id;
       setActiveSlideIndex(0);
+      setActiveStoryDuration(STORY_IMAGE_DURATION_SECONDS);
       setIsStoryImageLoading(item.slides.length > 0);
       setActiveStoryId(item.id);
     }, 750);
@@ -184,6 +206,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
     setHasCopiedShareUrl(false);
     activeStoryIdRef.current = item.id;
     setActiveSlideIndex(0);
+    setActiveStoryDuration(STORY_IMAGE_DURATION_SECONDS);
     setIsStoryImageLoading(item.slides.length > 0);
     setActiveStoryId(item.id);
   }
@@ -195,6 +218,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
 
     if (activeStory && activeSlideIndex < activeStory.slides.length - 1) {
       setIsStoryImageLoading(true);
+      setActiveStoryDuration(STORY_IMAGE_DURATION_SECONDS);
       setActiveSlideIndex((index) => index + 1);
       return;
     }
@@ -217,6 +241,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
 
     if (activeSlideIndex > 0) {
       setIsStoryImageLoading(true);
+      setActiveStoryDuration(STORY_IMAGE_DURATION_SECONDS);
       setActiveSlideIndex((index) => index - 1);
       return;
     }
@@ -225,6 +250,7 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
     const previousStory = storyItems[(activeStoryIndex - 1 + storyItems.length) % storyItems.length];
     openStory(previousStory);
     setActiveSlideIndex(Math.max(0, previousStory.slides.length - 1));
+    setActiveStoryDuration(STORY_IMAGE_DURATION_SECONDS);
     setIsStoryImageLoading(previousStory.slides.length > 0);
   }
 
@@ -248,6 +274,21 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
     storiesDragRef.current = null;
     setIsDraggingStories(false);
   }
+
+  useEffect(() => {
+    const video = activeVideoRef.current;
+
+    if (!video || !isActiveStoryVideo) {
+      return;
+    }
+
+    if (isHoldingStory || isSharePaused || isStoryImageLoading) {
+      video.pause();
+      return;
+    }
+
+    void video.play();
+  }, [isActiveStoryVideo, isHoldingStory, isSharePaused, isStoryImageLoading]);
 
   useEffect(() => {
     return () => {
@@ -353,16 +394,39 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
             onPointerDown={handleStoryViewerPointerDown}
           >
             {activeStorySlide ? (
-              <Image
-                className="story-viewer__media"
-                src={activeStorySlide}
-                alt=""
-                fill
-                priority
-                draggable={false}
-                sizes="(max-width: 640px) 88vw, 21rem"
-                onLoad={() => setIsStoryImageLoading(false)}
-              />
+              isActiveStoryVideo ? (
+                <video
+                  key={`${activeStoryId}-${activeSlideIndex}`}
+                  ref={activeVideoRef}
+                  className="story-viewer__media"
+                  src={activeStorySlide as string}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="metadata"
+                  draggable={false}
+                  onLoadedMetadata={(event) => {
+                    const duration = event.currentTarget.duration;
+
+                    setActiveStoryDuration(Number.isFinite(duration) ? duration : STORY_IMAGE_DURATION_SECONDS);
+                    setIsStoryImageLoading(false);
+                  }}
+                  onCanPlay={() => setIsStoryImageLoading(false)}
+                  onEnded={openNextStory}
+                />
+              ) : (
+                <Image
+                  key={`${activeStoryId}-${activeSlideIndex}`}
+                  className="story-viewer__media"
+                  src={activeStorySlide}
+                  alt=""
+                  fill
+                  priority
+                  draggable={false}
+                  sizes="(max-width: 640px) 88vw, 21rem"
+                  onLoad={() => setIsStoryImageLoading(false)}
+                />
+              )
             ) : null}
             {isStoryImageLoading ? (
               <div className="story-viewer__loader" aria-label="Loading story image" role="status">
@@ -375,9 +439,10 @@ export function StoriesDemo({ locale }: { locale: Locale }) {
                   <span
                     className={`story-viewer__progress-fill ${
                       index < activeSlideIndex ? "story-viewer__progress-fill--complete" : ""
-                    } ${index === activeSlideIndex ? "story-viewer__progress-fill--active" : ""}`}
+                    } ${index === activeSlideIndex && !isStoryImageLoading ? "story-viewer__progress-fill--active" : ""}`}
                     key={`${activeStoryId}-${activeSlideIndex}-${index}`}
-                    onAnimationEnd={index === activeSlideIndex ? openNextStory : undefined}
+                    style={index === activeSlideIndex ? activeStoryDurationStyle : undefined}
+                    onAnimationEnd={index === activeSlideIndex && !isActiveStoryVideo ? openNextStory : undefined}
                   />
                 </span>
               ))}

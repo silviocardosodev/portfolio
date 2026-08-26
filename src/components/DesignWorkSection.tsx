@@ -6,14 +6,14 @@ import { createPortal } from "react-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Play, X } from "lucide-react";
 import { Section } from "@/components/Section";
 import type { DesignWork } from "@/data/portfolio";
-import riqueBarcelonaImage from "@/assets/img/canaldorique-barcelona.jpeg";
-import riqueCucurellaImage from "@/assets/img/canaldorique-cucurella.jpeg";
-import riqueFinalImage from "@/assets/img/canaldorique-final.jpeg";
-import jotinhaCampeonatoImage from "@/assets/img/jotinhatv-campeonatox2.jpeg";
-import jotinhaNeymarImage from "@/assets/img/jotinhatv-neymar.jpeg";
-import jotinhaSpfcImage from "@/assets/img/jotinhatv-spfc.jpeg";
-import jotinhaImage from "@/assets/img/jotinhatv.png";
-import riqueImage from "@/assets/img/riquepaiva.png";
+import riqueBarcelonaImage from "@/assets/img/canaldorique-barcelona.webp";
+import riqueCucurellaImage from "@/assets/img/canaldorique-cucurella.webp";
+import riqueFinalImage from "@/assets/img/canaldorique-final.webp";
+import jotinhaCampeonatoImage from "@/assets/img/jotinhatv-campeonatox2.webp";
+import jotinhaNeymarImage from "@/assets/img/jotinhatv-neymar.webp";
+import jotinhaSpfcImage from "@/assets/img/jotinhatv-spfc.webp";
+import jotinhaImage from "@/assets/img/jotinhatv.webp";
+import riqueImage from "@/assets/img/riquepaiva.webp";
 
 type DesignWorkCopy = {
   eyebrow: string;
