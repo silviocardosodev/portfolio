@@ -315,6 +315,57 @@
   }
 }
 
+@media (min-width: 861px) and (max-height: 760px) {
+  .portfolio__snap {
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .portfolio__panel {
+    min-height: auto;
+    overflow: visible;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+
+  .portfolio__panel--hero {
+    min-height: 100vh;
+  }
+
+  .portfolio__panel > .section,
+  .portfolio__panel--about > .section {
+    min-height: auto;
+  }
+
+  .about-slides {
+    cursor: auto;
+    display: block;
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+    touch-action: auto;
+    user-select: auto;
+  }
+
+  .about-slides__item,
+  .about-slides__item > .section {
+    min-height: auto;
+  }
+
+  .about-slides__item {
+    overflow: visible;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+
+  .about-scrollbar,
+  .about-control,
+  .section-dots {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .portfolio__snap,
   .portfolio__panel {

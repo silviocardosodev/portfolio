@@ -43,3 +43,14 @@
     position: static;
   }
 }
+
+@media (min-width: 861px) and (max-height: 760px) {
+  .section {
+    padding-bottom: 4.5rem;
+    padding-top: 4.5rem;
+  }
+
+  .section__header {
+    top: 4.5rem;
+  }
+}

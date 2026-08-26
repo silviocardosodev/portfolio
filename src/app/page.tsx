@@ -86,7 +86,7 @@ export default function Home() {
   }
 
   function handleAboutPointerDown(event: PointerEvent<HTMLDivElement>) {
-    if (window.matchMedia("(max-width: 860px)").matches) {
+    if (window.matchMedia("(max-width: 860px), (max-height: 760px)").matches) {
       return;
     }
 
@@ -215,7 +215,7 @@ export default function Home() {
   }
 
   function handleSnapPointerDown(event: PointerEvent<HTMLDivElement>) {
-    if (window.matchMedia("(max-width: 860px), (prefers-reduced-motion: reduce)").matches) {
+    if (window.matchMedia("(max-width: 860px), (max-height: 760px), (prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
@@ -301,7 +301,7 @@ export default function Home() {
         return;
       }
 
-      if (window.matchMedia("(max-width: 860px), (prefers-reduced-motion: reduce)").matches) {
+      if (window.matchMedia("(max-width: 860px), (max-height: 760px), (prefers-reduced-motion: reduce)").matches) {
         return;
       }
 
