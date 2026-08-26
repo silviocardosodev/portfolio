@@ -127,7 +127,7 @@ export const portfolioCopy = {
       title: "A little bit of my story",
       paragraphs: [
         "I’m a Brazilian frontend developer and graphic designer with over five years of experience building responsive, high-performance digital products.",
-        "My background combines Computer Science, graphic design, and hands-on experience with real-world projects. I began my professional career in web development at Jüssi and, since then, I have worked with multidisciplinary teams and major brands such as KitchenAid, Itaú, and Honda, developing accessible, responsive, and reusable interfaces.",
+        "My background combines Computer Science, graphic design, and hands-on experience with real-world projects. I began my professional career in web development at WPP and, since then, I have worked with multidisciplinary teams and major brands such as KitchenAid, Itaú, and Honda, developing accessible, responsive, and reusable interfaces.",
         "Today, I work primarily with React and TypeScript, with a strong focus on component architecture, performance and user experience. I’m currently pursuing a master’s degree in California, expanding both my technical and product-oriented perspective.",
       ],
       funFactsTitle: "Fun Facts",
@@ -149,7 +149,7 @@ export const portfolioCopy = {
         {
           period: "2021 - 2024",
           role: "Mid-level Front-end Developer",
-          company: "Jüssi",
+          company: "WPP",
           details: [
             "Developed and maintained large-scale e-commerce solutions for KitchenAid Brazil (Whirlpool Corporation) using React and VTEX IO.",
             "Contributed to frontend architecture standards, reusable component libraries, and engineering best practices.",
@@ -162,7 +162,7 @@ export const portfolioCopy = {
         {
           period: "2019 - 2021",
           role: "Junior Front-end Developer",
-          company: "Jüssi",
+          company: "WPP",
           details: [
             "Developed and maintained digital platforms for major Brazilian organizations including Itaú, Honda, and Órigo.",
             "Built responsive interfaces and implemented new platform features.",
@@ -172,7 +172,7 @@ export const portfolioCopy = {
         {
           period: "2018 - 2019",
           role: "Web Development Intern",
-          company: "Jüssi",
+          company: "WPP",
           details: [
             "Developed and maintained digital platforms for major Brazilian organizations including Itaú, Honda, and Órigo.",
             "Built responsive interfaces and implemented new platform features.",
@@ -312,7 +312,7 @@ export const portfolioCopy = {
           description: "Visual and digital design work for renewable energy communication materials.",
         },
         {
-          name: "Jüssi",
+          name: "WPP",
           description: "Digital and visual work connected to product, brand, and communication initiatives.",
         },
         {
@@ -396,7 +396,7 @@ export const portfolioCopy = {
       title: "Um pouco da minha história",
       paragraphs: [
         "Sou um desenvolvedor front-end e designer gráfico brasileiro com mais de cinco anos de experiência criando produtos digitais responsivos e de alta performance.",
-        "Minha trajetória combina Ciência da Computação, design gráfico e experiência prática com projetos reais. Comecei minha carreira profissional em desenvolvimento web na Jüssi e, desde então, trabalhei com times multidisciplinares e grandes marcas como KitchenAid, Itaú e Honda, desenvolvendo interfaces acessíveis, responsivas e reutilizáveis.",
+        "Minha trajetória combina Ciência da Computação, design gráfico e experiência prática com projetos reais. Comecei minha carreira profissional em desenvolvimento web na WPP e, desde então, trabalhei com times multidisciplinares e grandes marcas como KitchenAid, Itaú e Honda, desenvolvendo interfaces acessíveis, responsivas e reutilizáveis.",
         "Hoje, trabalho principalmente com React e TypeScript, com forte foco em arquitetura de componentes, performance e experiência do usuário. Atualmente curso um mestrado na Califórnia, ampliando minha perspectiva técnica e orientada a produto.",
       ],
       funFactsTitle: "Curiosidades",
@@ -418,7 +418,7 @@ export const portfolioCopy = {
         {
           period: "2021 - 2024",
           role: "Mid-level Front-end Developer",
-          company: "Jüssi",
+          company: "WPP",
           details: [
             "Desenvolvimento e manutenção de soluções de e-commerce em larga escala para KitchenAid Brasil (Whirlpool Corporation) usando React e VTEX IO.",
             "Contribuição para padrões de arquitetura front-end, bibliotecas de componentes reutilizáveis e boas práticas de engenharia.",
@@ -431,7 +431,7 @@ export const portfolioCopy = {
         {
           period: "2019 - 2021",
           role: "Junior Front-end Developer",
-          company: "Jüssi",
+          company: "WPP",
           details: [
             "Desenvolvimento e manutenção de plataformas digitais para grandes organizações brasileiras, incluindo Itaú, Honda e Órigo.",
             "Criação de interfaces responsivas e implementação de novas funcionalidades de plataforma.",
@@ -441,7 +441,7 @@ export const portfolioCopy = {
         {
           period: "2018 - 2019",
           role: "Web Development Intern",
-          company: "Jüssi",
+          company: "WPP",
           details: [
             "Desenvolvimento e manutenção de plataformas digitais para grandes organizações brasileiras, incluindo Itaú, Honda e Órigo.",
             "Criação de interfaces responsivas e implementação de novas funcionalidades de plataforma.",
@@ -581,7 +581,7 @@ export const portfolioCopy = {
           description: "Design visual e digital para materiais de comunicação de energia renovável.",
         },
         {
-          name: "Jüssi",
+          name: "WPP",
           description: "Trabalho digital e visual conectado a iniciativas de produto, marca e comunicação.",
         },
         {

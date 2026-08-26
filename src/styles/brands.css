@@ -37,6 +37,18 @@
   padding: 0;
 }
 
+.brands__link {
+  color: inherit;
+  display: block;
+  height: 100%;
+  text-decoration: none;
+}
+
+.brands__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
 .brands__media {
   align-items: center;
   aspect-ratio: 16 / 10;
@@ -63,13 +75,10 @@
 
 .brands__image {
   display: block;
-  filter: grayscale(1);
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition:
-    filter 220ms ease,
-    transform 220ms ease;
+  transition: transform 220ms ease;
   width: 100%;
 }
 
