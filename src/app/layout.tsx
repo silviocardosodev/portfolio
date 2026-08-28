@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
 
 const siteUrl = new URL("https://silviocardoso.dev");
@@ -71,13 +72,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+function isSupportedLocale(locale: string | undefined): locale is "en" | "pt" {
+  return locale === "en" || locale === "pt";
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const preferredLocale = cookieStore.get("portfolio-locale")?.value;
+  const locale = isSupportedLocale(preferredLocale) ? preferredLocale : "en";
+
   return (
-    <html lang="en" data-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang={locale} data-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>{children}</body>
     </html>
   );

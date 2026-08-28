@@ -21,6 +21,10 @@ import { ThemeToggle, type Theme } from "@/components/ThemeToggle";
 import { portfolioCopy, type Locale } from "@/data/portfolio";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
+function isSupportedLocale(locale: string | null | undefined): locale is Locale {
+  return locale === "en" || locale === "pt";
+}
+
 export default function Home() {
   const [locale, setLocale] = useState<Locale>("en");
   const [theme, setTheme] = useState<Theme>("dark");
@@ -266,9 +270,15 @@ export default function Home() {
 
   useEffect(() => {
     const storedTheme = window.localStorage.getItem("portfolio-theme") as Theme | null;
+    const storedLocale = window.localStorage.getItem("portfolio-locale");
+    const cookieLocale = document.cookie
+      .split("; ")
+      .find((cookie) => cookie.startsWith("portfolio-locale="))
+      ?.split("=")[1];
 
     window.requestAnimationFrame(() => {
       setTheme(storedTheme ?? "dark");
+      setLocale(isSupportedLocale(cookieLocale) ? cookieLocale : isSupportedLocale(storedLocale) ? storedLocale : "en");
     });
   }, []);
 
@@ -276,6 +286,12 @@ export default function Home() {
     document.documentElement.dataset.theme = theme;
     window.localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    window.localStorage.setItem("portfolio-locale", locale);
+    document.cookie = `portfolio-locale=${locale}; path=/; max-age=31536000; SameSite=Lax`;
+  }, [locale]);
 
   useEffect(() => {
     if (activeHref === "#summary" && !hasPlayedAboutHint) {
