@@ -4,12 +4,8 @@ import { ArrowDownToLine } from "lucide-react";
 
 const cvFiles = [
   {
-    href: "/downloads/CV-SilvioAlvesCardoso.pdf",
-    name: "CV-SilvioAlvesCardoso.pdf",
-  },
-  {
-    href: "/downloads/CURRICULUM-SilvioAlvesCardoso.pdf",
-    name: "CURRICULUM-SilvioAlvesCardoso.pdf",
+    href: "/downloads/Resume-SilvioAlvesCardoso.pdf",
+    name: "Resume-SilvioAlvesCardoso.pdf",
   },
 ];
 
