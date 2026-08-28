@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "images:webp": "node scripts/convert-images-to-webp.mjs",
     "videos:optimize": "node scripts/optimize-videos.mjs"
   },
@@ -16,6 +18,7 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
