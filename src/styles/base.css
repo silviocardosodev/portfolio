@@ -50,6 +50,7 @@ button {
 .portfolio::after {
   animation: portfolio-heartbeat 2.8s ease-in-out infinite;
   background: var(--color-glow);
+  filter: blur(32px);
   content: "";
   height: min(58vw, 40rem);
   left: 50%;
@@ -64,25 +65,21 @@ button {
 @keyframes portfolio-heartbeat {
   0%,
   100% {
-    filter: blur(34px);
     opacity: 0.28;
     transform: translate(-50%, -50%) scale(0.92);
   }
 
   14% {
-    filter: blur(28px);
     opacity: 0.46;
     transform: translate(-50%, -50%) scale(1.04);
   }
 
   28% {
-    filter: blur(36px);
     opacity: 0.32;
     transform: translate(-50%, -50%) scale(0.96);
   }
 
   42% {
-    filter: blur(30px);
     opacity: 0.4;
     transform: translate(-50%, -50%) scale(1);
   }

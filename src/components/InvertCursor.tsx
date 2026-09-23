@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const trailLength = 6;
+const trailLength = 3;
 
 export function InvertCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -20,22 +20,43 @@ export function InvertCursor() {
     const trail = Array.from({ length: trailLength }, () => ({ x: pointer.x, y: pointer.y }));
     let animationFrame = 0;
     let isEnabled = true;
+    let isAnimating = false;
+    let idleTimeout = 0;
 
     function animateTrail() {
       if (!isEnabled) {
+        isAnimating = false;
         return;
       }
+
+      let largestDelta = 0;
 
       trail.forEach((dot, index) => {
         const target = index === 0 ? pointer : trail[index - 1];
         const ease = index === 0 ? 1 : 0.34;
+        const nextX = dot.x + (target.x - dot.x) * ease;
+        const nextY = dot.y + (target.y - dot.y) * ease;
 
-        dot.x += (target.x - dot.x) * ease;
-        dot.y += (target.y - dot.y) * ease;
-        dots[index]?.style.setProperty("--cursor-x", `${dot.x}px`);
-        dots[index]?.style.setProperty("--cursor-y", `${dot.y}px`);
+        largestDelta = Math.max(largestDelta, Math.abs(nextX - dot.x), Math.abs(nextY - dot.y));
+        dot.x = nextX;
+        dot.y = nextY;
+        dots[index]?.style.setProperty("transform", `translate3d(${dot.x}px, ${dot.y}px, 0) translate(-50%, -50%)`);
       });
 
+      if (largestDelta > 0.08) {
+        animationFrame = window.requestAnimationFrame(animateTrail);
+        return;
+      }
+
+      isAnimating = false;
+    }
+
+    function startTrail() {
+      if (isAnimating) {
+        return;
+      }
+
+      isAnimating = true;
       animationFrame = window.requestAnimationFrame(animateTrail);
     }
 
@@ -43,25 +64,32 @@ export function InvertCursor() {
       pointer.x = event.clientX;
       pointer.y = event.clientY;
       cursor?.setAttribute("data-visible", "true");
+      window.clearTimeout(idleTimeout);
+      idleTimeout = window.setTimeout(() => {
+        cursor?.removeAttribute("data-active");
+      }, 160);
+      cursor?.setAttribute("data-active", "true");
+      startTrail();
     }
 
     function hideCursor() {
       cursor?.removeAttribute("data-visible");
+      cursor?.removeAttribute("data-active");
     }
 
     function handlePointerCapabilityChange(event: MediaQueryListEvent) {
       isEnabled = event.matches;
 
       if (isEnabled) {
-        animateTrail();
+        startTrail();
         return;
       }
 
       hideCursor();
+      isAnimating = false;
       window.cancelAnimationFrame(animationFrame);
     }
 
-    animateTrail();
     window.addEventListener("pointermove", moveCursor, { passive: true });
     window.addEventListener("pointerleave", hideCursor);
     window.addEventListener("blur", hideCursor);
@@ -69,7 +97,9 @@ export function InvertCursor() {
 
     return () => {
       isEnabled = false;
+      isAnimating = false;
       window.cancelAnimationFrame(animationFrame);
+      window.clearTimeout(idleTimeout);
       window.removeEventListener("pointermove", moveCursor);
       window.removeEventListener("pointerleave", hideCursor);
       window.removeEventListener("blur", hideCursor);
