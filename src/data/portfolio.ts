@@ -360,6 +360,7 @@ export const portfolioCopy = {
       title: "Let's build something together.",
       description: "Available for front-end opportunities and projects, creating responsive, high-performance interfaces that stay true to the design.",
       items: [
+        { label: "Hire me for a website", href: "/servicos" },
         { label: "Email", href: "mailto:silviocardos@hotmail.com" },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/silviocardoso/" },
         { label: "GitHub", href: "https://github.com/silviocardosodev" },
@@ -629,6 +630,7 @@ export const portfolioCopy = {
       title: "Vamos construir algo juntos.",
       description: "Disponível para oportunidades e projetos de front-end, criando interfaces responsivas, performáticas e fiéis ao design.",
       items: [
+        { label: "Quero um site", href: "/servicos" },
         { label: "Email", href: "mailto:silviocardos@hotmail.com" },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/silviocardoso/" },
         { label: "GitHub", href: "https://github.com/silviocardosodev" },
